@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tools on dissonance</title>
+    <link>https://rudra.dev/tags/tools/</link>
+    <description>Recent content in tools on dissonance</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 18 Jun 2020 00:00:00 -0700</lastBuildDate>
+    
+	<atom:link href="https://rudra.dev/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>View Images on A Remote Machine</title>
+      <link>https://rudra.dev/posts/ssh-image/</link>
+      <pubDate>Thu, 18 Jun 2020 00:00:00 -0700</pubDate>
+      
+      <guid>https://rudra.dev/posts/ssh-image/</guid>
+      <description>First connect to remate machine with port-forwarding: ssh -L 8000:localhost:8000 usr@machine.cs.school.edu, cd to project directory, then serve the whole directory with python3 -m http.server &amp;amp;. Use a web browser to connect to http://0.0.0.0:8000.</description>
+    </item>
+    
+  </channel>
+</rss>

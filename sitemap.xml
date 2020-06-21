@@ -3,26 +3,64 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>remysucre.github.io/posts/my-first-post/</loc>
-    <lastmod>2020-06-20T21:39:13-07:00</lastmod>
+    <loc>https://rudra.dev/</loc>
+    <lastmod>2020-06-18T00:00:00-07:00</lastmod>
   </url>
   
   <url>
-    <loc>remysucre.github.io/posts/</loc>
-    <lastmod>2020-06-20T21:39:13-07:00</lastmod>
+    <loc>https://rudra.dev/tags/linux/</loc>
+    <lastmod>2020-06-18T00:00:00-07:00</lastmod>
   </url>
   
   <url>
-    <loc>remysucre.github.io/</loc>
-    <lastmod>2020-06-20T21:39:13-07:00</lastmod>
+    <loc>https://rudra.dev/posts/</loc>
+    <lastmod>2020-06-18T00:00:00-07:00</lastmod>
   </url>
   
   <url>
-    <loc>remysucre.github.io/categories/</loc>
+    <loc>https://rudra.dev/tags/</loc>
+    <lastmod>2020-06-18T00:00:00-07:00</lastmod>
   </url>
   
   <url>
-    <loc>remysucre.github.io/tags/</loc>
+    <loc>https://rudra.dev/tags/tools/</loc>
+    <lastmod>2020-06-18T00:00:00-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://rudra.dev/posts/ssh-image/</loc>
+    <lastmod>2020-06-18T00:00:00-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://rudra.dev/posts/entropy/</loc>
+    <lastmod>2020-06-17T00:00:00-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://rudra.dev/posts/entropic-bounds/</loc>
+    <lastmod>2020-06-17T00:00:00-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://rudra.dev/tags/information-theory/</loc>
+    <lastmod>2020-06-17T00:00:00-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://rudra.dev/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://rudra.dev/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://rudra.dev/privacy/</loc>
+  </url>
+  
+  <url>
+    <loc>https://rudra.dev/projects/</loc>
   </url>
   
 </urlset>
