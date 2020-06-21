@@ -24,7 +24,7 @@ facts from the correlation of data; if all variables are independent we can save
 nothing. With this intuition, let&rsquo;s look at the formal statement of
 <strong>submodularity</strong>:</p><pre><code class=language-math data-lang=math>H(X) + H(Y) \geq H(X \cup Y) + H(X \cap Y)
 </code></pre><p>Rearranging, we get $<code>H(X \cup Y) - H(X) \leq H(Y) - H(X \cap Y)</code>$. Note $<code>(X \cup Y) - X = Y - (X\cap Y)</code>$, and if we define $<code>\delta = Y - (X\cap Y)</code>$, the
-inequality becomes $<code>H(X + \delta) - H(X) \leq H((X\cap Y) + \delta) - H(X\cap Y)</code>$, which states precisly &ldquo;the law of diminishing returns&rdquo; because $<code>X \geq (X\cap Y)</code>$!</p></div></main><footer><div class=bottom-nav><nav><ul></ul></nav></div><div><script src=https://utteranc.es/client.js repo=mrprofessor/rudra.dev issue-term=pathname label=rudra.dev theme=github-light crossorigin=anonymous async></script></div></footer></div></body><script>(function(){const links=document.querySelectorAll("nav a")
+inequality becomes $<code>H(X + \delta) - H(X) \leq H((X\cap Y) + \delta) - H(X\cap Y)</code>$, which states precisly &ldquo;the law of diminishing returns&rdquo; because $<code>X \geq (X\cap Y)</code>$!</p></div></main><footer><div class=bottom-nav><nav><ul></ul></nav></div><script src=https://utteranc.es/client.js repo=remysucre/site issue-term=pathname theme=github-light crossorigin=anonymous async></script></footer></div></body><script>(function(){const links=document.querySelectorAll("nav a")
 const currentUrl=location.href
 for(const link of links){if(location.href.split("/").length===4&&link.href.endsWith("/posts/")){link.classList.add("active-link")
 break;}
