@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on dissonance</title>
-    <link>https://www.remywang.science/tags/</link>
+    <link>https://remywang.science/tags/</link>
     <description>Recent content in Tags on dissonance</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jun 2020 00:00:00 -0700</lastBuildDate>
     
-	<atom:link href="https://www.remywang.science/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://remywang.science/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>linux</title>
-      <link>https://www.remywang.science/tags/linux/</link>
+      <link>https://remywang.science/tags/linux/</link>
       <pubDate>Thu, 18 Jun 2020 00:00:00 -0700</pubDate>
       
-      <guid>https://www.remywang.science/tags/linux/</guid>
+      <guid>https://remywang.science/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tools</title>
-      <link>https://www.remywang.science/tags/tools/</link>
+      <link>https://remywang.science/tags/tools/</link>
       <pubDate>Thu, 18 Jun 2020 00:00:00 -0700</pubDate>
       
-      <guid>https://www.remywang.science/tags/tools/</guid>
+      <guid>https://remywang.science/tags/tools/</guid>
       <description></description>
     </item>
     
     <item>
       <title>information-theory</title>
-      <link>https://www.remywang.science/tags/information-theory/</link>
+      <link>https://remywang.science/tags/information-theory/</link>
       <pubDate>Wed, 17 Jun 2020 00:00:00 -0700</pubDate>
       
-      <guid>https://www.remywang.science/tags/information-theory/</guid>
+      <guid>https://remywang.science/tags/information-theory/</guid>
       <description></description>
     </item>
     
