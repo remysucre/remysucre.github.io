@@ -5,7 +5,6 @@ html {
 
 h2 {
     font-weight: 100;
-    letter-spacing: 2px;
 }
 
 p {
@@ -43,7 +42,7 @@ li a {
     display: block;
     color: grey;
     text-align: center;
-    padding: 0 5px;
+    padding: 0 3px;
     text-decoration: none;
 }
 
