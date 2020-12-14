@@ -15,7 +15,7 @@ p {
 }
 
 body {
-    max-width: 750px;
+    max-width: 650px;
     margin: 5% auto;
     padding: 0 20px 20px 20px;
 }
@@ -27,12 +27,26 @@ a {
     color: #2484c1;
 }
 
-img {
-    max-width: 100%;
+ul {
+    list-style-type: none;
+    margin: 35px 0;
+    padding: 0;
+    overflow: hidden;
+    float: right;
 }
 
-.links {
-    margin: 5% auto;
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: grey;
     text-align: center;
-    word-spacing: 10px;
+    padding: 0 5px;
+    text-decoration: none;
+}
+
+h1, ul {
+    display: inline-block;
 }
