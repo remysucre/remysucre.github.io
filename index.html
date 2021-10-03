@@ -23,31 +23,60 @@
             programming languages and databases:
         </p>
         <p>
+            <a href="https://arxiv.org/abs/2105.14435">
+                <u>datalog</u><sup>o</sup>
+            </a> [PODS'22] is a query language that generalizes datalog.
+            It can express a wide range of computation from shortest paths
+            to network centrality. In the paper we study its convergence behavior.
+        </p>
+        <p>
+            We also developed a query optimizer for datalog<sup>o</sup>
+            based on program synthesis [SIGMOD'22, to appear].
+        </p>
+        <p>
             <a href="https://dl.acm.org/doi/10.14778/3407790.3407799">
                 <u>spores</u>
-            </a> is an optimizer for large scale linear algebra. It transforms
+            </a> [VLDB'20] is an optimizer for large scale linear algebra. It transforms
             linear algebra code through the powerful abstraction of relational algebra.
-            [VLDB'20]
         </p>
         <p>
             <a href="https://github.com/uwplse/tensat">
                 <u>tensat</u>
-            </a> is an optimizer for deep learning inference using
+            </a> [MLSys'21] is an optimizer for deep learning inference using
             <a href="https://arxiv.org/abs/2004.03082">
                 equality saturation</a>.
             It achieves state-of-the-art inference speed with very
-            fast compilation. [MLSys'21]
+            fast compilation. 
         </p>
         <p>
             <a href="https://egraphs-good.github.io/">
                 <u>egg</u>
-            </a> is the rewrite engine underlying both spores and tensat. It
-            implements an efficient algorithm for equality saturation.
-            [POPL'21 <strong>distinguished paper</strong>]
+            </a> [POPL'21 <strong>distinguished paper</strong>] 
+            is the rewrite engine underlying both spores and tensat. 
+            It implements an efficient algorithm for equality saturation.
         </p>
         <p>
-            Currently I'm working on an optimizer for generalized datalog. I'm
-	    also experimenting with advanced join algorithms to make egg faster. 
+            We used egg to 
+            <a href="https://arxiv.org/abs/2108.10436">
+                <u>invent rewrite rules</u>
+            </a>
+            that are in turn given to 
+            egg itself for equality saturation [OOPSLA'21].
+        </p>
+        <p>
+            Using advanced join algorithms, we made 
+            <a href="https://arxiv.org/abs/2108.02290">
+                <u>pattern matching in egg</u>
+            </a>
+            asymptotically faster [POPL'22].
+        </p>
+        <p>
+            Currently I'm fitting egg into an industrial-strength database system, 
+            while continuing to improve egg with techniques from databases. 
+            I'm also developing a compiler to leverage 
+            <a href="https://materialize.com/decorrelation-subquery-optimization">correlation</a>
+            in a 
+            <a href="https://docs.relational.ai/rel/intro/overview">logical query language</a>.
         </p>
     </body>
 </html>
