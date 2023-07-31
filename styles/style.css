@@ -1,51 +1,6 @@
-html {
-    font-family: 'Vollkorn', serif;
-    color: #303030;
-}
-
-h2 {
-    font-weight: 100;
-}
-
-p {
-    line-height: 1.8;
-    letter-spacing: 1px;
-    font-size: 16px;
-}
-
 body {
+    font-family: Verdana, sans-serif;
+    line-height: 1.6;
     max-width: 650px;
     margin: 5% auto;
-    padding: 0 20px 20px 20px;
-}
-
-a {
-    outline: none;
-    text-decoration: none;
-    padding: 2px 1px 0;
-    color: #2484c1;
-}
-
-ul {
-    list-style-type: none;
-    margin: 27px 0;
-    padding: 0;
-    overflow: hidden;
-    float: right;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: grey;
-    text-align: center;
-    padding: 0 3px;
-    text-decoration: none;
-}
-
-h2, ul {
-    display: inline-block;
 }
