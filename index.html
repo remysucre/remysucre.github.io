@@ -1,118 +1,236 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Remy Wang's personal website.">
-    <title>Remy Wang</title>
-    <style>
-        body {
-            font-family: Verdana, sans-serif;
-            line-height: 1.6;
-            max-width: 650px;
-            margin: auto;
-        }
-
-        a {
-            color: #1a1a1a;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Remy Wang</title>
+  <style>
+    html {
+      font-family: Verdana;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
-
 <body>
-    <h1>Remy Wang</h1>
-    <ul>
-        <li>Email: remywang at cs.washington.edu</li>
-        <li>Links:
-            <a href="blog/index.html">Blog</a>,
-            <a href="https://dblp.org/pid/185/9964.html">DBLP</a>,
-            <a href="imgs/remywang.png">Photo</a>
-        </li>
-    </ul>
-    <p>
-        I'm a PhD student at
-        <a href="http://db.cs.washington.edu/">UWDB</a>
-        and
-        <a href="http://uwplse.org/">PLSE</a>
-        advised by
-        <a href="https://homes.cs.washington.edu/~suciu/">Dan Suciu</a>.
-        I optimize modern data systems with advanced techniques from
-        programming languages and databases.
-        <strong> I will start as an Assistant Professor at UCLA in 2024. </strong>
-    </p>
-    <hr>
-    <p> <em>SIGMOD'23</em>
-        We propose
-        <a href="https://arxiv.org/abs/2301.10841">free join</a>,
-        a new join algorithm unifying and generalizing
-        traditional binary joins with worst-case optimal joins.
-        Free join brings the best of both worlds,
-        and outperforms both binary join and WCOJ in practice.
-    </p>
-    <p> <em>EGRAPHS'22</em>
-        We tease out
-        <a href="reports/dfta.pdf">deep connections</a>
-        among e-graphs, finite-state tree automata,
-        and version space algebra.
-        By fusing together powerful ideas from these different perspectives,
-        we gain orders-of-magnitude speedup
-        and discover a new technique for automated proofs.
-    </p>
-    <p> <em>PODS'22</em> <strong>Best Paper</strong>
-        <a href="https://arxiv.org/abs/2105.14435">Datalog<sup>o</sup></a>
-        is a query language that generalizes datalog.
-        It can express a wide range of computation from shortest paths
-        to network centrality. In the paper we study its convergence behavior.
-    </p>
-    <p> <em>SIGMOD'22</em> <strong>Invited to SIGMOD Record</strong>
-        We also developed a
-        <a href="https://arxiv.org/abs/2202.10390">query optimizer</a>
-        for datalog<sup>o</sup>
-        based on program synthesis.
-    </p>
-    <p> <em>POPL'22</em>
-        Using advanced join algorithms, we made
-        <a href="https://arxiv.org/abs/2108.02290">pattern matching</a>
-        in a rewrite system asymptotically faster.
-    </p>
-    <p> <em>MLSys'21</em>
-        <a href="https://github.com/uwplse/tensat">Tensat</a>
-        is an optimizer for deep learning inference using
-        <a href="https://arxiv.org/abs/2004.03082">equality saturation</a>.
-        It achieves state-of-the-art inference speed with very
-        fast compilation.
-    </p>
-    <p> <em>POPL'21</em> <strong>Distinguished Paper</strong>
-        <a href="https://egraphs-good.github.io/">egg</a>
-        is the rewrite engine underlying a new class of optimizers
-        including Tensat and SPORES (see below).
-        It implements an efficient algorithm for equality saturation.
-    </p>
-    <p> <em>OOPSLA'21</em> <strong>Distinguished Paper</strong>
-        We used egg to
-        <a href="https://arxiv.org/abs/2108.10436">invent rewrite rules</a>
-        that are in turn given to
-        egg itself for equality saturation.
-    </p>
-    <p> <em>VLDB'20</em>
-        <a href="https://dl.acm.org/doi/10.14778/3407790.3407799">SPORES</a>
-        is an optimizer for large scale linear algebra. It transforms
-        linear algebra code through the powerful abstraction of relational algebra.
-    </p>
-    <hr>
-    <p>
-        I have been very lucky to work with many brilliant undergraduate / master students:
-    </p>
-    <p>
-        <a href="https://www.linkedin.com/in/jleang">Jonathan Leang</a>
-        meticuously performed many intricate experiments for SPORES.
-        Jonathan now works at Snowflake, and at the same time (!!) teaches Databases at UW.
-    </p>
-    <p>
-        <a href="https://effect.systems">Yihong Zhang</a>
-        turned our idea of relational pattern matching into implementation and a publication.
-        With this work, Yihong won 1st place in the PLDI 2021 Student Research Competition.
-    </p>
+<h1 id="remy-wang">Remy Wang</h1>
+<ul>
+<li>Email: remywang at cs.washington.edu</li>
+<li>Links: <a href="./blog/index.html">Blog</a>, <a
+href="https://dblp.org/pid/185/9964.html">DBLP</a>, <a
+href="./imgs/remywang.png">Photo</a></li>
+</ul>
+<p>I’m a PhD student at <a href="http://db.cs.washington.edu/">UWDB</a>
+and <a href="http://uwplse.org/">PLSE</a> advised by <a
+href="https://homes.cs.washington.edu/~suciu/">Dan Suciu</a>. I optimize
+modern data systems with advanced techniques from programming languages
+and databases. <strong>I will start as an Assistant Professor at UCLA in
+2024.</strong></p>
+<hr />
+<p><em>SIGMOD’23</em> We propose <a
+href="https://arxiv.org/abs/2301.10841">free join</a>, a new join
+algorithm unifying and generalizing traditional binary joins with
+worst-case optimal joins. Free join brings the best of both worlds, and
+outperforms both binary join and WCOJ in practice.</p>
+<p><em>EGRAPHS’22</em> We tease out <a
+href="https://remy.wang/reports/dfta.pdf">deep connections</a> among
+e-graphs, finite-state tree automata, and version space algebra. By
+fusing together powerful ideas from these different perspectives, we
+gain orders-of-magnitude speedup and discover a new technique for
+automated proofs.</p>
+<p><em>PODS’22</em> <strong>Best Paper</strong> <a
+href="https://arxiv.org/abs/2105.14435">Datalog<sup>o</sup></a> is a
+query language that generalizes Datalog. It can express a wide range of
+computation from shortest paths to network centrality. In the paper we
+study its convergence behavior.</p>
+<p><em>SIGMOD’22</em> <strong>Invited to SIGMOD Record</strong> We also
+developed a <a href="https://arxiv.org/abs/2202.10390">query
+optimizer</a> for Datalog<sup>o</sup> based on program synthesis.</p>
+<p><em>POPL’22</em> Using advanced join algorithms, we made <a
+href="https://arxiv.org/abs/2108.02290">pattern matching</a> in a
+rewrite system asymptotically faster.</p>
+<p><em>MLSys’21</em> <a
+href="https://github.com/uwplse/tensat">Tensat</a> is an optimizer for
+deep learning inference using equality saturation. It achieves
+state-of-the-art inference speed with very fast compilation.</p>
+<p><em>POPL’21</em> <strong>Distinguished Paper</strong> <a
+href="https://egraphs-good.github.io/">egg</a> is the rewrite engine
+underlying a new class of optimizers including Tensat and SPORES (see
+below). It implements an efficient algorithm for equality
+saturation.</p>
+<p><em>OOPSLA’21</em> <strong>Distinguished Paper</strong> We used egg
+to <a href="https://egraphs-good.github.io/">invent rewrite rules</a>
+that are in turn given to egg itself for equality saturation.</p>
+<p><em>VLDB’20</em> <a
+href="https://dl.acm.org/doi/10.14778/3407790.3407799">SPORES</a> is an
+optimizer for large scale linear algebra. It transforms linear algebra
+code through the powerful abstraction of relational algebra.</p>
+<hr />
+<p>I have been very lucky to work with many brilliant undergraduate /
+master students:</p>
+<p><a href="https://www.linkedin.com/in/jleang">Jonathan Leang</a>
+meticuously performed many intricate experiments for SPORES. Jonathan
+now works at Snowflake, and at the same time (!!) teaches Databases at
+UW.</p>
+<p><a href="https://effect.systems/">Yihong Zhang</a> turned our idea of
+relational pattern matching into implementation and a publication. With
+this work, Yihong won 1st place in the PLDI 2021 Student Research
+Competition.</p>
 </body>
-
 </html>
