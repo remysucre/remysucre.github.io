@@ -3,6 +3,7 @@ title: Remy's blog
 ---
 
 Posts by [Remy Wang](https://remy.wang/).
+Source on [GitHub](https://github.com/remysucre/remysucre.github.io).
 
 | Topic | Date | Title |
 |:------|:-----|:------|
