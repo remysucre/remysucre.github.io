@@ -1,13 +1,15 @@
-all: $(patsubst %.md,%.html,$(wildcard *.md))
+all: blog index.html
 
-%.html: %.md
+index.html: index.md
 	pandoc $< \
-	  -f markdown+inline_code_attributes \
+	  -f markdown \
 	  -V mainfont=Verdana \
 	  -V maxwidth=650px \
 	  -V linestretch=1.6 \
-	  -t html --mathml -s \
-	  --highlight-style=monochrome \
+	  -t html -s \
 	  -o $@
 
-.PHONY: all
+blog:
+	$(MAKE) -C blog
+
+.PHONY: all blog

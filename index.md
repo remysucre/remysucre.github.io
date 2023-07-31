@@ -28,7 +28,7 @@ _MLSys'21_ [Tensat](https://github.com/uwplse/tensat) is an optimizer for deep l
 
 _POPL'21_ **Distinguished Paper** [egg](https://egraphs-good.github.io/) is the rewrite engine underlying a new class of optimizers including Tensat and SPORES (see below). It implements an efficient algorithm for equality saturation.
 
-_OOPSLA'21_ **Distinguished Paper** We used egg to [invent rewrite rules](https://egraphs-good.github.io/) that are in turn given to egg itself for equality saturation.
+_OOPSLA'21_ **Distinguished Paper** We used egg to [invent rewrite rules](https://dl.acm.org/doi/10.1145/3485496) that are in turn given to egg itself for equality saturation.
 
 _VLDB'20_ [SPORES](https://dl.acm.org/doi/10.14778/3407790.3407799) is an optimizer for large scale linear algebra. It transforms linear algebra code through the powerful abstraction of relational algebra.
 
