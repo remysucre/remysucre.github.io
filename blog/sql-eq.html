@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>sql-eq</title>
+  <style>
+    html {
+      font-family: Verdana;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 750px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { font-weight: bold; } /* Alert */
+    code span.an { font-style: italic; } /* Annotation */
+    code span.cf { font-weight: bold; } /* ControlFlow */
+    code span.co { font-style: italic; } /* Comment */
+    code span.cv { font-style: italic; } /* CommentVar */
+    code span.do { font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.er { font-weight: bold; } /* Error */
+    code span.in { font-style: italic; } /* Information */
+    code span.kw { font-weight: bold; } /* Keyword */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.wa { font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="how-to-check-2-sql-tables-are-the-same">How to Check 2 SQL
+Tables are the Same</h1>
+<p>Today <a href="https://github.com/az15240">Stanley</a> asked me a
+simple question: how can we check if the contents of two SQL tables are
+the same? Well, you just do <code
+class="sourceCode sql"><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> t1 <span class="op">=</span> t2</code>…
+wait, that’s wrong, comparison doesn’t work on entire tables in SQL. My
+second attempt is a bit better: if we take the difference of the table
+both ways, and end up with empty results, then they must be the same,
+right? In SQL: <code>SELECT * FROM t1 EXCEPT SELECT * FROM t2</code>
+(and the other way). Wrong again! Because <code>EXCEPT</code> takes the
+<em>set</em> difference, it will be empty if, say, <code>t1</code>
+contains 2 copies of a tuple, but <code>t2</code> contains only one.</p>
+<p>I gave up a little bit and started searching online, but surprisingly
+there was not a single satisfying answer! The solutions online either
+suffer from the same issue as the <code>EXCEPT</code> query, or use some
+obscure features that are not standard SQL (e.g. <code>CHECKSUM</code>
+which doesn’t really work anyways). How hard can it be to compare two
+tables in SQL?!</p>
+<p>Intrigued, I posted the problem as a challenge to my colleagues:
+<strong>Write a query, using only standard SQL features, to check if two
+tables are the same</strong>. Here “same” means the two table contains
+the same set of distinct tuples, and every tuple has the same number of
+copies in each table. Formally, they are the same bag/multiset.</p>
+<p>If you’ve read the SQL standard (and every “non-standard”) cover to
+cover, you’ll come with the following query after a few campari drinks:
+<code>SELECT * FROM t1 EXCEPT ALL SELECT * FROM t2</code>. The key is
+<code>EXCEPT ALL</code> which takes the “bag difference” similar to how
+<code>UNION ALL</code> takes the “bag union”. Alas,
+<code>EXCEPT ALL</code> is not implemented by SQLite! And probably for
+good reasons: whereas <code>EXCEPT</code> can be compiled to just an
+anti-join, executing <code>EXCEPT ALL</code> probably requires keeping
+track of which copy of the same tuple we’ve seen, or keeping a count per
+distinct tuple.</p>
+<p>A more “vanilla SQL” solution looks like this:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span>, <span class="fu">COUNT</span>(<span class="op">*</span>) </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> t1</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> <span class="kw">GROUP</span> <span class="kw">BY</span> x, y, z, <span class="op">..</span>. <span class="co">-- all attributes of t1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">EXCEPT</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span>, <span class="fu">COUNT</span>(<span class="op">*</span>) </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> t2</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="kw">GROUP</span> <span class="kw">BY</span> x, y, z, <span class="op">..</span>. <span class="co">-- all attributes of t2</span></span></code></pre></div>
+<p>Here, we group by all attributes of the table in order to explicitly
+mark every distinct tuple with its count. And because all tuples are
+distinct after the grouping, we can use <code>EXCEPT</code> to compare
+the results. That’s pretty good! I should be happy about it and go back
+to work.</p>
+<p>But I can’t get over one small ugliness: I had to manually list all
+the attributes in the <code>GROUP BY</code> clause, since
+<code>GROUP BY *</code> doesn’t work. This means we have to change the
+query for every new schema. “Fine,” you say, “just generate the query
+and get back to work”. Problem is, I don’t feel like working today, so I
+invite myself to another challenge: <strong>write a <em>single</em>
+query that does the job for every pair of tables, where we are only
+allowed to change the table names</strong>.</p>
+<p>TBH it’s not surprising I got nerd sniped by this problem: <a
+href="https://dl.acm.org/doi/10.14778/3407790.3407799">half</a> <a
+href="https://egraphs-good.github.io">of</a> <a
+href="https://github.com/uwplse/tensat">my</a> <a
+href="https://arxiv.org/abs/2108.02290">PhD</a> <a
+href="https://arxiv.org/abs/2202.10390">dealt</a> <a
+href="https://remy.wang/reports/dfta.pdf">with</a> <a
+href="https://dl.acm.org/doi/abs/10.1145/3591239">equivalence</a>, and
+one idea in fact led to the final solution. <strong>This key idea is to
+view a table in bag semantics as a vector of numbers, and view joins of
+tables as polynomials</strong>. Specifically, consider sorting all the
+distinct elements, and the <code>i</code>th entry of the vector stores
+the count of the <code>i</code>th distinct element. For example, the
+table <code>t=[a, b, b, c, c]</code> becomes the vector
+<code>[1 2 2]</code>. Then, a self-join becomes point-wise
+multiplication of the vector with itself. Using the same example,
+<code>t NATURAL JOIN t</code> contains 1 copy of <code>a</code>, 4
+copies of <code>b</code>, and 4 copies of <code>c</code>,
+<code>[1 4 4] = [1 2 2] * [1 2 2]</code>.</p>
+<p>With this, we can connect repeated self-joins of a table with the <a
+href="https://en.wikipedia.org/wiki/Moment_(mathematics)">moments</a> of
+the vector (or <a
+href="https://en.wikipedia.org/wiki/Newton%27s_identities">power
+sum</a>, or <a
+href="https://en.wikipedia.org/wiki/Norm_(mathematics)#p-norm">p-norm</a>,
+if you’re more familiar with those). That is, the query:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> t <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>         <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="op">..</span>. <span class="co">-- total of p copies of t&#39;s</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t</span></code></pre></div>
+<p>computes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msubsup><mi>v</mi><mi>i</mi><mi>p</mi></msubsup></mrow><annotation encoding="application/x-tex">\sum_{i=1}^n v_i^p</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
+is the vector representation of <code>t</code> and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is its length, i.e. the number of distinct elements in <code>t</code>.
+Abusing notation, we’ll write that as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mo stretchy="true" form="postfix">|</mo></mrow><mi>v</mi><msub><mrow><mo stretchy="true" form="prefix">|</mo><mo stretchy="true" form="postfix">|</mo></mrow><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">||v||_p</annotation></semantics></math></p>
+<p>The above connection lets us use a very elegant result: for any two
+vectors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u, v</annotation></semantics></math>
+of length
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mn>1</mn><mo>≤</mo><mi>p</mi><mo>≤</mo><mi>n</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mo stretchy="true" form="postfix">|</mo></mrow><mi>u</mi><msub><mrow><mo stretchy="true" form="prefix">|</mo><mo stretchy="true" form="postfix">|</mo></mrow><mi>p</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mo stretchy="true" form="postfix">|</mo></mrow><mi>v</mi><msub><mrow><mo stretchy="true" form="prefix">|</mo><mo stretchy="true" form="postfix">|</mo></mrow><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\forall 1 \leq p \leq n : ||u||_p = ||v||_p</annotation></semantics></math>
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
+must be a permutation of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>.
+In other words, the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+moments uniquely determines a bag of values! See Appendix A of <a
+href="https://arxiv.org/abs/2306.14075">Abo Khamis et.al.</a> for a very
+elegant proof.</p>
+<p>Our game plan is now this: for each table, compute all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+moments and compare the results. We can do this with a recursive
+query:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> t1_moments <span class="kw">AS</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> RECURSIVE r1 <span class="kw">AS</span> (</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- first iteration, return t1 as-is</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> <span class="dv">1</span> <span class="kw">as</span> i, t1.<span class="op">*</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> t1</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- iterations i+1 joins together i+1 copies of t1</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> r1.i <span class="op">+</span> <span class="dv">1</span> <span class="kw">AS</span> i, t1.<span class="op">*</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> r1 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t1</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- we could have stopped at COUNT(DISTINCT *) ...</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- but that&#39;s not valid SQL :(</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>   <span class="kw">WHERE</span> i <span class="op">&lt;</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t1)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">-- compute the moment with COUNT</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> r1 <span class="kw">GROUP</span> <span class="kw">BY</span> i;</span></code></pre></div>
+<p>After computing <code>t2_moments</code> in the same way, we can
+compare them with <code>EXCEPT</code> because they do not contain
+duplicates.</p>
+<p>But that’s not enough, since having the same moments only guarantees
+the vectors are permutations of each other. In terms of the original
+relation, the table <code>[a, b, b]</code> will be indistinguishable
+from the table <code>[a, a, b]</code>, because <code>[1 2]</code> has
+the same moments as <code>[2 1]</code>. To rule out this case, we use a
+simple fact from linear algebra: if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
+is a permutation of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>≠</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">v \neq u</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>⋅</mo><mi>u</mi><mo>&lt;</mo><mi>u</mi><mo>⋅</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">v\cdot u &lt; u\cdot u</annotation></semantics></math>.
+In SQL, this means we need to take the natural join of <code>t1</code>
+with <code>t2</code> and compare the count with the self join of
+<code>t1</code> (and of <code>t2</code>):</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t1 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t1)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>     <span class="op">-</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t1 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t2)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AS</span> d <span class="kw">WHERE</span> d <span class="op">&lt;&gt;</span> <span class="dv">0</span>;</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t2 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t2)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>     <span class="op">-</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t1 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t2)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AS</span> d <span class="kw">WHERE</span> d <span class="op">&lt;&gt;</span> <span class="dv">0</span>;</span></code></pre></div>
+<p>See the complete query at the end of this post. All together, the
+query uses only standard SQL features, and to use it for a new pair of
+tables we only need to change the table names. Of course, it is
+completely impractical for any table of decent size (it runs in time
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>N</mi><mi>N</mi></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">O(N^N)</annotation></semantics></math>
+), but that’s not the point :)</p>
+<p>But even the simpler query using <code>GROUP BY</code> was not
+trivial to come up with, which brings the question: why isn’t it a
+standard feature of SQL to just compare two tables? I imagine it can be
+very useful for testing, e.g. you write a simple but slow version, and
+check a more complex but fast version returns the same result.</p>
+<hr />
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> t1 (x <span class="dt">INTEGER</span>);</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> t2 (x <span class="dt">INTEGER</span>);</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> t1 <span class="kw">VALUES</span> (<span class="dv">1</span>), (<span class="dv">1</span>), (<span class="dv">2</span>), (<span class="dv">3</span>);</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> t2 <span class="kw">VALUES</span> (<span class="dv">2</span>), (<span class="dv">1</span>), (<span class="dv">3</span>), (<span class="dv">2</span>);</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- If t1=t2 (meaning they are the same bag/multiset), then the following should return nothing.</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Sanity check: do they contain the same *set* of elements (ignoring duplicates)?</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> t1 <span class="kw">EXCEPT</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> t2;</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> t2 <span class="kw">EXCEPT</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> t1;</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">-- Now compare the moments/power sums</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> t1_moments <span class="kw">AS</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> RECURSIVE r1 <span class="kw">AS</span> (</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- First iteration, return t1 as-is</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> <span class="dv">1</span> <span class="kw">AS</span> i, t1.<span class="op">*</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> t1</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Iterations i+1 joins together i+1 copies of t1</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> r1.i <span class="op">+</span> <span class="dv">1</span> <span class="kw">AS</span> i, t1.<span class="op">*</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> r1 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t1</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- We could have stopped at |t1| (number of distinct elements in t1)</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>   <span class="kw">WHERE</span> i <span class="op">&lt;</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t1)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">-- Compute the power sum with COUNT</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> r1 <span class="kw">GROUP</span> <span class="kw">BY</span> i;</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">-- Repeat for the other table...</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> t2_moments <span class="kw">AS</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> RECURSIVE r2 <span class="kw">AS</span> (</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> <span class="dv">1</span> <span class="kw">AS</span> i, t2.<span class="op">*</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> t2</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UNION</span> <span class="kw">ALL</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> r2.i <span class="op">+</span> <span class="dv">1</span> <span class="kw">AS</span> i, t2.<span class="op">*</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> r2 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t2</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>   <span class="kw">WHERE</span> i <span class="op">&lt;</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t2)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> r2 <span class="kw">GROUP</span> <span class="kw">BY</span> i;</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> t1_moments <span class="kw">EXCEPT</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> t2_moments;</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> t2_moments <span class="kw">EXCEPT</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> t1_moments;</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="co">-- To rule out the case where they have the same moments, but are &quot;permutations&quot; of each other</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t1 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t1) <span class="op">-</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t1 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t2) <span class="kw">AS</span> d <span class="kw">WHERE</span> d <span class="op">&lt;&gt;</span> <span class="dv">0</span>;</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t2 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t2) <span class="op">-</span> (<span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> t1 <span class="kw">NATURAL</span> <span class="kw">JOIN</span> t2) <span class="kw">AS</span> d <span class="kw">WHERE</span> d <span class="op">&lt;&gt;</span> <span class="dv">0</span>;</span></code></pre></div>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>cegis</title>
+  <style>
+    html {
+      font-family: Verdana;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 750px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="counterexample-guided-inductive-synthesis">Counterexample-guided
+Inductive Synthesis</h1>
+<p>CEGIS takes a grammar and a specification, and outputs a program
+defined in the grammar satisfying the spec.</p>
+<p>Formally, it solves formula of the form</p>
+<pre class="math"><code>\exists f . \forall x, y, \dots . \phi</code></pre>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
+is the specification and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>…</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(x,y,\dots)</annotation></semantics></math>
+is a program drawn from the given grammar.</p>
+<p>For example, we can ask for a function satisfying the following
+spec:</p>
+<pre class="math"><code>\exists f . \forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x = f(x,y) \vee y = f(x,y))</code></pre>
+<p>In English,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(x,y)</annotation></semantics></math>
+must be no less than both x and y, and it should be equal to either x or
+y (hint: it’s the function <code>max</code>).</p>
+<p>The essence of CEGIS is illustrated by this picture:</p>
+<figure>
+<img src="assets/cegis/cegis.png" alt="CEGIS loop" />
+<figcaption aria-hidden="true">CEGIS loop</figcaption>
+</figure>
+<p>The generator generates candidate programs drawn from the grammar,
+and the checker checks the candidates against the spec for correctness.
+If a candidate satisfies the spec, CEGIS outputs it as the solution.
+Otherwise the checker asks the generator for more candidates, possibly
+providing some feedback to the generator.</p>
+<p>A naive instantiation of this process uses exhaustive enumeration as
+the generator, and random testing as the checker. The generator simply
+proposes programs small to large by following some BNF grammar, and the
+checker runs the candidate on random inputs and tests if the spec is
+satisfied.</p>
+<p>Another instantiation of this process uses human software engineers
+as the generator, and human testing engineers as the checker. But let’s
+focus on machines and ignore humans from now on.</p>
+<p>The naive instantiation has some problems: 1. the checker is unsound,
+because random testing is not exhaustive. 2. the generator running
+exhaustive enumeration is extremely inefficient. 3. if a test fails on
+the checker’s side, the generator doesn’t know <em>why</em> it failed.
+That is, the feedback from the checker is not very informative.</p>
+<p>To fix the first shortcoming, we can replace random testing with
+automated verification. Specifically, we use SMT-solvers, which either
+verifies the correctness of the candidate, or returns a
+<em>counterexample</em>. The counterexample is an input to the candidate
+program, so that running the program on it produces a result that
+violates the spec. Using an SMT-solver, our checker guarantees the
+correctness of any candidate that passes the check. It also provides the
+counterexample as a feedback that explains <em>why</em> a failing
+candidate is incorrect.</p>
+<p>To be more concrete, let’s take our spec for <em>max</em> above, and
+use the following simple grammar:</p>
+<pre><code>e := x + y | max(x,y)</code></pre>
+<p>Suppose the generator proposes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\max(x,y)</annotation></semantics></math>
+as a candidate; the checker then instantiates the spec with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>=</mo><mo>max</mo></mrow><annotation encoding="application/x-tex">f=\max</annotation></semantics></math>:</p>
+<pre class="math"><code>\forall x, y . \max(x,y) \geq x \wedge \max(x,y) \geq y \wedge (x = \max(x,y) \vee y = \max(x,y))</code></pre>
+<p>To check the validity of this formula, the checker simply drops the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∀</mo><annotation encoding="application/x-tex">\forall</annotation></semantics></math>
+and asks the solver if the <em>negation</em> of the body is
+satisfiable:</p>
+<pre class="math"><code>\text{SAT?} \Big( \neg \big( \max(x,y) \geq x \wedge \max(x,y) \geq y \wedge (x = \max(x,y) \vee y = \max(x,y)) \big) \Big)</code></pre>
+<p>This is unsatisfiable, meaning <em>no</em> values of x and y can make
+the negated spec true. That is the same as saying no x and y can make
+the orignal spec false. Therefore the candidate is correct.</p>
+<p>If the generator proposes x+y as a candidate, the checker will
+instantiate the spec with f=+ and check for the following formula:</p>
+<pre class="math"><code>\text{SAT?} \Big( \neg \big( x+y \geq x \wedge x+y \geq y \wedge (x = x+y \vee y = x+y) \big) \Big)</code></pre>
+<p>Clearly this is satisfiable: when x=y=1, x+y=2 equals to neither x
+nor y. The checker therefore rejects the candidate and provides {x=1,
+y=1} as the counterexample.</p>
+<p>The next step is to improve the generator, so that it can take
+advantage of the feedback when it proposes the next candidate.
+Remarkably, this too can be implemented with an SMT-solver! The idea is,
+we want to find a program that satisfies the spec <em>on all
+counterexamples encountered so far</em>. This program also needs to be
+drawn from the grammar.</p>
+<p>The important insight is that <strong>the grammar can be expressed as
+an SMT formula</strong>! To do so, we simply introduce a boolean
+“switch” for every choice in the grammar.</p>
+<p>For example, our grammar above becomes:</p>
+<pre><code>if?b then:f=x+y else:f=max(x,y)</code></pre>
+<p>In first order logic, this is</p>
+<pre class="math"><code>(b \Rightarrow f(x,y) = x + y) \wedge (\neg b \Rightarrow f(x,y) = max(x,y))</code></pre>
+<p>With this encoding, we just need to decide the right value for b such
+that the spec is satisfied:</p>
+<pre class="math"><code>(b \Rightarrow f = +) \wedge (\neg b \Rightarrow f = \max) \wedge
+\forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x = f(x,y) \vee y = f(x,y))</code></pre>
+<p>There is one last wrinkle: we need to remove the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∀</mo><annotation encoding="application/x-tex">\forall</annotation></semantics></math>
+quantification, since quantified formula are usually undecidable. So
+instead of solving for all x and y, we instantiate the formula with the
+counterexamples:</p>
+<pre class="math"><code>b \Rightarrow f = + \wedge \neg b \Rightarrow f = \max \wedge
+f(1,1) \geq 1 \wedge f(1,1) \geq 1 \wedge (1 = f(1,1) \vee 1 = f(1,1))</code></pre>
+<p>After “inlining” f, this becomes:</p>
+<pre class="math"><code>b \Rightarrow 1+1 \geq 1 \wedge 1+1 \geq 1 \wedge (1 = 1+1 \vee 1 = 1+1)</code></pre>
+<pre class="math"><code>\wedge \neg b \Rightarrow \max(1,1) \geq 1 \wedge \max(1,1) \geq 1 \wedge (1 = \max(1,1) \vee 1 = \max(1,1))</code></pre>
+<p>Now it’s very easy to see that b must be false to make the above
+true, and an SMT-solver would return exactly that. We encountered only 1
+counterexample pair {x=1, y=1}; had we found more, the generator would
+instantiate the formula for each of them. For example, if we also have
+{x=2, y=2} as an CE, the instantiation would be:</p>
+<pre class="math"><code>b \Rightarrow 2+2 \geq 2 \wedge 2+2 \geq 2 \wedge (2 = 2+2 \vee 2 = 2+2)</code></pre>
+<pre class="math"><code>\wedge \neg b \Rightarrow \max(2,2) \geq 2 \wedge \max(2,2) \geq 2 \wedge (2 = \max(2,2) \vee 2 = \max(2,2))</code></pre>
+<pre class="math"><code>\wedge b \Rightarrow 1+1 \geq 1 \wedge 1+1 \geq 1 \wedge (1 = 1+1 \vee 1 = 1+1)</code></pre>
+<pre class="math"><code>\wedge \neg b \Rightarrow \max(1,1) \geq 1 \wedge \max(1,1) \geq 1 \wedge (1 = \max(1,1) \vee 1 = \max(1,1))</code></pre>
+<p>This encoding can be easily extended to recusive grammars, if we
+bound the depth of the grammar and gradually increase this bound. The
+reader can take up as a challenge to figure out how exactly to achieve
+this.</p>
+<p>Stepping back, we see that the generator and checker of CEGIS are
+implemented by a pair of <strong>dueling solvers</strong>, as shown in
+the picture below.</p>
+<figure>
+<img src="assets/cegis/duel.png"
+alt="CEGIS loop with dueling solvers" />
+<figcaption aria-hidden="true">CEGIS loop with dueling
+solvers</figcaption>
+</figure>
+<p>On the checker’s side: 1. the spec is instantiated with f replaced by
+the candidate program, 2. the solver checks the <em>validity</em> of the
+instantiation: it outputs the candidate when valid, and gives a
+counterexample otherwise.</p>
+<p>On the solver’s side: 1. the spec is instantiated with f drawn from
+the grammar, as well as x,y bound to the CEs. 2. the solver tries to
+<em>satisfy</em> the instantiation: it proposes a candidate if the
+formula is satisfiable. Otherwise, the synthesis problem has no
+solution.</p>
+<p>CEGIS is effective because the generator constantly improves its
+proposal upon every feedback. Because the feedback from the checker
+accumulates more and more counterexamples, the generator will propose
+programs that are correct on more and more inputs. In a sense, the
+candidate gets “more and more correct” every time the loop goes around.
+And when the checker finally OK’s the candidate, it is guaranteed to be
+sound. Compare this to exhaustive enumeration: every time the loop comes
+around, there’s no guarantee that the new candidate will be “more
+correct”. Even though enumerating the next expression is much faster
+than SMT-solving, exhaustive enumeration would still incur exponentially
+many calls to the checker.</p>
+<h2 id="acknowledgement">Acknowledgement</h2>
+<p>I first learned of CEGIS from <a
+href="https://homes.cs.washington.edu/~emina/">Emina Torlak</a>’s <a
+href="https://courses.cs.washington.edu/courses/cse507/">course</a> at
+UW. After that I keep going back to <a
+href="https://www.cs.utexas.edu/~bornholt/post/synthesis-explained.html">these</a>
+<a
+href="https://www.cs.utexas.edu/~bornholt/post/building-synthesizer.html">posts</a>
+by <a href="https://www.cs.utexas.edu/~bornholt/">James Bornholt</a> for
+reference. But the posts don’t explain how the solver works in the
+generator, and that’s why I wrote this post.</p>
+<p>I highly recommend <a
+href="https://emina.github.io/rosette/">Rosette</a> if you want to get
+your hands dirty syntheisizing some programs - it’s a rock-solid
+language that is an absolute joy to use.</p>
+<h2 id="references">References</h2>
+<p>Armando Solar-Lezama, Liviu Tancau, Rastislav Bodik, Sanjit Seshia,
+and Vijay Saraswat. 2006. Combinatorial sketching for finite programs.
+In Proceedings of the 12th international conference on Architectural
+support for programming languages and operating systems (ASPLOS XII).
+Association for Computing Machinery, New York, NY, USA, 404–415.
+DOI:https://doi.org/10.1145/1168857.1168907</p>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>grad-ind</title>
+  <style>
+    html {
+      font-family: Verdana;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 750px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="a-canonicity-proof-via-gradient-induction">A Canonicity Proof
+via Gradient Induction</h1>
+<p>A canonical form for a language defines a representative among an
+equivalent class of terms. It can help identify equivalent terms in the
+language. Here I present a proof for the canonicity of the
+sum-over-product normal form for arithmetics, to demonstrate an
+interesting technique that I call induction over derivatives. A more
+catchy name I thought of is gradient induction.</p>
+<p>First let’s clarify what we mean by canonical form: when two
+expressions in a language, considered as programs, evaluate to the same
+result on all possible inputs, we say they are semantically equivalent.
+We therefore hope to find a “standard way” to write such expressions, so
+that when we rewrite any two expressions to the standard form, we can
+immediately tell if they are semantically equivalent by just looking at
+them. Such a standard form is considered canonical - we say that two
+terms, e1 and e2, share the same canonical form if and only if they are
+semantically equivalent, where semantically equivalent means the terms
+always compute the same result given same inputs.</p>
+<p>Formally:</p>
+<pre class="math"><code>\text{canonicalize}(e_1) \equiv \text{canonicalize}(e_2) \Leftrightarrow \forall x . \text{eval}(e_1, x) = \text{eval}(e_2, x)</code></pre>
+<p>Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>≡</mo><annotation encoding="application/x-tex">\equiv</annotation></semantics></math>
+denotes syntactic equality, and = denotes semantic (value) equality. In
+our case, the expressions are in the language of arithmetics
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mo>+</mo><mo>,</mo><mo>×</mo><mo>,</mo><mi>x</mi><mo>,</mo><mi>ℝ</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(+, \times, x, \mathbb{R})</annotation></semantics></math>:</p>
+<p><strong>Definition</strong> an <em>arithmetic expression</em> is
+either a variable, a constant, the sum of two expressions, or the
+product of two expressions.</p>
+<p>And our normal form is essentially the standard polynomials:</p>
+<p><strong>Definition</strong> the sum-over-product normal form of an
+arithmetic expression is the sum of products of literals, where a
+literal is either a variable or a constant. Furthermore, we combine
+monomials that only differ in their coefficients, e.g. 2xy + 3xy is
+rewritten into 5xy.</p>
+<p>One can rewrite an expression to SoP with the standard laws
+(associativity, commutativity &amp; distributivity). That is, we keep
+pulling + up and merge terms. For example, the SoP canonical form of (x
++ z) (x + y) is x2 + xy + xz + yz.</p>
+<p><strong>Proposition</strong> the sum-over-product normal form is
+canonical:</p>
+<pre class="math"><code>C_{sop}(e_1) \equiv C_{sop}(e_2) \Leftrightarrow \forall x . \text{eval}(e_1, x) = \text{eval}(e_2, x)</code></pre>
+<p><strong>Proof</strong> the left-to-right direction can be proven by
+structural induction over the SoP normal form syntax, together with the
+fact that the standard rewrite rules we use preserve the semantics of
+arithmetics.</p>
+<p>I now prove the contrapositive of the backward direction:</p>
+<pre class="math"><code>C_{sop}(e_1) \not\equiv C_{sop}(e_2) \Rightarrow \exists x . \text{eval}(e_1, x) \neq \text{eval}(e_2, x)</code></pre>
+<p>There are two cases for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>s</mi><mi>o</mi><mi>p</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>≢</mo><msub><mi>C</mi><mrow><mi>s</mi><mi>o</mi><mi>p</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">C_{sop}(e_1) \not\equiv C_{sop}(e_2)</annotation></semantics></math>:
+1. e1 and e2 differ in their constant term (e.g. e1 = 2xy + 4 and e2 =
+3yz + 7), and 2. otherwise (e.g. e1 = 2xy + 4 and e2 = 3yz + 4).</p>
+<p>Note that we only look at the lonely constants, not the coefficients
+in other terms.</p>
+<p>Case 1 is simple, since if two expressions have different constants
+they evaluate to different results (i.e the constants themselves) on
+all-zero inputs.</p>
+<p>To prove case 2, I break down the goal into two steps:</p>
+<pre class="math"><code>C_{sop}(e_1) \not\equiv C_{sop}(e_2) \Rightarrow \exists y . \frac{\partial e_1}{\partial y} \neq \frac{\partial e_2}{\partial y}</code></pre>
+<p>and</p>
+<pre class="math"><code>\exists y . \frac{\partial e_1}{\partial y} \neq \frac{\partial e_2}{\partial y} \Rightarrow \exists x . \text{eval}(e_1, x) \neq \text{eval}(e_2, x)</code></pre>
+<p>Recall that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>≠</mo><annotation encoding="application/x-tex">\neq</annotation></semantics></math>
+is semantic inequivalence.</p>
+<p>The latter is simple: pick x1 and x2 that only differ in the y
+variable (from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">\partial y</annotation></semantics></math>
+above). Since the derivatives differ, we can always find a pair of x1
+and x2 such that either
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">eval</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>1</mn></msub><mo>,</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>≠</mo><mtext mathvariant="normal">eval</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>2</mn></msub><mo>,</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text{eval}(e_1, x_1) \neq \text{eval}(e_2, x_1)</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">eval</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>1</mn></msub><mo>,</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>≠</mo><mtext mathvariant="normal">eval</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>2</mn></msub><mo>,</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text{eval}(e_1, x_2) \neq \text{eval}(e_2, x_2)</annotation></semantics></math>.</p>
+<p>To prove
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>s</mi><mi>o</mi><mi>p</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>≢</mo><msub><mi>C</mi><mrow><mi>s</mi><mi>o</mi><mi>p</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>⇒</mo><mo>∃</mo><mi>y</mi><mi>.</mi><mi>∂</mi><msub><mi>e</mi><mn>1</mn></msub><mi>/</mi><mi>∂</mi><mi>y</mi><mo>≠</mo><mi>∂</mi><msub><mi>e</mi><mn>2</mn></msub><mi>/</mi><mi>∂</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">C_{sop}(e_1) \not\equiv C_{sop}(e_2) \Rightarrow \exists y . \partial e_1 / \partial y \neq \partial e_2 / \partial y</annotation></semantics></math>,
+we perform induction over the derivatives of the expressions, with our
+original proof goal as the inductive hypothesis:</p>
+<pre class="math"><code>C_{sop}(e_1) \equiv C_{sop}(e_2) \Leftrightarrow \forall x . \text{eval}(e_1, x) = \text_{eval}(e_2, x)</code></pre>
+<p>Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>s</mi><mi>o</mi><mi>p</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>≢</mo><msub><mi>C</mi><mrow><mi>s</mi><mi>o</mi><mi>p</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>e</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">C_{sop}(e_1) \not\equiv C_{sop}(e_2)</annotation></semantics></math>,
+we know
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>y</mi><mi>.</mi><mi>∂</mi><msub><mi>e</mi><mn>1</mn></msub><mi>/</mi><mi>∂</mi><mi>y</mi><mo>≢</mo><mi>∂</mi><msub><mi>e</mi><mn>2</mn></msub><mi>/</mi><mi>∂</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">\exists y . \partial e_1 / \partial y \not\equiv \partial e_2 / \partial y</annotation></semantics></math>
+(syntactically). Since the derivative of a canonical form is also
+canonical (not that obvious, but you’ll see it after thinking a little
+harder), by our inductive hypothesis,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∃</mo><mi>y</mi><mi>.</mi><mi>∂</mi><msub><mi>e</mi><mn>1</mn></msub><mi>/</mi><mi>∂</mi><mi>y</mi><mo>≠</mo><mi>∂</mi><msub><mi>e</mi><mn>2</mn></msub><mi>/</mi><mi>∂</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">\exists y . \partial e_1 / \partial y \neq \partial e_2 / \partial y</annotation></semantics></math>
+(semantically).</p>
+<p>The preceding induction is sound because taking the derivative makes
+any expression simpler, eventually bringing it to a constant.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>◼</mi><annotation encoding="application/x-tex">\blacksquare</annotation></semantics></math></p>
+<p>The main takeaway here is that, when we want to perform an inductive
+proof, we need every inductive step to make the terms simpler. Usually
+this is done by structural induction over the language definition; but
+when the language is differentiable, the derivative is another tool for
+inductively simplifying the terms. This can come handy for the PL
+researcher, since we now know a wide range of languages are
+differentiable – not just polynomials!</p>
+<p>p.s. <a href="https://jhtdavid96.wixsite.com/jianghaotian">Haotian
+Jiang</a> &amp; <a
+href="https://homes.cs.washington.edu/~sorawee/en/">Sorawee
+Porncharoenwase</a> pointed out a much simpler proof: given two
+semantically equivalent arithmetic expressions, their difference is
+always zero. Therefore, the expression that represents the difference
+has infinitely many roots. According to the fundamental theorem of
+algebra, the two expressions must be the same polynomial, since
+otherwise their difference would be a none-zero polynomial and has
+finitely many roots. Nevertheless, the main point of this post isn’t to
+prove normalization, but to showcase the technique of gradient
+induction.</p>
+</body>
+</html>

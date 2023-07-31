@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>egraph-inter</title>
+  <style>
+    html {
+      font-family: Verdana;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 750px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="e-graph-intersection">E-Graph Intersection</h1>
+<p>A Rust implementation of the algorithm based on <a
+href="https://egraphs-good.github.io/">egg</a> can be found <a
+href="https://github.com/remysucre/eggegg">here</a>.</p>
+<p><strong>Definition</strong> <a href="#e-graph-intersection">e-graph
+intersection</a> An e-graph represents a (potentially infinite) set of
+terms and an equivalence relation over the terms. The intersection of
+two e-graphs G1, G2 is an e-graph G that satisfies the following: 1. the
+set of terms it represents is the intersection of the sets of terms
+represented by G1, G2, and 2. two terms are equal (according to the
+equivalence relation) in G if and only if they are equal in both G1 and
+G2.</p>
+<p>To be even more formal, define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>,</mo><mi>E</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">G = (T, E)</annotation></semantics></math>
+where T is the set of terms and E the equivalence relation, and
+similarly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mn>1</mn></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mn>1</mn></msub><mo>,</mo><msub><mi>E</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><msub><mi>G</mi><mn>2</mn></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mn>2</mn></msub><mo>,</mo><msub><mi>E</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">G_1 = (T_1, E_1), G_2 = (T_2, E_2)</annotation></semantics></math>.
+Then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msub><mi>T</mi><mn>1</mn></msub><mo>∩</mo><msub><mi>T</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">T = T_1 \cap T_2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>E</mi><mo>⇔</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>1</mn></msub><mo>∧</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">(t_1, t_2) \in E \Leftrightarrow (t_1, t_2) \in E_1 \wedge (t_1, t_2) \in E_2</annotation></semantics></math>.</p>
+<p><strong>Algorithm</strong> [intersecting e-graphs] Given two e-graphs
+G1, G2, compute their intersection G.</p>
+<p>Observe that G’s equivalence relation E must be a refinement of E1
+and E2, because if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">(t_1, t_2) \in E</annotation></semantics></math>
+we must have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">(t_1, t_2) \in E_1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">(t_1, t_2) \in E_2</annotation></semantics></math>,
+but if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mi>a</mi></msub><mo>,</mo><msub><mi>t</mi><mi>b</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">(t_a, t_b) \in E_1</annotation></semantics></math>
+we might not have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mi>a</mi></msub><mo>,</mo><msub><mi>t</mi><mi>b</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">(t_a, t_b) \in E</annotation></semantics></math>,
+and similar for E2. Given this observation, we can define the following
+maps:</p>
+<ul>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>→</mo><msub><mi>E</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">E \rightarrow E_2</annotation></semantics></math>
+will map each class in E to a corresponding class in E2,</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E_1 \rightarrow \{E\}</annotation></semantics></math>
+will map each class in E1 to a (possibly empty) set of classes in
+E.</li>
+</ul>
+<p>A class in E1 may map to the empty set if the terms it contains are
+not represented in G. The main purpose of these maps is to relate
+eclasses across G, G1 and G2, so that we can for example check if two
+enodes in G are equal by asking G1 and G2. We initialize all maps to be
+empty at the beginning. The intersection algorithm proceeds as
+follows:</p>
+<pre><code>while G changes:
+  for class in G1.classes:
+    for op(c1,...,cn) in class.nodes:
+      // map child classes to classes in G
+      for op(c1’,...,cn’) where c1’∈E1→E[c1],...,cn’∈E1→E[cn]
+        // only add the node if it’s also in G2
+        if let Some(c2) = G2.get(op(E→E2[c1’],...,E→E2[cn’]))
+          cnew = G.add(op(c1’,...,cn’))
+          E→E2[cnew] = c2
+          E1→E[class].insert(cnew)
+          // this loop is expensive but seems necessary, because the 
+          // new node may only be equiv. to some nodes &amp; not others
+          for c in E1→E[class]
+            if G2.find(E→E2[c]) = G2.find(c2): G.union(cnew,c)</code></pre>
+<p>In English, we repeatedly scan the nodes in G1 and try to add them to
+G. Nodes will get added bottom-up starting with the leaves (we can’t add
+a node without adding its children first), and a node only gets added if
+it’s in G2 as well. But one node in G1 may become multiple nodes in G,
+because any of its child class may have been split into multiple classes
+in G. So we follow the map
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E_1 \rightarrow \{E\}</annotation></semantics></math>
+and create the new nodes accordingly. After adding a new node to G, we
+update the maps. Because all nodes we added from the same class in G1
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtext mathvariant="normal">class</mtext><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">E_1 \rightarrow \{E\}[\text{class}]</annotation></semantics></math>)
+are equivalent according to G1, we only need to check if they are also
+equivalent under G2. If any pair are equivalent, we union them in G. We
+repeat this process until G stops changing, much like equality
+saturation. In fact, we can roughly think of the process as an equality
+saturation where the rewrite rules are given by G1 and G2.</p>
+<p><strong>Correctness Theorem</strong> When the algorithm terminates
+(it always does), G is the intersection of G1 and G2.</p>
+<p><em>Termination</em>: we first prove G must be finite. Assume the
+contrary, i.e. G has finitely many classes but infinite enodes, or
+infinitely many classes. The first case is impossible, because with
+finite function symbols and finite classes we can only construct a
+finite number of enodes (multiple copies of identical enodes are
+hash-cons’ed). If there are infinite classes in G, then G must have
+infinite classes that correspond to the same class in G1. But the fact
+that they are not unioned in G means they must each correspond to a
+different class in G2, which is impossible because the latter is
+finite.</p>
+<p>Now it is easy to show the algorithm terminates. Because union always
+reduces the number of classes, the only way for G to keep changing is to
+keep adding new enodes. But this will result in an infinite number of
+enodes, which is impossible.</p>
+<p><em>Correctness</em>: the correctness of the algorithm consists of
+the following: - <em>Representation soundness</em>: every term
+represented in G is represented in G1 and G2, - <em>Representation
+completeness</em>: if a term is represented in both G1 and G2, it is in
+G, - <em>Equality soundness</em>: every two term equal in G are equal in
+both G1 and G2, - <em>Equality completeness</em>: if two terms are equal
+in both G1, G2, they are equal in G.</p>
+<p>The following needs work - these reply on some invariants about the
+maps
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>→</mo><msub><mi>E</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">E \rightarrow E_2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E_1 \rightarrow \{E\}</annotation></semantics></math>:
+- If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mn>2</mn></msub><mo>=</mo><mi>E</mi><mo>→</mo><msub><mi>E</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">[</mo><mi>c</mi><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">c_2 = E \rightarrow E_2[c]</annotation></semantics></math>,
+then the terms represented by c are all in c2. - If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>∈</mo><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>c</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">c \in E_1 \rightarrow \{E\}[c_1]</annotation></semantics></math>,
+then the terms represented by c1 are all in c.</p>
+<p><em>Representation soundness</em>: every enode added to G is
+constructed from an enode in G1, and we only add it if it’s also found
+in G2.</p>
+<p><em>Equality Soundness</em>: union’s arguments come from the same
+eclass in G1, and we only union if they also correspond to the same
+eclass in G2.</p>
+<p>Completeness should be proved by induction on the terms.</p>
+<p><strong>Acknowledgement</strong> The idea of intersecting e-graphs is
+due to <a href="https://altanh.com/">Altan</a> and <a
+href="https://joshmpollock.com/">Josh</a>; they <a
+href="https://github.com/uwplse/unscramble">implemented it</a> before I
+did. I wrote my implementation from scratch, but I suspect it is
+equivalent to theirs. Altan and Josh were inspired by the <a
+href="https://doi.org/10.1145/3133886">work</a> using tree automata for
+synthesis. The paper below by Gulwani, Tiwari &amp; Necula is also
+relevant; I suspect it achieves percisely e-graph interesection.</p>
+<p><strong>References</strong></p>
+<p>Burghardt, Jochen. “E-generalization using grammars.” Artificial
+intelligence 165.1 (2005): 1-35.</p>
+<p>Gulwani, Sumit, Ashish Tiwari, and George C. Necula. “Join algorithms
+for the theory of uninterpreted functions.” International Conference on
+Foundations of Software Technology and Theoretical Computer Science.
+Springer, Berlin, Heidelberg, 2004.</p>
+<p>Xinyu Wang, Isil Dillig, and Rishabh Singh. 2017. Synthesis of data
+completion scripts using finite tree automata. Proc. ACM Program. Lang.
+1, OOPSLA, Article 62 (October 2017), 26 pages.
+DOI:https://doi.org/10.1145/3133886</p>
+</body>
+</html>
