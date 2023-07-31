@@ -223,11 +223,15 @@ WITH RECURSIVE r2 AS (
 
 SELECT COUNT(*) FROM r2 GROUP BY i;
 
-SELECT * FROM t1_moments EXCEPT SELECT * FROM t2_moments;
-SELECT * FROM t2_moments EXCEPT SELECT * FROM t1_moments;
+SELECT * FROM t1_moments 
+  EXCEPT 
+SELECT * FROM t2_moments;
 
--- To rule out the case where they have the same moments, 
--- but are "permutations" of each other
+SELECT * FROM t2_moments 
+  EXCEPT 
+SELECT * FROM t1_moments;
+
+-- Check they are not permutations of each other
 SELECT (SELECT COUNT(*) FROM t1 NATURAL JOIN t1) 
      - (SELECT COUNT(*) FROM t1 NATURAL JOIN t2) 
     AS d WHERE d <> 0;
