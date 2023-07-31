@@ -1,3 +1,7 @@
+---
+title: Remy's blog
+---
+
 Posts by [Remy Wang](https://remy.wang/).
 
 | Topic | Date | Title |
