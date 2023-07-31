@@ -1,5 +1,5 @@
 ---
-title: Remy's blog
+pagetitle: Remy's blog
 ---
 
 Posts by [Remy Wang](https://remy.wang/).
