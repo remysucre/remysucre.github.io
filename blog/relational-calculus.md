@@ -52,9 +52,9 @@ Luckily, the proof is actually not very complicated.
 
 **Theorem** Consider Relational Calculus with the following syntax:
 
-```math
-Q := \bot \mid \top \mid x = t \mid R(t_1, \ldots, t_k) \mid \neg Q \mid Q \vee Q \mid Q \wedge Q \mid \exists x .Q
-```
+
+$$ Q := \bot \mid \top \mid x = t \mid R(t_1, \ldots, t_k) \mid \neg Q \mid Q \vee Q \mid Q \wedge Q \mid \exists x .Q $$
+
 
 In short, it is the standard FOL where the only interpreted predicate is equality.
 The Relative Safety is decidable.
