@@ -7,14 +7,14 @@ Well, you just do `SELECT * FROM t1 = t2`{.sql}... wait, that's wrong, compariso
  doesn't work on entire tables in SQL.
 My second attempt is a bit better: if we take the difference of the table both ways, 
  and end up with empty results, then they must be the same, right?
-In SQL: `SELECT * FROM t1 EXCEPT SELECT * FROM t2` (and the other way).
-Wrong again! Because `EXCEPT` takes the *set* difference, 
+In SQL: `SELECT * FROM t1 EXCEPT SELECT * FROM t2`{.sql} (and the other way).
+Wrong again! Because `EXCEPT`{.sql} takes the *set* difference, 
  it will be empty if, say, `t1` contains 2 copies of a tuple, but `t2` contains only one.
 
 I gave up a little bit and started searching online,
  but surprisingly there was not a single satisfying answer!
-The solutions online either suffer from the same issue as the `EXCEPT` query, 
- or use some obscure features that are not standard SQL (e.g. `CHECKSUM` which doesn't really work anyways).
+The solutions online either suffer from the same issue as the `EXCEPT`{.sql} query, 
+ or use some obscure features that are not standard SQL (e.g. `CHECKSUM`{.sql} which doesn't really work anyways).
 How hard can it be to compare two tables in SQL?!
 
 Intrigued, I posted the problem as a challenge to my colleagues:
@@ -25,13 +25,13 @@ Formally, they are the same bag/multiset.
 
 If you've read the SQL standard (and every "non-standard") cover to cover,
  you'll come with the following query after a few campari drinks: 
- `SELECT * FROM t1 EXCEPT ALL SELECT * FROM t2`.
-The key is `EXCEPT ALL` which takes the "bag difference"
- similar to how `UNION ALL` takes the "bag union".
-Alas, `EXCEPT ALL` is not implemented by SQLite!
+ `SELECT * FROM t1 EXCEPT ALL SELECT * FROM t2`{.sql}.
+The key is `EXCEPT ALL`{.sql} which takes the "bag difference"
+ similar to how `UNION ALL`{.sql} takes the "bag union".
+Alas, `EXCEPT ALL`{.sql} is not implemented by SQLite!
 And probably for good reasons:
- whereas `EXCEPT` can be compiled to just an anti-join,
- executing `EXCEPT ALL` probably requires keeping track of 
+ whereas `EXCEPT`{.sql} can be compiled to just an anti-join,
+ executing `EXCEPT ALL`{.sql} probably requires keeping track of 
  which copy of the same tuple we've seen,
  or keeping a count per distinct tuple.
 
@@ -50,12 +50,12 @@ SELECT *, COUNT(*)
 Here, we group by all attributes of the table 
  in order to explicitly mark every distinct tuple with its count.
 And because all tuples are distinct after the grouping,
- we can use `EXCEPT` to compare the results.
+ we can use `EXCEPT`{.sql} to compare the results.
 That's pretty good! I should be happy about it and go back to work.
 
 But I can't get over one small ugliness: I had to manually
- list all the attributes in the `GROUP BY` clause, 
- since `GROUP BY *` doesn't work.
+ list all the attributes in the `GROUP BY`{.sql} clause, 
+ since `GROUP BY *`{.sql} doesn't work.
 This means we have to change the query for every new schema.
 "Fine," you say, "just generate the query and get back to work".
 Problem is, I don't feel like working today, so I invite myself
@@ -79,7 +79,7 @@ Specifically, consider sorting all the distinct elements,
  count of the `i`th distinct element.
 For example, the table `t=[a, b, b, c, c]` becomes the vector `[1 2 2]`.
 Then, a self-join becomes point-wise multiplication of the vector with itself.
-Using the same example, `t NATURAL JOIN t` contains 1 copy of `a`, 4 copies of `b`, 
+Using the same example, `t NATURAL JOIN t`{.sql} contains 1 copy of `a`, 4 copies of `b`, 
  and 4 copies of `c`, `[1 4 4] = [1 2 2] * [1 2 2]`.
 
 With this, we can connect repeated self-joins of a table with 
@@ -131,7 +131,7 @@ WITH RECURSIVE r1 AS (
 SELECT COUNT(*) FROM r1 GROUP BY i;
 ```
 After computing `t2_moments` in the same way, we can compare them
- with `EXCEPT` because they do not contain duplicates.
+ with `EXCEPT`{.sql} because they do not contain duplicates.
 
 But that's not enough, since having the same moments only guarantees 
  the vectors are permutations of each other.
@@ -162,7 +162,7 @@ All together, the query uses only standard SQL features,
 Of course, it is completely impractical for any table
  of decent size (it runs in time $O(N^N)$ ), but that's not the point :)
 
-But even the simpler query using `GROUP BY` was not trivial to come up with, 
+But even the simpler query using `GROUP BY`{.sql} was not trivial to come up with, 
  which brings the question: why isn't it a standard feature of SQL to just
  compare two tables?
 I imagine it can be very useful for testing, e.g. you write a simple but slow
