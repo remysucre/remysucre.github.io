@@ -11,6 +11,8 @@ I'm a PhD student at [UWDB](http://db.cs.washington.edu/) and [PLSE](http://uwpl
 advised by [Dan Suciu](https://homes.cs.washington.edu/~suciu/).
 I optimize modern data systems with advanced techniques from programming languages and databases. 
 **I will start as an Assistant Professor at UCLA in 2024.**
+If you want to join my lab, 
+ please read [this](projects.html) before contacting me.
 
 ___
 

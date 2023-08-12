@@ -1,5 +1,5 @@
 MARKDOWN_FILES := $(wildcard blog/*.md)
-HTML_FILES := $(patsubst %.md,%.html,$(MARKDOWN_FILES))
+BLOG := $(patsubst %.md,%.html,$(MARKDOWN_FILES))
 
 PANDOC_OPTIONS := -f markdown+inline_code_attributes \
                   -t html --mathml -s \
@@ -8,9 +8,12 @@ PANDOC_OPTIONS := -f markdown+inline_code_attributes \
                   -V linestretch=1.6 \
                   --highlight-style=monochrome
 
-all: index.html $(HTML_FILES)
+all: index.html projects.html $(BLOG)
 
 index.html: index.md
+	pandoc $< $(PANDOC_OPTIONS) -o $@
+
+projects.html: projects.md
 	pandoc $< $(PANDOC_OPTIONS) -o $@
 
 blog/%.html: blog/%.md

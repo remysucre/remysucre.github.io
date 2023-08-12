@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Remy Wang</title>
+  <title>projects</title>
   <style>
     html {
       font-family: Verdana;
@@ -169,69 +169,67 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="remy-wang">Remy Wang</h1>
+<p>Yes, I’m looking for students to join my lab. There are two ways you
+can demonstrate your potential to become a good researcher:</p>
+<ol type="1">
+<li>You have made significant contribution to a research project, even
+if the project has not succeeded yet.</li>
+<li>If you don’t have any research experience, complete one of the tasks
+below <em>independently</em>.</li>
+</ol>
+<p>Most of my research concerns databases and programming languages, but
+I have a wide range of interests, and you can get me excited about
+anything if you try.</p>
 <ul>
-<li>Email: remywang at cs.washington.edu</li>
-<li>Links: <a href="./blog/index.html">Blog</a>, <a
-href="https://dblp.org/pid/185/9964.html">DBLP</a>, <a
-href="./imgs/remywang.png">Photo</a></li>
+<li><p>Implement a <a
+href="https://www.isi.edu/~jonmay/pubs/tr-633.pdf">tree automata
+minimization algorithm</a> and use it to <a
+href="https://remy.wang/reports/dfta.pdf">speed up egraph
+extraction</a>.</p></li>
+<li><p>Use <a href="http://tensor-compiler.org">TACO</a> to answer
+queries in the <a
+href="https://github.com/gregrahn/join-order-benchmark">join ordering
+benchmark</a>, and try to beat the performance of <a
+href="https://duckdb.org">DuckDB</a>.</p></li>
+<li><p>Do the same as a bove, but use some other system with a
+scheduling language like <a
+href="https://halide-lang.org">Halide</a>.</p></li>
+<li><p>Implement the <a
+href="https://webusers.imj-prg.fr/~arnaud.durand/papers/BDGlongversion.pdf">improved
+Yannakakis algorithm</a> and try to beat the performance of DuckDB on
+join order benchmark. You may also use techniques from <a
+href="https://www.cs.ox.ac.uk/dan.olteanu/papers/os-sigrec16.pdf">factorized
+databases</a>.</p></li>
+<li><p>Understand the <a
+href="https://arxiv.org/pdf/1612.02503.pdf">PANDA algorithm</a>,
+implement it, and make a presentation explaining it.</p></li>
+<li><p>Understand the <a href="https://arxiv.org/abs/1504.04044">FAQ
+algorithm</a>, implement it, and make a presentation explaining
+it.</p></li>
+<li><p>Implement <a
+href="https://people.csail.mit.edu/ebakke/research/sieuferd_sigmod2016.pdf">query
+by direct manipulation</a>.</p></li>
+<li><p>Extend Souffle to support <a
+href="https://github.com/souffle-lang/souffle/pull/2263">recursive
+aggregates</a>.</p></li>
+<li><p>Implement Datalog modulo equivalence.</p></li>
+<li><p>Implement and benchmark generalized semi-naive evaluation for
+Datalog.</p></li>
+<li><p>Study how data is used in any recent <a
+href="https://www.quantamagazine.org/videos/2021s-biggest-breakthroughs-in-physics/">breakthough</a>
+in science.</p></li>
+<li><p>Implement an SMT solver from scratch.</p></li>
+<li><p>Make a screenless smartphone with voice-based UI.</p></li>
+<li><p>Make a “digital analog projector”: instead of connecting to HDMI,
+you just put your laptop in front of the camera, and the system
+automatically applies filters to the video to make it look
+nice.</p></li>
+<li><p>Come up with a dynamic programming algorithm for join order
+optimization for free join.</p></li>
+<li><p>Experiment with different search algorithms in egg.</p></li>
+<li><p>Re-implement your favorite paper. To make sure you don’t just
+download the code and run it, implement it using a different programming
+language.</p></li>
 </ul>
-<p>I’m a PhD student at <a href="http://db.cs.washington.edu/">UWDB</a>
-and <a href="http://uwplse.org/">PLSE</a> advised by <a
-href="https://homes.cs.washington.edu/~suciu/">Dan Suciu</a>. I optimize
-modern data systems with advanced techniques from programming languages
-and databases. <strong>I will start as an Assistant Professor at UCLA in
-2024.</strong> If you want to join my lab, please read <a
-href="projects.html">this</a> before contacting me.</p>
-<hr />
-<p>[SIGMOD’23] We propose <a
-href="https://arxiv.org/abs/2301.10841">free join</a>, a new join
-algorithm unifying and generalizing traditional binary joins with
-worst-case optimal joins. Free join brings the best of both worlds, and
-outperforms both binary join and WCOJ in practice.</p>
-<p>[EGRAPHS’22] We tease out <a
-href="https://remy.wang/reports/dfta.pdf">deep connections</a> among
-e-graphs, finite-state tree automata, and version space algebra. By
-fusing together powerful ideas from these different perspectives, we
-gain orders-of-magnitude speedup and discover a new technique for
-automated proofs.</p>
-<p>[PODS’22] <strong>Best Paper</strong> <a
-href="https://arxiv.org/abs/2105.14435">Datalog<sup>o</sup></a> is a
-query language that generalizes Datalog. It can express a wide range of
-computation from shortest paths to network centrality. In the paper we
-study its convergence behavior.</p>
-<p>[SIGMOD’22] <strong>Invited to SIGMOD Record</strong> We also
-developed a <a href="https://arxiv.org/abs/2202.10390">query
-optimizer</a> for Datalog<sup>o</sup> based on program synthesis.</p>
-<p>[POPL’22] Using advanced join algorithms, we made <a
-href="https://arxiv.org/abs/2108.02290">pattern matching</a> in a
-rewrite system asymptotically faster.</p>
-<p>[MLSys’21] <a href="https://github.com/uwplse/tensat">Tensat</a> is
-an optimizer for deep learning inference using equality saturation. It
-achieves state-of-the-art inference speed with very fast
-compilation.</p>
-<p>[POPL’21] <strong>Distinguished Paper</strong> <a
-href="https://egraphs-good.github.io/">egg</a> is the rewrite engine
-underlying a new class of optimizers including Tensat and SPORES (see
-below). It implements an efficient algorithm for equality
-saturation.</p>
-<p>[OOPSLA’21] <strong>Distinguished Paper</strong> We used egg to <a
-href="https://dl.acm.org/doi/10.1145/3485496">invent rewrite rules</a>
-that are in turn given to egg itself for equality saturation.</p>
-<p>[VLDB’20] <a
-href="https://dl.acm.org/doi/10.14778/3407790.3407799">SPORES</a> is an
-optimizer for large scale linear algebra. It transforms linear algebra
-code through the powerful abstraction of relational algebra.</p>
-<hr />
-<p>I have been very lucky to work with many brilliant undergraduate /
-master students:</p>
-<p><a href="https://www.linkedin.com/in/jleang">Jonathan Leang</a>
-meticuously performed many intricate experiments for SPORES. Jonathan
-now works at Snowflake, and at the same time (!!) teaches Databases at
-UW.</p>
-<p><a href="https://effect.systems/">Yihong Zhang</a> turned our idea of
-relational pattern matching into implementation and a publication. With
-this work, Yihong won 1st place in the PLDI 2021 Student Research
-Competition.</p>
 </body>
 </html>
