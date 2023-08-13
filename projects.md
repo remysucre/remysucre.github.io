@@ -14,7 +14,7 @@ Most of my research concerns databases and programming languages, but I have a w
 
 * Use [TACO](http://tensor-compiler.org) to answer queries in the [join ordering benchmark](https://github.com/gregrahn/join-order-benchmark), and try to beat the performance of [DuckDB](https://duckdb.org).
 
-* Do the same as a bove, but use some other system with a scheduling language like [Halide](https://halide-lang.org).
+* Do the same as a bove, but use some other system with a scheduling language like [Halide](https://halide-lang.org) or [Exo](https://exo-lang.dev).
 
 * Implement the [improved Yannakakis algorithm](https://webusers.imj-prg.fr/~arnaud.durand/papers/BDGlongversion.pdf) and try to beat the performance of DuckDB on join order benchmark. You may also use techniques from [factorized databases](https://www.cs.ox.ac.uk/dan.olteanu/papers/os-sigrec16.pdf).
 
