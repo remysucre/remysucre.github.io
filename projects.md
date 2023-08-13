@@ -4,6 +4,10 @@ There are two ways you can demonstrate your potential to become a good researche
 1. You have made significant contribution to a research project, even if the project has not succeeded yet. 
 2. If you don't have any research experience, complete one of the tasks below *independently*.
 
+Independently means you will complete the task by yourself, without any help from me.
+Please only contact me when you have made significant progress completing the task.
+Each task is roughly equivalent one semester-long course with intense focus.
+
 Most of my research concerns databases and programming languages, but I have a wide range of interests, and you can get me excited about anything if you try.
 
 * Implement a [tree automata minimization algorithm](https://www.isi.edu/~jonmay/pubs/tr-633.pdf) and use it to [speed up egraph extraction](https://remy.wang/reports/dfta.pdf).
@@ -18,24 +22,24 @@ Most of my research concerns databases and programming languages, but I have a w
 
 * Understand the [FAQ algorithm](https://arxiv.org/abs/1504.04044), implement it, and make a presentation explaining it.
 
+* Come up with a [dynamic programming](https://www.researchgate.net/profile/Thomas_Neumann2/publication/47861835_Analysis_of_Two_Existing_and_One_New_Dynamic_Programming_Algorithm_for_the_Generation_of_Optimal_Bushy_Join_Trees_without_Cross_Products/links/0912f506d90ad19031000000.pdf) algorithm for join order optimization for [free join](https://arxiv.org/abs/2301.10841).
+
 * Implement [query by direct manipulation](https://people.csail.mit.edu/ebakke/research/sieuferd_sigmod2016.pdf).
 
-* Extend Souffle to support [recursive aggregates](https://github.com/souffle-lang/souffle/pull/2263).
+* Finish the extension of Souffle to support [recursive aggregates](https://github.com/souffle-lang/souffle/pull/2263).
 
-* Implement Datalog modulo equivalence.
+* Implement Datalog modulo equivalence and benchmark it against egglog.
 
 * Implement and benchmark generalized semi-naive evaluation for Datalog.
 
-* Study how data is used in any recent [breakthough](https://www.quantamagazine.org/videos/2021s-biggest-breakthroughs-in-physics/) in science.
+* Experiment with different [search algorithms](https://en.wikipedia.org/wiki/Combinatorial_search) in [egg](https://egraphs-good.github.io).
 
 * Implement an SMT solver from scratch.
+
+* Study how data is used in any recent breakthough in science. For inspiration, checkout [quanta](https://www.quantamagazine.org/videos/2021s-biggest-breakthroughs-in-physics/). Focus on projects relevant to databases research.
 
 * Make a screenless smartphone with voice-based UI.
 
 * Make a "digital analog projector": instead of connecting to HDMI, you just put your laptop in front of the camera, and the system automatically applies filters to the video to make it look nice.
-
-* Come up with a dynamic programming algorithm for join order optimization for free join.
-
-* Experiment with different search algorithms in egg.
 
 * Re-implement your favorite paper. To make sure you don't just download the code and run it, implement it using a different programming language. 
