@@ -42,6 +42,8 @@ Most of my research concerns databases and programming languages, but I have a w
 
 * Design a decision procedure for NRA^\*^ (see [LIA^\*^](https://www.cs.yale.edu/homes/piskac/papers/2020LevatichETALSolvingLIAstar.pdf), [NRA](https://en.wikipedia.org/wiki/Real_closed_field#Decidability_and_quantifier_elimination), and [these slides](https://ths.rwth-aachen.de/wp-content/uploads/sites/4/teaching/vorlesung_satchecking/ws14_15/09a_nonlinear_handout.pdf)), or prove it's undecidable.
 
+* Prove (or disprove) the completeness of checking UCQ equivalence via NRA and [EUF](http://leodemoura.github.io/files/citr09.pdf).
+
 * Study how data is used in any recent breakthough in science. For inspiration, checkout [quanta](https://www.quantamagazine.org/videos/2021s-biggest-breakthroughs-in-physics/). Focus on projects relevant to databases research.
 
 * Make a screenless smartphone with voice-based UI.
