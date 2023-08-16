@@ -1,7 +1,7 @@
 MARKDOWN_FILES := $(wildcard blog/*.md)
 BLOG := $(patsubst %.md,%.html,$(MARKDOWN_FILES))
 
-PANDOC_OPTIONS := -f markdown+inline_code_attributes \
+PANDOC_OPTIONS := -f markdown+inline_code_attributes+superscript \
                   -t html --mathml -s \
                   -V mainfont=Verdana \
                   -V maxwidth=650px \

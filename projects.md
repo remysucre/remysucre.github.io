@@ -38,6 +38,10 @@ Most of my research concerns databases and programming languages, but I have a w
 
 * Implement an SMT solver from scratch.
 
+* Solve Andrew Lumsdaine's challenge with [Rosette](https://emina.github.io/rosette/) (see [Cosette](https://cosette.cs.washington.edu) and [FGH](https://arxiv.org/abs/2202.10390)).
+
+* Design a decision procedure for NRA^\*^ (see [LIA^\*^](https://www.cs.yale.edu/homes/piskac/papers/2020LevatichETALSolvingLIAstar.pdf), [NRA](https://en.wikipedia.org/wiki/Real_closed_field#Decidability_and_quantifier_elimination), and [these slides](https://ths.rwth-aachen.de/wp-content/uploads/sites/4/teaching/vorlesung_satchecking/ws14_15/09a_nonlinear_handout.pdf)), or prove it's undecidable.
+
 * Study how data is used in any recent breakthough in science. For inspiration, checkout [quanta](https://www.quantamagazine.org/videos/2021s-biggest-breakthroughs-in-physics/). Focus on projects relevant to databases research.
 
 * Make a screenless smartphone with voice-based UI.
