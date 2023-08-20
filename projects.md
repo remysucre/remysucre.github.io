@@ -26,6 +26,8 @@ Most of my research concerns databases and programming languages, but I have a w
 
 * Come up with a [dynamic programming](https://www.researchgate.net/profile/Thomas_Neumann2/publication/47861835_Analysis_of_Two_Existing_and_One_New_Dynamic_Programming_Algorithm_for_the_Generation_of_Optimal_Bushy_Join_Trees_without_Cross_Products/links/0912f506d90ad19031000000.pdf) algorithm for join order optimization for [free join](https://arxiv.org/abs/2301.10841).
 
+* Write a Datalog evaluator in Datalog.
+
 * Implement [query by direct manipulation](https://people.csail.mit.edu/ebakke/research/sieuferd_sigmod2016.pdf).
 
 * Finish the extension of Souffle to support [recursive aggregates](https://github.com/souffle-lang/souffle/pull/2263).
