@@ -7,8 +7,8 @@ pagetitle: Remy Wang
 - Email: remywang at cs.washington.edu
 - Links: [Blog](./blog/index.html), [DBLP](https://dblp.org/pid/185/9964.html), [Photo](./imgs/remywang.png)
 
-I'm a PhD student at [UWDB](http://db.cs.washington.edu/) and [PLSE](http://uwplse.org/)
-advised by [Dan Suciu](https://homes.cs.washington.edu/~suciu/).
+I'm a research fellow at Simons Institute @ UC Berkeley 
+ (and recent graduate of [UWDB](http://db.cs.washington.edu/) and [PLSE](http://uwplse.org/)).
 I optimize modern data systems with advanced techniques from programming languages and databases. 
 **I will start as an Assistant Professor at UCLA in 2024.**
 If you want to join my lab, 
