@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>euf</title>
+  <style>
+    html {
+      font-family: Verdana;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1
+id="understanding-euf-by-autopsy-of-3-failed-encodings-of-tensor-algebra">Understanding
+EUF by autopsy of 3 failed encodings of tensor algebra</h1>
+<p>Given a pair of queries (a.k.a programs)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>1</mn></msub><annotation encoding="application/x-tex">Q_1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>2</mn></msub><annotation encoding="application/x-tex">Q_2</annotation></semantics></math>,
+the <em>query equivalence problem</em> asks if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>1</mn></msub><annotation encoding="application/x-tex">Q_1</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>2</mn></msub><annotation encoding="application/x-tex">Q_2</annotation></semantics></math>
+returns the same result on all inputs. This is very useful in many
+contexts: an instructor can check a student’s coding homework against
+the solutions; an engineer can check a program against the spec; or the
+optimizer can check some optimized code against the original.</p>
+<p>For databases, query equivalence is known to be decidable for several
+classes of query languages, including Unions of Conjunctive Queries
+(UCQs) under both set and bag semantics. Notably, it is also decidable
+for UCQs over the semiring of Reals – otherwise known as <em>tensor
+algebra</em> or <em>einsum</em> expressions, making the problem very
+relevant today. For example, a set of equational axioms for tensor
+algebra can be used as rewrite rules in an optimizing compiler for
+tensor computation, and that’s exactly what we did in SPORES.</p>
+<p>Although there are several algorithms for deciding query equivalence,
+I have been hunting for a long time for a solution purely based on
+SMT-solvers. Such a solution is desirable, because when the solver
+determines two queries to be <em>not</em> equivalent, it will also
+return a <em>witness</em> input on which the pair of queries produce
+different results. Such a witness can help the user understand why the
+queries are different. For example, it can be provided as feedback to a
+student, or added as a test case in a production codebase.</p>
+<p>An obvious way to encode the query equivalence problem in SMT is to
+encode each equational axiom as an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∀</mo><annotation encoding="application/x-tex">\forall</annotation></semantics></math>-quantified
+formula. For example, the commutativity of multiplication can be
+expressed as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>:</mo><mi>x</mi><mo>×</mo><mi>y</mi><mo>=</mo><mi>y</mi><mo>×</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\forall x, y : x \times y = y \times x</annotation></semantics></math>.
+I initially dismissed this approach, because quantified reasoning in SMT
+is usually undecidable – until I learned about the EUF fragment and its
+decision procedure implemented in z3. In short, EUF (for Essentially
+Uninterpreted Functions) is a decidable fragment of first-order logic
+that also permits quantification. It is more general than the classic
+EPR fragment, and also subsumes the Array Property Fragment.</p>
+<p>Long story short, I spent a week trying to hack up a query
+equivalence checker in z3 while staying in the decidable EUF fragment,
+and failed. Trying to make the best of the situation, I’m writing this
+so that 1. others who want to try the same can save some time; 2.
+smarter people will read this and come up with a solution; and 3. to
+solidify my own understanding of the EUF fragment.</p>
+<p>Let’s get into it then. To understand UCQs (or tensor algebra), we
+can just think of it as the
+“<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∑</mo><annotation encoding="application/x-tex">\sum</annotation></semantics></math>-notation”
+we use in math when talking about matrices and tensors. For example,
+matrix multiplication
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">C=AB</annotation></semantics></math>
+is written as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>=</mo><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>A</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>×</mo><msub><mi>B</mi><mrow><mi>j</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">C_{ik} = \sum_{j} A_{ij} \times B_{jk}</annotation></semantics></math>.
+With this notation, we can think of each matrix as a function of type
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℕ</mi><mo>×</mo><mi>ℕ</mi><mo>→</mo><mi>ℝ</mi></mrow><annotation encoding="application/x-tex">\mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R}</annotation></semantics></math>,
+mapping each index to the value at that entry. In SMT, it is therefore
+natural to use uninterpreted functions to represent matrices (where we
+use <code>Int</code> instead of <code>Nat</code> for simplicity):</p>
+<pre class="smt"><code>(declare-fun A (Int Int) Real)
+(declare-fun B (Int Int) Real)</code></pre>
+<p>With this, we can already get commutativity of multiply <em>for
+free</em> from the theory of real arithmetics!</p>
+<pre class="smt"><code>(declare-const i Int)
+(declare-const j Int)
+(declare-const k Int)
+
+(push)
+(assert (not (= (* (A i j) (B j k)) (* (B j k) (A i j)))))
+(check-sat) ; returns unsat
+(pop)</code></pre>
+<p>Nevertheless, no existing theory provides the unbounded
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∑</mo><annotation encoding="application/x-tex">\sum</annotation></semantics></math>
+summation. One trick I’ve used before is to introduce an uninterpreted
+function <code>sum</code> of type
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℤ</mi><mo>×</mo><mi>ℝ</mi><mo>→</mo><mi>ℝ</mi></mrow><annotation encoding="application/x-tex">\mathbb{Z} \times \mathbb{R} \rightarrow \mathbb{R}</annotation></semantics></math>,
+to reduce equivalence to syntactic equality. Specifically:</p>
+<pre class="smt"><code>(declare-fun sum (Int Real) Real)
+
+(push)
+(assert (not (= (sum j (* (A i j) (B j k))) (sum j (* (B j k) (A i j))))))
+(check-sat) ; returns unsat
+(pop)</code></pre>
+<p>But we’d still like to encode properties of summation, for example
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><msub><mo>∑</mo><mi>k</mi></msub><mi>e</mi><mo>=</mo><msub><mo>∑</mo><mi>k</mi></msub><msub><mo>∑</mo><mi>j</mi></msub><mi>e</mi></mrow><annotation encoding="application/x-tex">\sum_j \sum_k e = \sum_k \sum_j e</annotation></semantics></math>.
+Well, maybe we can just try that:</p>
+<pre class="smt"><code>(assert (forall ((j Int) (k Int) (e Real)) (= (sum j (sum k e)) (sum k (sum j e)))))
+
+(push)
+(assert (not (= (sum k (sum j (* (A i j) (B j k)))) (sum j (sum k (* (B j k) (A i j)))))))
+(check-sat); returns unsat
+(pop)</code></pre>
+<p>It worked (at least for me)! But quantified reasoning is undecidable
+in general, so did we get lucky? Well, sort of. This is where
+<em>EUF</em> comes in. From the <a href="">paper</a>, the Essentially
+Uninterpreted Fragment, or <strong>EUF, applies when quantified
+variables appear only as arguments to uninterpreted functions</strong>.
+This is true for our <code>forall</code> quantified assertion above: all
+of <code>i</code>, <code>j</code> and <code>e</code> appear only as
+arguments to <code>sum</code>! The paper also says <em>some</em> EUF
+formulas are decidable, so that’s encouraging. Let’s try encoding some
+more axioms:</p>
+<pre class="smt"><code>(assert (forall ((x Real) (i Int) (e Real)) (= (* x (sum i e)) (sum i (* x e)))))</code></pre>
+<p>Uh-oh. Here <code>x</code> is quantified, but it is also an argument
+of the interpreted function <code>*</code>. That means we’re already out
+of the EUF fragment, so we can no longer guarantee decidability. In this
+case, further assertions may still be solvable, but they can also return
+<code>unknwon</code> or go on forever.</p>
+<p>The immediate idea to get around this problem, is to use an
+uninterpreted <code>mul</code> funciton instead of the interpreted
+<code>*</code>, and encode the algebraic identities of <code>mul</code>
+with axioms:</p>
+<pre class="smt"><code>(declare-fun mul (Real Real) Real)
+
+; associativity
+(assert (forall ((x Real) (y Real) (z Real)) (= (mul x (mul y z)) (mul (mul x y) z))))</code></pre>
+</body>
+</html>
