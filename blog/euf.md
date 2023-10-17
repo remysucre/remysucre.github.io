@@ -132,3 +132,5 @@ The immediate idea to get around this problem, is to use an uninterpreted `mul` 
 ; associativity
 (assert (forall ((x Real) (y Real) (z Real)) (= (mul x (mul y z)) (mul (mul x y) z))))
 ```
+
+Now every quantified variable is 

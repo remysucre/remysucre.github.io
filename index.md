@@ -4,7 +4,7 @@ pagetitle: Remy Wang
 
 # Remy Wang
 
-- Email: remywang at cs.washington.edu
+- Email: remywang at cs.ucla.edu
 - Links: [Blog](./blog/index.html), [DBLP](https://dblp.org/pid/185/9964.html), [Photo](./imgs/remywang.png)
 
 I'm a research fellow at Simons Institute @ UC Berkeley 
