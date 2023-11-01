@@ -24,7 +24,7 @@ for some constant $c$. Therefore $h(X)= - 1 \log 1 = 0$. If $X$ is uniform (as r
 When $\mathbf{X}$ is a set of variables, $h(\mathbf{X})$ denotes the entropy over the joint distribution over the set. We write $h(\mathbf{X}\mathbf{Y})$ for $h(\mathbf{X}\cup \mathbf{Y})$, and $h(XY)$ for $h(\{X, Y\})$. For a set of $n$ random variables $\mathbf{X}$, we define the *entropic vector* as a function from any subset of $\mathbf{X}$ to the entropy of their joint distribution: 
 
 $$
-(h(\mathbf{X}_S))_{S \subseteq [n]} \in \R^{2^n}_+
+(h(\mathbf{X}_S))_{S \subseteq [n]} \in \mathbb{R}^{2^n}_+
 $$
 
 As an example, let's consider the distribution over $X,Y,Z$ as shown in the table below: 
@@ -93,7 +93,7 @@ OK, enough about entropies! How can we use them for databases? The key idea is t
 | 1   | 0   | 1   | 1/4 |
 | 1   | 1   | 0   | 1/4 |
 
-Then, we can use the first Shannon inequality to connect the entropy of a relation to its size, because the relation $R(X, Y, Z)$ is exactly the support $\text{supp}(XYZ)$, so $h(XYZ) \leq \log |R|$. Similarly, we can connect the conditional entropy to *degree constraints*.  For two sets of attributes $\mathbf{U, V}$ and values $\mathbf{u}$, define the *degree* of $\mathbf{V}$ given $\mathbf{U = u}$, written $\text{deg}(\mathbf{V \mid U=u})$, as the number of tuples with distinct $\mathbf{V}$ values given $\mathbf{U=u}$. For example, $\text{deg}(XY\mid Z=0)=2$, $\text{deg}(X\mid YZ=01)=1$, and $\text{deg}(XYZ\mid \empty) = |R| = 4$. The max degree of $\mathbf{V}$ given $\mathbf{U}$, written $\max \text{deg}(\mathbf{V \mid U})$, is the maximum of $\text{deg}(\mathbf{V \mid U = u})$ over all $\mathbf{u \in U}$. Then we have: 
+Then, we can use the first Shannon inequality to connect the entropy of a relation to its size, because the relation $R(X, Y, Z)$ is exactly the support $\text{supp}(XYZ)$, so $h(XYZ) \leq \log |R|$. Similarly, we can connect the conditional entropy to *degree constraints*.  For two sets of attributes $\mathbf{U, V}$ and values $\mathbf{u}$, define the *degree* of $\mathbf{V}$ given $\mathbf{U = u}$, written $\text{deg}(\mathbf{V \mid U=u})$, as the number of tuples with distinct $\mathbf{V}$ values given $\mathbf{U=u}$. For example, $\text{deg}(XY\mid Z=0)=2$, $\text{deg}(X\mid YZ=01)=1$, and $\text{deg}(XYZ\mid \emptyset) = |R| = 4$. The max degree of $\mathbf{V}$ given $\mathbf{U}$, written $\max \text{deg}(\mathbf{V \mid U})$, is the maximum of $\text{deg}(\mathbf{V \mid U = u})$ over all $\mathbf{u \in U}$. Then we have: 
 
 $$
 \begin{align*}
