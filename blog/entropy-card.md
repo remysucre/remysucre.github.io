@@ -38,7 +38,7 @@ As an example, let's consider the distribution over $X,Y,Z$ as shown in the tabl
 
 The entropic vector $h$ then has values as shown in the Hasse diagram below: 
 
-<img title="" src="file:///Users/remywang/Downloads/ipe.svg" alt="ipe.svg" width="468">
+<img title="" src="ipe.svg" alt="ipe.svg" width="468">
 
 We next define the *conditional entropy* as an analog to the conditional distribution: 
 
