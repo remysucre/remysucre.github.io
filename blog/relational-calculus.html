@@ -164,6 +164,24 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -174,18 +192,13 @@ Relational Calculus</h1>
 <p>In classical model theory, there are two important questions:</p>
 <ol type="1">
 <li><p><strong>(Finite) Satisfiability</strong>: Given a first-order
-sentence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>,
-is there a (finite) structure
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
-such that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>⊨</mo><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">M \models \phi</annotation></semantics></math>?</p></li>
+sentence <span class="math inline">\phi</span>, is there a (finite)
+structure <span class="math inline">M</span> such that <span
+class="math inline">M \models \phi</span>?</p></li>
 <li><p><strong>Model Checking</strong>: Given a first-order sentence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-and a structure
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>,
-is it true that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>⊨</mo><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">M \models \phi</annotation></semantics></math>?</p></li>
+<span class="math inline">\phi</span> and a structure <span
+class="math inline">M</span>, is it true that <span
+class="math inline">M \models \phi</span>?</p></li>
 </ol>
 <p>In fact, the history of the first question goes back to the inception
 of computer science. In 1936, Alonzo Church and Alan Turing
@@ -194,20 +207,15 @@ undecidable, resolving David Hilbert’s Entscheidungsproblem. Their
 proofs also invented the two pillars supporting modern computer science:
 the lambda calculus and the Turing machine.</p>
 <p>A less well-known result is that the <em>Finite</em> satisfiability
-is also undecidable. Specifically, if a sentence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-contains a relation of arity at least 2, then it is undecidable to
-determine if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-has a finite model. This result is due to Boris Trakhtenbrot.</p>
+is also undecidable. Specifically, if a sentence <span
+class="math inline">\phi</span> contains a relation of arity at least 2,
+then it is undecidable to determine if <span
+class="math inline">\phi</span> has a finite model. This result is due
+to Boris Trakhtenbrot.</p>
 <p>On the other hand, the Model Checking problem is very easy. The data
 complexity (over the size of the model) of Model Checking over FOL
-(extended with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>)
-is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><msup><mi>C</mi><mn>0</mn></msup></mrow><annotation encoding="application/x-tex">AC^0</annotation></semantics></math>,
+(extended with <span class="math inline">\times</span> and <span
+class="math inline">+</span>) is <span class="math inline">AC^0</span>,
 one of the lowest classes in the polynomial hierarchy. And even if we
 extend FOL with a least-fixpoint operator (i.e. Datalog), the problem is
 still in PTIME.</p>
@@ -215,48 +223,38 @@ still in PTIME.</p>
 Satisfiability and Model Checking:</p>
 <ol start="3" type="1">
 <li><strong>Relation Calculus Query</strong>: Fix a finite structure
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>,
-and a first-order sentence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\phi(\mathbf{x})</annotation></semantics></math>
-over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>,
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>
-are the free variables of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>.
-Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-be a relation symbol. Find a model for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-such that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>𝐱</mi><mo>:</mo><mi>Q</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⇔</mo><mi>ϕ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\forall \mathbf{x} : Q(\mathbf{x}) \Leftrightarrow \phi(\mathbf{x})</annotation></semantics></math>.</li>
+<span class="math inline">M</span>, and a first-order sentence <span
+class="math inline">\phi(\mathbf{x})</span> over <span
+class="math inline">M</span>, where <span
+class="math inline">\mathbf{x}</span> are the free variables of <span
+class="math inline">\phi</span>. Let <span class="math inline">Q</span>
+be a relation symbol. Find a model for <span
+class="math inline">Q</span> such that <span class="math inline">\forall
+\mathbf{x} : Q(\mathbf{x}) \Leftrightarrow \phi(\mathbf{x})</span>.</li>
 </ol>
-<p>Note that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-may not always have a finite model. For example, if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>:=</mo><mi>x</mi><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\phi(x) := x = x</annotation></semantics></math>
-then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-must contain all values in the domain which can be infinite. We may
-therefore want to ask a question similar to Finite Satisfiability:</p>
+<p>Note that <span class="math inline">Q</span> may not always have a
+finite model. For example, if <span class="math inline">\phi(x) := x =
+x</span> then <span class="math inline">Q</span> must contain all values
+in the domain which can be infinite. We may therefore want to ask a
+question similar to Finite Satisfiability:</p>
 <ol start="4" type="1">
 <li><strong>Relative Safety</strong>: Given a Relational Calculus query
 and a fixed database, does the query have a finite answer on that
-database? That is, is there a finite model for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>,
-defined as above?</li>
+database? That is, is there a finite model for <span
+class="math inline">Q</span>, defined as above?</li>
 </ol>
 <p>This problem sits in between the Finite Satisfiability problem and
-the Model Checking problem: it asks for a model for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>,
-but we already have the models for all other relations. Relative Safety
-was proposed by [AGSS86], which is written in Russian. Other papers cite
-it for a proof that Relative Safety is decidable, but I don’t read
-Russian, so I had to do the proofs myself. Luckily, the proof is
-actually not very complicated.</p>
+the Model Checking problem: it asks for a model for <span
+class="math inline">Q</span>, but we already have the models for all
+other relations. Relative Safety was proposed by [AGSS86], which is
+written in Russian. Other papers cite it for a proof that Relative
+Safety is decidable, but I don’t read Russian, so I had to do the proofs
+myself. Luckily, the proof is actually not very complicated.</p>
 <p><strong>Theorem</strong> Consider Relational Calculus with the
 following syntax:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>:=</mo><mi>⊥</mi><mo>∣</mo><mi>⊤</mi><mo>∣</mo><mi>x</mi><mo>=</mo><mi>t</mi><mo>∣</mo><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>t</mi><mi>k</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∣</mo><mo>¬</mo><mi>Q</mi><mo>∣</mo><mi>Q</mi><mo>∨</mo><mi>Q</mi><mo>∣</mo><mi>Q</mi><mo>∧</mo><mi>Q</mi><mo>∣</mo><mo>∃</mo><mi>x</mi><mi>.</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex"> Q := \bot \mid \top \mid x = t \mid R(t_1, \ldots, t_k) \mid \neg Q \mid Q \vee Q \mid Q \wedge Q \mid \exists x .Q </annotation></semantics></math></p>
+<p><span class="math display"> Q := \bot \mid \top \mid x = t \mid
+R(t_1, \ldots, t_k) \mid \neg Q \mid Q \vee Q \mid Q \wedge Q \mid
+\exists x .Q </span></p>
 <p>In short, it is the standard FOL where the only interpreted predicate
 is equality. The Relative Safety is decidable.</p>
 <p><strong>Proof</strong> Because the database contains only a finite
@@ -266,45 +264,29 @@ query output contains <em>any</em> value not in the database, the output
 must be infinite. This is because the query cannot <em>distinguish</em>
 values not in the database, because the only predicates are relation
 symbols or =. Therefore, if we see one output tuple containing some
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
-not in the database, we can always change
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
-to another value not in the database to get another tuple.</p>
+<span class="math inline">v</span> not in the database, we can always
+change <span class="math inline">v</span> to another value not in the
+database to get another tuple.</p>
 <p>With the above insight, we can easily test if a query is infinite
 using a finite number of values not in the database. We can’t use just
-one, because the sentence may contain a predicate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mi>v</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">v = v&#39;</annotation></semantics></math>
-where both
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">v&#39;</annotation></semantics></math>
+one, because the sentence may contain a predicate <span
+class="math inline">v = v&#39;</span> where both <span
+class="math inline">v</span> and <span class="math inline">v&#39;</span>
 are free, in which case we may want to use two different values for
 them. The algorithm is as follows:</p>
-<p>Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
-be the (finite) set of values appearing in the database. Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>v</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>v</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">V = \{ v_1, \ldots, v_n \}</annotation></semantics></math>
-be a set of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-values not in the database, where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-is the number of free variables of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
-For each tuple
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">t=(t_1, t_2, \ldots)</annotation></semantics></math>
-where each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>i</mi></msub><mo>∈</mo><mi>C</mi><mo>∪</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">t_i \in C \cup V</annotation></semantics></math>,
-check if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\phi(t)</annotation></semantics></math>
-is valid (model checking). If it is, and if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
-contains a value not in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>,
-then the query is infinite. If we exhaust all tuples
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>∪</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">C \cup V</annotation></semantics></math>
-is finite) without finding such a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>,
-the query is finite.</p>
+<p>Let <span class="math inline">C</span> be the (finite) set of values
+appearing in the database. Let <span class="math inline">V = \{ v_1,
+\ldots, v_n \}</span> be a set of <span class="math inline">n</span>
+values not in the database, where <span class="math inline">n</span> is
+the number of free variables of <span class="math inline">Q</span>. For
+each tuple <span class="math inline">t=(t_1, t_2, \ldots)</span> where
+each <span class="math inline">t_i \in C \cup V</span>, check if <span
+class="math inline">\phi(t)</span> is valid (model checking). If it is,
+and if <span class="math inline">t</span> contains a value not in <span
+class="math inline">C</span>, then the query is infinite. If we exhaust
+all tuples (<span class="math inline">C \cup V</span> is finite) without
+finding such a <span class="math inline">t</span>, the query is
+finite.</p>
 <p>[AGSS86] Alfred K. Ailamazyan, Mikhail M. Gilula, Alexei P.
 Stolboushkin, and Grigorii F. Schwartz. Reduction of a relational model
 with infinite domains to the case of finite domains. Doklady Akademii

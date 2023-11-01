@@ -164,6 +164,24 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -172,14 +190,10 @@
 <h1
 id="understanding-euf-by-autopsy-of-3-failed-encodings-of-tensor-algebra">Understanding
 EUF by autopsy of 3 failed encodings of tensor algebra</h1>
-<p>Given a pair of queries (a.k.a programs)
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>1</mn></msub><annotation encoding="application/x-tex">Q_1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>2</mn></msub><annotation encoding="application/x-tex">Q_2</annotation></semantics></math>,
-the <em>query equivalence problem</em> asks if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>1</mn></msub><annotation encoding="application/x-tex">Q_1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>2</mn></msub><annotation encoding="application/x-tex">Q_2</annotation></semantics></math>
+<p>Given a pair of queries (a.k.a programs) <span
+class="math inline">Q_1</span> and <span class="math inline">Q_2</span>,
+the <em>query equivalence problem</em> asks if <span
+class="math inline">Q_1</span> and <span class="math inline">Q_2</span>
 returns the same result on all inputs. This is very useful in many
 contexts: an instructor can check a student’s coding homework against
 the solutions; an engineer can check a program against the spec; or the
@@ -201,12 +215,11 @@ different results. Such a witness can help the user understand why the
 queries are different. For example, it can be provided as feedback to a
 student, or added as a test case in a production codebase.</p>
 <p>An obvious way to encode the query equivalence problem in SMT is to
-encode each equational axiom as an
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∀</mo><annotation encoding="application/x-tex">\forall</annotation></semantics></math>-quantified
-formula. For example, the commutativity of multiplication can be
-expressed as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>:</mo><mi>x</mi><mo>×</mo><mi>y</mi><mo>=</mo><mi>y</mi><mo>×</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\forall x, y : x \times y = y \times x</annotation></semantics></math>.
-I initially dismissed this approach, because quantified reasoning in SMT
+encode each equational axiom as an <span
+class="math inline">\forall</span>-quantified formula. For example, the
+commutativity of multiplication can be expressed as <span
+class="math inline">\forall x, y : x \times y = y \times x</span>. I
+initially dismissed this approach, because quantified reasoning in SMT
 is usually undecidable – until I learned about the EUF fragment and its
 decision procedure implemented in z3. In short, EUF (for Essentially
 Uninterpreted Functions) is a decidable fragment of first-order logic
@@ -219,18 +232,17 @@ so that 1. others who want to try the same can save some time; 2.
 smarter people will read this and come up with a solution; and 3. to
 solidify my own understanding of the EUF fragment.</p>
 <p>Let’s get into it then. To understand UCQs (or tensor algebra), we
-can just think of it as the
-“<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∑</mo><annotation encoding="application/x-tex">\sum</annotation></semantics></math>-notation”
-we use in math when talking about matrices and tensors. For example,
-matrix multiplication
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">C=AB</annotation></semantics></math>
-is written as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>=</mo><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>A</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>×</mo><msub><mi>B</mi><mrow><mi>j</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">C_{ik} = \sum_{j} A_{ij} \times B_{jk}</annotation></semantics></math>.
-With this notation, we can think of each matrix as a function of type
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℕ</mi><mo>×</mo><mi>ℕ</mi><mo>→</mo><mi>ℝ</mi></mrow><annotation encoding="application/x-tex">\mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R}</annotation></semantics></math>,
-mapping each index to the value at that entry. In SMT, it is therefore
-natural to use uninterpreted functions to represent matrices (where we
-use <code>Int</code> instead of <code>Nat</code> for simplicity):</p>
+can just think of it as the “<span
+class="math inline">\sum</span>-notation” we use in math when talking
+about matrices and tensors. For example, matrix multiplication <span
+class="math inline">C=AB</span> is written as <span
+class="math inline">C_{ik} = \sum_{j} A_{ij} \times B_{jk}</span>. With
+this notation, we can think of each matrix as a function of type <span
+class="math inline">\mathbb{N} \times \mathbb{N} \rightarrow
+\mathbb{R}</span>, mapping each index to the value at that entry. In
+SMT, it is therefore natural to use uninterpreted functions to represent
+matrices (where we use <code>Int</code> instead of <code>Nat</code> for
+simplicity):</p>
 <pre class="smt"><code>(declare-fun A (Int Int) Real)
 (declare-fun B (Int Int) Real)</code></pre>
 <p>With this, we can already get commutativity of multiply <em>for
@@ -243,12 +255,12 @@ free</em> from the theory of real arithmetics!</p>
 (assert (not (= (* (A i j) (B j k)) (* (B j k) (A i j)))))
 (check-sat) ; returns unsat
 (pop)</code></pre>
-<p>Nevertheless, no existing theory provides the unbounded
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∑</mo><annotation encoding="application/x-tex">\sum</annotation></semantics></math>
-summation. One trick I’ve used before is to introduce an uninterpreted
-function <code>sum</code> of type
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℤ</mi><mo>×</mo><mi>ℝ</mi><mo>→</mo><mi>ℝ</mi></mrow><annotation encoding="application/x-tex">\mathbb{Z} \times \mathbb{R} \rightarrow \mathbb{R}</annotation></semantics></math>,
-to reduce equivalence to syntactic equality. Specifically:</p>
+<p>Nevertheless, no existing theory provides the unbounded <span
+class="math inline">\sum</span> summation. One trick I’ve used before is
+to introduce an uninterpreted function <code>sum</code> of type <span
+class="math inline">\mathbb{Z} \times \mathbb{R} \rightarrow
+\mathbb{R}</span>, to reduce equivalence to syntactic equality.
+Specifically:</p>
 <pre class="smt"><code>(declare-fun sum (Int Real) Real)
 
 (push)
@@ -256,7 +268,7 @@ to reduce equivalence to syntactic equality. Specifically:</p>
 (check-sat) ; returns unsat
 (pop)</code></pre>
 <p>But we’d still like to encode properties of summation, for example
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><msub><mo>∑</mo><mi>k</mi></msub><mi>e</mi><mo>=</mo><msub><mo>∑</mo><mi>k</mi></msub><msub><mo>∑</mo><mi>j</mi></msub><mi>e</mi></mrow><annotation encoding="application/x-tex">\sum_j \sum_k e = \sum_k \sum_j e</annotation></semantics></math>.
+<span class="math inline">\sum_j \sum_k e = \sum_k \sum_j e</span>.
 Well, maybe we can just try that:</p>
 <pre class="smt"><code>(assert (forall ((j Int) (k Int) (e Real)) (= (sum j (sum k e)) (sum k (sum j e)))))
 

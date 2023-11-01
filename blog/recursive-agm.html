@@ -164,6 +164,24 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -183,70 +201,49 @@ turns out we can sometimes bound the run time of recursive queries as
 well. Consider the transitive closure program in Datalog:</p>
 <pre><code>P(x, y) :- E(x, y).
 P(x, y) :- E(x, z), P(z, y). </code></pre>
-<p>During semi-naive evaluation, we will compute a delta relation
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">dP</annotation></semantics></math>
-every iteration as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><msub><mi>P</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>E</mi><mo>⋈</mo><mi>d</mi><msub><mi>P</mi><mi>i</mi></msub><mo>−</mo><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">dP_{i+1} = E \bowtie dP_i - P_i</annotation></semantics></math>.
-The set difference can be done in linear time, so we will focus on the
-join only.</p>
-<p>If we look at <em>all</em> iterations, we’ll be computing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>⋈</mo><mi>d</mi><msub><mi>P</mi><mn>0</mn></msub><mo>∪</mo><mi>E</mi><mo>⋈</mo><mi>d</mi><msub><mi>P</mi><mn>1</mn></msub><mo>∪</mo><mi>⋯</mi><mo>∪</mo><mi>E</mi><mo>⋈</mo><mi>d</mi><msub><mi>P</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">E \bowtie dP_0 \cup E \bowtie dP_1 \cup \cdots \cup E \bowtie dP_{k-1}</annotation></semantics></math>.
-Factoring out <code>E</code>, we get
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>⋈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>d</mi><msub><mi>P</mi><mn>0</mn></msub><mo>∪</mo><mi>⋯</mi><mo>∪</mo><mi>d</mi><msub><mi>P</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>E</mi><mo>⋈</mo><msub><mi>P</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">E \bowtie (dP_0 \cup \cdots \cup dP_{k-1}) = E \bowtie P_k</annotation></semantics></math>,
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>k</mi></msub><annotation encoding="application/x-tex">P_k</annotation></semantics></math>
-is the relation
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
-at iteration
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
-Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>k</mi></msub><annotation encoding="application/x-tex">P_k</annotation></semantics></math>
-must be contained in the final output
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>,
-i.e. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>P</mi><mi>k</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>O</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">|P_k| \leq |O|</annotation></semantics></math>,
-at this point we can say the whole semi-naive algorithm runs in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>E</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>×</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>O</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">O(|E|\times|O|)</annotation></semantics></math>.
-But turns out we can do better.</p>
-<p>To reduce clutter, I’ll write
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>P</mi><mi>k</mi></msub><annotation encoding="application/x-tex">P_k</annotation></semantics></math>.
-Now take a closer look at the join
+<p>During semi-naive evaluation, we will compute a delta relation <span
+class="math inline">dP</span> every iteration as <span
+class="math inline">dP_{i+1} = E \bowtie dP_i - P_i</span>. The set
+difference can be done in linear time, so we will focus on the join
+only.</p>
+<p>If we look at <em>all</em> iterations, we’ll be computing <span
+class="math inline">E \bowtie dP_0 \cup E \bowtie dP_1 \cup \cdots \cup
+E \bowtie dP_{k-1}</span>. Factoring out <code>E</code>, we get <span
+class="math inline">E \bowtie (dP_0 \cup \cdots \cup dP_{k-1}) = E
+\bowtie P_k</span>, where <span class="math inline">P_k</span> is the
+relation <span class="math inline">P</span> at iteration <span
+class="math inline">k</span>. Since <span class="math inline">P_k</span>
+must be contained in the final output <span
+class="math inline">O</span>, i.e. <span class="math inline">|P_k| \leq
+|O|</span>, at this point we can say the whole semi-naive algorithm runs
+in <span class="math inline">O(|E|\times|O|)</span>. But turns out we
+can do better.</p>
+<p>To reduce clutter, I’ll write <span class="math inline">P</span> for
+<span class="math inline">P_k</span>. Now take a closer look at the join
 <code>Q(x, y, z) :- E(x, z), P(z, y)</code>. For the moment, let’s also
-add
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>
-into the join to make a triangle
+add <span class="math inline">O</span> into the join to make a triangle
 <code>Q'(x, y, z) :- E(x, z), P(z, y), O(x, y)</code>. With this, we can
-use the AGM bound to get
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>E</mi><mo stretchy="true" form="postfix">|</mo></mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>P</mi><mo stretchy="true" form="postfix">|</mo></mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>O</mi><mo stretchy="true" form="postfix">|</mo></mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mi>O</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>E</mi><mo stretchy="true" form="postfix">|</mo></mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>O</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">O(|E|^\frac{1}{2} |P|^\frac{1}{2} |O|^\frac{1}{2}) \leq O(|E|^\frac{1}{2} |O|)</annotation></semantics></math>,
+use the AGM bound to get <span class="math inline">O(|E|^\frac{1}{2}
+|P|^\frac{1}{2} |O|^\frac{1}{2}) \leq O(|E|^\frac{1}{2} |O|)</span>,
 which is a tighter bound than the above. I now claim we can also use
-this bound for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
-The key is that the execution of Generic Join for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">Q&#39;</annotation></semantics></math>
-is exactly the same as that for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.</p>
+this bound for <span class="math inline">Q</span>. The key is that the
+execution of Generic Join for <span class="math inline">Q&#39;</span> is
+exactly the same as that for <span class="math inline">Q</span>.</p>
 <p>Consider the variable ordering <code>z, x, y</code>. The GJ loop for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">Q&#39;</annotation></semantics></math>
-is the following:</p>
+<span class="math inline">Q&#39;</span> is the following:</p>
 <pre><code>for z in E.z ^ P.z
   for x in E[z].x ^ O.x
     for y in P[z].y ^ O[x].y
       output(x, y, z)</code></pre>
-<p>Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>
-is the final output of the transitive closure program, we have the
-invariant
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>E</mi><mo>∧</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>P</mi><mo>⟹</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>O</mi></mrow><annotation encoding="application/x-tex">\forall x, y, z : (x, z) \in E \wedge (z, y) \in P \implies (x, y) \in O</annotation></semantics></math>.
-Therefore, we can remove the intersections with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>
-on both inner loops, and the run time would remain the same since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>
-does not filter out any value. With
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>
-removed, the nested loop now computes exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>,
-taking the same time as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">Q&#39;</annotation></semantics></math>.</p>
+<p>Since <span class="math inline">O</span> is the final output of the
+transitive closure program, we have the invariant <span
+class="math inline">\forall x, y, z : (x, z) \in E \wedge (z, y) \in P
+\implies (x, y) \in O</span>. Therefore, we can remove the intersections
+with <span class="math inline">O</span> on both inner loops, and the run
+time would remain the same since <span class="math inline">O</span> does
+not filter out any value. With <span class="math inline">O</span>
+removed, the nested loop now computes exactly <span
+class="math inline">Q</span>, taking the same time as <span
+class="math inline">Q&#39;</span>.</p>
 </body>
 </html>

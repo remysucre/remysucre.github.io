@@ -164,6 +164,24 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -175,18 +193,15 @@ Inductive Synthesis</h1>
 defined in the grammar satisfying the spec.</p>
 <p>Formally, it solves formula of the form</p>
 <pre class="math"><code>\exists f . \forall x, y, \dots . \phi</code></pre>
-<p>where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-is the specification and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>…</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(x,y,\dots)</annotation></semantics></math>
-is a program drawn from the given grammar.</p>
+<p>where <span class="math inline">\phi</span> is the specification and
+<span class="math inline">f(x,y,\dots)</span> is a program drawn from
+the given grammar.</p>
 <p>For example, we can ask for a function satisfying the following
 spec:</p>
 <pre class="math"><code>\exists f . \forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x = f(x,y) \vee y = f(x,y))</code></pre>
-<p>In English,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(x,y)</annotation></semantics></math>
-must be no less than both x and y, and it should be equal to either x or
-y (hint: it’s the function <code>max</code>).</p>
+<p>In English, <span class="math inline">f(x,y)</span> must be no less
+than both x and y, and it should be equal to either x or y (hint: it’s
+the function <code>max</code>).</p>
 <p>The essence of CEGIS is illustrated by this picture:</p>
 <figure>
 <img src="assets/cegis/cegis.png" alt="CEGIS loop" />
@@ -222,15 +237,13 @@ candidate is incorrect.</p>
 <p>To be more concrete, let’s take our spec for <em>max</em> above, and
 use the following simple grammar:</p>
 <pre><code>e := x + y | max(x,y)</code></pre>
-<p>Suppose the generator proposes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\max(x,y)</annotation></semantics></math>
-as a candidate; the checker then instantiates the spec with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>=</mo><mo>max</mo></mrow><annotation encoding="application/x-tex">f=\max</annotation></semantics></math>:</p>
+<p>Suppose the generator proposes <span
+class="math inline">\max(x,y)</span> as a candidate; the checker then
+instantiates the spec with <span class="math inline">f=\max</span>:</p>
 <pre class="math"><code>\forall x, y . \max(x,y) \geq x \wedge \max(x,y) \geq y \wedge (x = \max(x,y) \vee y = \max(x,y))</code></pre>
 <p>To check the validity of this formula, the checker simply drops the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∀</mo><annotation encoding="application/x-tex">\forall</annotation></semantics></math>
-and asks the solver if the <em>negation</em> of the body is
-satisfiable:</p>
+<span class="math inline">\forall</span> and asks the solver if the
+<em>negation</em> of the body is satisfiable:</p>
 <pre class="math"><code>\text{SAT?} \Big( \neg \big( \max(x,y) \geq x \wedge \max(x,y) \geq y \wedge (x = \max(x,y) \vee y = \max(x,y)) \big) \Big)</code></pre>
 <p>This is unsatisfiable, meaning <em>no</em> values of x and y can make
 the negated spec true. That is the same as saying no x and y can make
@@ -258,11 +271,10 @@ an SMT formula</strong>! To do so, we simply introduce a boolean
 that the spec is satisfied:</p>
 <pre class="math"><code>(b \Rightarrow f = +) \wedge (\neg b \Rightarrow f = \max) \wedge
 \forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x = f(x,y) \vee y = f(x,y))</code></pre>
-<p>There is one last wrinkle: we need to remove the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∀</mo><annotation encoding="application/x-tex">\forall</annotation></semantics></math>
-quantification, since quantified formula are usually undecidable. So
-instead of solving for all x and y, we instantiate the formula with the
-counterexamples:</p>
+<p>There is one last wrinkle: we need to remove the <span
+class="math inline">\forall</span> quantification, since quantified
+formula are usually undecidable. So instead of solving for all x and y,
+we instantiate the formula with the counterexamples:</p>
 <pre class="math"><code>b \Rightarrow f = + \wedge \neg b \Rightarrow f = \max \wedge
 f(1,1) \geq 1 \wedge f(1,1) \geq 1 \wedge (1 = f(1,1) \vee 1 = f(1,1))</code></pre>
 <p>After “inlining” f, this becomes:</p>

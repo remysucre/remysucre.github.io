@@ -164,6 +164,24 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -181,36 +199,26 @@ set of terms it represents is the intersection of the sets of terms
 represented by G1, G2, and 2. two terms are equal (according to the
 equivalence relation) in G if and only if they are equal in both G1 and
 G2.</p>
-<p>To be even more formal, define
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>,</mo><mi>E</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">G = (T, E)</annotation></semantics></math>
-where T is the set of terms and E the equivalence relation, and
-similarly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mn>1</mn></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mn>1</mn></msub><mo>,</mo><msub><mi>E</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><msub><mi>G</mi><mn>2</mn></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>T</mi><mn>2</mn></msub><mo>,</mo><msub><mi>E</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">G_1 = (T_1, E_1), G_2 = (T_2, E_2)</annotation></semantics></math>.
-Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msub><mi>T</mi><mn>1</mn></msub><mo>∩</mo><msub><mi>T</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">T = T_1 \cap T_2</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>E</mi><mo>⇔</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>1</mn></msub><mo>∧</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">(t_1, t_2) \in E \Leftrightarrow (t_1, t_2) \in E_1 \wedge (t_1, t_2) \in E_2</annotation></semantics></math>.</p>
+<p>To be even more formal, define <span class="math inline">G = (T,
+E)</span> where T is the set of terms and E the equivalence relation,
+and similarly <span class="math inline">G_1 = (T_1, E_1), G_2 = (T_2,
+E_2)</span>. Then <span class="math inline">T = T_1 \cap T_2</span> and
+<span class="math inline">(t_1, t_2) \in E \Leftrightarrow (t_1, t_2)
+\in E_1 \wedge (t_1, t_2) \in E_2</span>.</p>
 <p><strong>Algorithm</strong> [intersecting e-graphs] Given two e-graphs
 G1, G2, compute their intersection G.</p>
 <p>Observe that G’s equivalence relation E must be a refinement of E1
-and E2, because if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">(t_1, t_2) \in E</annotation></semantics></math>
-we must have
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">(t_1, t_2) \in E_1</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><msub><mi>t</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">(t_1, t_2) \in E_2</annotation></semantics></math>,
-but if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mi>a</mi></msub><mo>,</mo><msub><mi>t</mi><mi>b</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msub><mi>E</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">(t_a, t_b) \in E_1</annotation></semantics></math>
-we might not have
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mi>a</mi></msub><mo>,</mo><msub><mi>t</mi><mi>b</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">(t_a, t_b) \in E</annotation></semantics></math>,
-and similar for E2. Given this observation, we can define the following
-maps:</p>
+and E2, because if <span class="math inline">(t_1, t_2) \in E</span> we
+must have <span class="math inline">(t_1, t_2) \in E_1</span> and <span
+class="math inline">(t_1, t_2) \in E_2</span>, but if <span
+class="math inline">(t_a, t_b) \in E_1</span> we might not have <span
+class="math inline">(t_a, t_b) \in E</span>, and similar for E2. Given
+this observation, we can define the following maps:</p>
 <ul>
-<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>→</mo><msub><mi>E</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">E \rightarrow E_2</annotation></semantics></math>
-will map each class in E to a corresponding class in E2,</li>
-<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E_1 \rightarrow \{E\}</annotation></semantics></math>
-will map each class in E1 to a (possibly empty) set of classes in
-E.</li>
+<li><span class="math inline">E \rightarrow E_2</span> will map each
+class in E to a corresponding class in E2,</li>
+<li><span class="math inline">E_1 \rightarrow \{E\}</span> will map each
+class in E1 to a (possibly empty) set of classes in E.</li>
 </ul>
 <p>A class in E1 may map to the empty set if the terms it contains are
 not represented in G. The main purpose of these maps is to relate
@@ -237,16 +245,16 @@ G. Nodes will get added bottom-up starting with the leaves (we can’t add
 a node without adding its children first), and a node only gets added if
 it’s in G2 as well. But one node in G1 may become multiple nodes in G,
 because any of its child class may have been split into multiple classes
-in G. So we follow the map
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E_1 \rightarrow \{E\}</annotation></semantics></math>
-and create the new nodes accordingly. After adding a new node to G, we
-update the maps. Because all nodes we added from the same class in G1
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtext mathvariant="normal">class</mtext><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">E_1 \rightarrow \{E\}[\text{class}]</annotation></semantics></math>)
-are equivalent according to G1, we only need to check if they are also
-equivalent under G2. If any pair are equivalent, we union them in G. We
-repeat this process until G stops changing, much like equality
-saturation. In fact, we can roughly think of the process as an equality
-saturation where the rewrite rules are given by G1 and G2.</p>
+in G. So we follow the map <span class="math inline">E_1 \rightarrow
+\{E\}</span> and create the new nodes accordingly. After adding a new
+node to G, we update the maps. Because all nodes we added from the same
+class in G1 (<span class="math inline">E_1 \rightarrow
+\{E\}[\text{class}]</span>) are equivalent according to G1, we only need
+to check if they are also equivalent under G2. If any pair are
+equivalent, we union them in G. We repeat this process until G stops
+changing, much like equality saturation. In fact, we can roughly think
+of the process as an equality saturation where the rewrite rules are
+given by G1 and G2.</p>
 <p><strong>Correctness Theorem</strong> When the algorithm terminates
 (it always does), G is the intersection of G1 and G2.</p>
 <p><em>Termination</em>: we first prove G must be finite. Assume the
@@ -271,15 +279,12 @@ G, - <em>Equality soundness</em>: every two term equal in G are equal in
 both G1 and G2, - <em>Equality completeness</em>: if two terms are equal
 in both G1, G2, they are equal in G.</p>
 <p>The following needs work - these reply on some invariants about the
-maps
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>→</mo><msub><mi>E</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">E \rightarrow E_2</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E_1 \rightarrow \{E\}</annotation></semantics></math>:
-- If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mn>2</mn></msub><mo>=</mo><mi>E</mi><mo>→</mo><msub><mi>E</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">[</mo><mi>c</mi><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">c_2 = E \rightarrow E_2[c]</annotation></semantics></math>,
-then the terms represented by c are all in c2. - If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>∈</mo><msub><mi>E</mi><mn>1</mn></msub><mo>→</mo><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>c</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">c \in E_1 \rightarrow \{E\}[c_1]</annotation></semantics></math>,
-then the terms represented by c1 are all in c.</p>
+maps <span class="math inline">E \rightarrow E_2</span> and <span
+class="math inline">E_1 \rightarrow \{E\}</span>: - If <span
+class="math inline">c_2 = E \rightarrow E_2[c]</span>, then the terms
+represented by c are all in c2. - If <span class="math inline">c \in E_1
+\rightarrow \{E\}[c_1]</span>, then the terms represented by c1 are all
+in c.</p>
 <p><em>Representation soundness</em>: every enode added to G is
 constructed from an enode in G1, and we only add it if it’s also found
 in G2.</p>

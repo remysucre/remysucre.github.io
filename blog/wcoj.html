@@ -164,6 +164,24 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -178,21 +196,17 @@ relations), we want to know how large the query output can be. A really
 stupid bound just multiplies the size of each relation, because that is
 the size of their cartesian product. That is, given the query</p>
 <pre class="math"><code>Q(x,y,z) \leftarrow R(x,y), S(y,z), T(x,z).</code></pre>
-<p>we have the bound
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>Q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>×</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>S</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>×</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>T</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">|Q| \leq |R| \times |S| \times |T|</annotation></semantics></math>.</p>
-<p>If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>S</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>T</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">|R|=|S|=|T|=N</annotation></semantics></math>,
-then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>Q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><msup><mi>N</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">|Q| \leq N^3</annotation></semantics></math>.
-We can do better - at least we know
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>Q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>×</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>S</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><msup><mi>N</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">|Q| \leq |R| \times |S| = N^2</annotation></semantics></math>.
+<p>we have the bound <span class="math inline">|Q| \leq |R| \times |S|
+\times |T|</span>.</p>
+<p>If <span class="math inline">|R|=|S|=|T|=N</span>, then <span
+class="math inline">|Q| \leq N^3</span>. We can do better - at least we
+know <span class="math inline">|Q| \leq |R| \times |S| = N^2</span>.
 That is because Q contains fewer tuples than the query</p>
 <pre class="math"><code>Q’(x,y,z) \leftarrow R(x,y), S(y,z).</code></pre>
 <p>since Q further joins with T.</p>
-<p>The best possible theoretical bound is the AGM bound, which is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>N</mi><mrow><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><annotation encoding="application/x-tex">N^{3/2}</annotation></semantics></math>
-for Q. It’s computed from the fractional edge cover of the query
-hypergraph.</p>
+<p>The best possible theoretical bound is the AGM bound, which is <span
+class="math inline">N^{3/2}</span> for Q. It’s computed from the
+fractional edge cover of the query hypergraph.</p>
 <h2 id="query-hypergraph">Query Hypergraph</h2>
 <p>The hypergraph of a query is simply the hypergraph where the vertices
 are the variables and the edges are the relations.</p>
@@ -210,31 +224,29 @@ cover</em> assigns a weight to each edge from 0 to 1; the weight of a
 vertex is the sum of the edges it touches. In a fractional cover, every
 vertex must have weight at least 1. Every edge cover is a fractional
 cover, because we just assign 1 to every edge in the cover and 0 to
-edges not in the cover. For Q’s hypergraph,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>→</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>,</mo><mi>S</mi><mo>→</mo><mn>1</mn><mi>/</mi><mn>2</mn><mo>,</mo><mi>T</mi><mo>→</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">R \rightarrow 1/2, S \rightarrow 1/2, T \rightarrow 1/2</annotation></semantics></math>
-is also a fractional cover. The AGM bound is defined to be
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>min</mo><mrow><msub><mi>w</mi><mn>1</mn></msub><mo>,</mo><msub><mi>w</mi><mn>2</mn></msub><mo>,</mo><msub><mi>w</mi><mn>3</mn></msub></mrow></msub><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow><msub><mi>w</mi><mn>1</mn></msub></msup><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>S</mi><mo stretchy="true" form="postfix">|</mo></mrow><msub><mi>w</mi><mn>2</mn></msub></msup><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>T</mi><mo stretchy="true" form="postfix">|</mo></mrow><msub><mi>w</mi><mn>3</mn></msub></msup></mrow><annotation encoding="application/x-tex">\min_{w_1,w_2,w_3} |R|^{w_1}|S|^{w_2}|T|^{w_3}</annotation></semantics></math>
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>→</mo><msub><mi>w</mi><mn>1</mn></msub><mo>,</mo><mi>S</mi><mo>→</mo><msub><mi>w</mi><mn>2</mn></msub><mo>,</mo><mi>T</mi><mo>→</mo><msub><mi>w</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">R \rightarrow w_1, S \rightarrow w_2, T \rightarrow w_3</annotation></semantics></math>
-is a fractional cover. This is the upper bound of Q’s output size;
-i.e. in the worst case Q outputs this many tuples.</p>
+edges not in the cover. For Q’s hypergraph, <span class="math inline">R
+\rightarrow 1/2, S \rightarrow 1/2, T \rightarrow 1/2</span> is also a
+fractional cover. The AGM bound is defined to be <span
+class="math inline">\min_{w_1,w_2,w_3}
+|R|^{w_1}|S|^{w_2}|T|^{w_3}</span> where <span class="math inline">R
+\rightarrow w_1, S \rightarrow w_2, T \rightarrow w_3</span> is a
+fractional cover. This is the upper bound of Q’s output size; i.e. in
+the worst case Q outputs this many tuples.</p>
 <h2 id="generic-join">Generic Join</h2>
 <p>We would like an algorithm that runs in time linear to the worst case
 output size, and Generic Join is such an algorithm (with a log factor).
 It has one parameter: a global variable ordering. It is an ordering of
-the set of Q’s variables, say
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[x,y,z]</annotation></semantics></math>.
+the set of Q’s variables, say <span class="math inline">[x,y,z]</span>.
 Any ordering works (achieves the worst-case complexity) in theory, but
 different ordering performs very differently in practice. Given an
 ordering, we assume the input relations are stored in tries sorted by
-the ordering. That is, given the ordering
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[x,y,z]</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">R(x,y)</annotation></semantics></math>
-is sorted by x and then y, and the first-level trie nodes are the
-x’s.</p>
-<p>Even more concretely, if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>5</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">R=\{(3, 4), (2, 1), (2, 5)\}</annotation></semantics></math>,
-then its trie looks like this (each box is sorted):</p>
+the ordering. That is, given the ordering <span
+class="math inline">[x,y,z]</span>, <span
+class="math inline">R(x,y)</span> is sorted by x and then y, and the
+first-level trie nodes are the x’s.</p>
+<p>Even more concretely, if <span class="math inline">R=\{(3, 4), (2,
+1), (2, 5)\}</span>, then its trie looks like this (each box is
+sorted):</p>
 <figure>
 <img src="assets/wcoj/trie.png" alt="example trie" />
 <figcaption aria-hidden="true">example trie</figcaption>
@@ -254,19 +266,15 @@ for a in A do
      C= S(b,z).z ∩ T(z,a).z
      for c in C do
          output (a,b,c)</code></pre>
-<p>Note that selection,
-e.g. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">R(a, y)</annotation></semantics></math>
-is free / very fast because we have the tries.
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∩</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \cap B</annotation></semantics></math>
-can also be done in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>O</mi><mo accent="true">̃</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mo>min</mo><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>A</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>,</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>B</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\tilde{O}(\min(|A|, |B|))</annotation></semantics></math>
-time
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>O</mi><mo accent="true">̃</mo></mover><annotation encoding="application/x-tex">\tilde{O}</annotation></semantics></math>
-means O with a log factor). For general queries we may have to intersect
-more than 2 relations, in which case the intersection must be performed
-in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>O</mi><mo accent="true">̃</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mo>min</mo><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\tilde{O}(\min_i|A_i|)</annotation></semantics></math>
-time (using the merge in merge-sort).</p>
+<p>Note that selection, e.g. <span class="math inline">R(a, y)</span> is
+free / very fast because we have the tries. <span class="math inline">A
+\cap B</span> can also be done in <span
+class="math inline">\tilde{O}(\min(|A|, |B|))</span> time (<span
+class="math inline">\tilde{O}</span> means O with a log factor). For
+general queries we may have to intersect more than 2 relations, in which
+case the intersection must be performed in <span
+class="math inline">\tilde{O}(\min_i|A_i|)</span> time (using the merge
+in merge-sort).</p>
 <h2 id="when-to-use-generic-join">When to Use Generic Join</h2>
 <p>Use Generic Join when the query is cyclic - if the query is acyclic,
 the theoretical optimal algorithm is Yannakakis (equivalent to message

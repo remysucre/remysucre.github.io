@@ -164,6 +164,24 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -176,74 +194,51 @@ submodularity. Luckily I don’t have to memorize the bounds as each
 inequality has a very simple intuition. First, the “entropy range”
 simply bounds the value of any entropy function:</p>
 <pre class="math"><code>0 \leq H(X) \leq \log(|X|)</code></pre>
-<p>On one hand, the entropy is 0 if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-takes a certain value
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-with probabilty
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
-In that case, we know
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>’s
-value
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>)
-without communicating a single bit. On the other hand, we can always
-simply use full binary encoding with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>X</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log(|X|)</annotation></semantics></math>
-bits to encode
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>,
-ignoring the probability distribution.</p>
+<p>On one hand, the entropy is 0 if <span class="math inline">X</span>
+takes a certain value <span class="math inline">A</span> with probabilty
+<span class="math inline">1</span>. In that case, we know <span
+class="math inline">X</span>’s value (<span
+class="math inline">A</span>) without communicating a single bit. On the
+other hand, we can always simply use full binary encoding with <span
+class="math inline">\log(|X|)</span> bits to encode <span
+class="math inline">X</span>, ignoring the probability distribution.</p>
 <p><strong>Monotonicity</strong> says that the entropy of a string of
 random variables is no less than the entropy of any substring:</p>
 <pre class="math"><code>H(X) \leq H(XY)</code></pre>
-<p>Here
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mi>Y</mi></mrow><annotation encoding="application/x-tex">XY</annotation></semantics></math>
-simply “concatenates”
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>,
-in that a value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mi>Y</mi></mrow><annotation encoding="application/x-tex">XY</annotation></semantics></math>
-concatenates a value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-with a value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math>.
-The entropy
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">H(XY)</annotation></semantics></math>
-is the number of bits necessary to transmit a string in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mi>Y</mi></mrow><annotation encoding="application/x-tex">XY</annotation></semantics></math>.
-With this in mind, monotonicity simpy says that transmitting more
-information requires more bits.</p>
+<p>Here <span class="math inline">XY</span> simply “concatenates” <span
+class="math inline">X</span> and <span class="math inline">Y</span>, in
+that a value of <span class="math inline">XY</span> concatenates a value
+of <span class="math inline">X</span> with a value of <span
+class="math inline">Y</span>. The entropy <span
+class="math inline">H(XY)</span> is the number of bits necessary to
+transmit a string in <span class="math inline">XY</span>. With this in
+mind, monotonicity simpy says that transmitting more information
+requires more bits.</p>
 <p>Finally, our last inequality, submodularity, conveys the intuition of
 “diminishing returns”: 10 dollars matter less to a millionaire than to a
-PhD student. More concretely, suppose we have a function
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-from wealth to quality of life. Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
-is submodular because
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>+</mo><mi>δ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(x + \delta) - f(x)</annotation></semantics></math>
-gets smaller and smaller as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
-increases. In the context of information theory,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
-is submodular because adding additional information to a long message
-takes little effort. For example, suppose a submarine needs to send
-reports describing the fish it finds, and the description includes
-weight, length and species. Then if it says the fish is 80 feet long,
-you’ll know it’s a blue whale without looking at the species field. In
-general, we can save some bits by inferring facts from the correlation
-of data; if all variables are independent we can save nothing. With this
+PhD student. More concretely, suppose we have a function <span
+class="math inline">f</span> from wealth to quality of life. Then <span
+class="math inline">f</span> is submodular because <span
+class="math inline">f(x + \delta) - f(x)</span> gets smaller and smaller
+as <span class="math inline">x</span> increases. In the context of
+information theory, <span class="math inline">H</span> is submodular
+because adding additional information to a long message takes little
+effort. For example, suppose a submarine needs to send reports
+describing the fish it finds, and the description includes weight,
+length and species. Then if it says the fish is 80 feet long, you’ll
+know it’s a blue whale without looking at the species field. In general,
+we can save some bits by inferring facts from the correlation of data;
+if all variables are independent we can save nothing. With this
 intuition, let’s look at the formal statement of
 <strong>submodularity</strong>:</p>
 <pre class="math"><code>H(X) + H(Y) \geq H(X \cup Y) + H(X \cap Y)</code></pre>
-<p>Rearranging, we get
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∪</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∩</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">H(X \cup Y) - H(X) \leq H(Y) - H(X \cap Y)</annotation></semantics></math>.
-Note
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∪</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>X</mi><mo>=</mo><mi>Y</mi><mo>−</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∩</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">(X \cup Y) - X = Y - (X\cap Y)</annotation></semantics></math>,
-and if we define
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mi>Y</mi><mo>−</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∩</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\delta = Y - (X\cap Y)</annotation></semantics></math>,
-the inequality becomes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>+</mo><mi>δ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∩</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>δ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∩</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">H(X + \delta) - H(X) \leq H((X\cap Y) + \delta) - H(X\cap Y)</annotation></semantics></math>,
-which states precisly “the law of diminishing returns” because
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>≥</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∩</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">X \geq (X\cap Y)</annotation></semantics></math>!</p>
+<p>Rearranging, we get <span class="math inline">H(X \cup Y) - H(X) \leq
+H(Y) - H(X \cap Y)</span>. Note <span class="math inline">(X \cup Y) - X
+= Y - (X\cap Y)</span>, and if we define <span
+class="math inline">\delta = Y - (X\cap Y)</span>, the inequality
+becomes <span class="math inline">H(X + \delta) - H(X) \leq H((X\cap Y)
++ \delta) - H(X\cap Y)</span>, which states precisly “the law of
+diminishing returns” because <span class="math inline">X \geq (X\cap
+Y)</span>!</p>
 </body>
 </html>

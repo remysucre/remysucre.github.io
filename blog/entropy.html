@@ -164,6 +164,24 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -175,21 +193,16 @@ transmitted in order to communicate a piece of information. Concretely,
 this is the average number of bits needed to encode a message. For
 example, imagine a spaceship sends a status code every minute to
 indicate if it has found any alien civilization. The code is any letter
-from the English alphabet, with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+from the English alphabet, with <span class="math inline">A</span>
 meaning “nothing new”, and some other letter describing the alien. For
-example
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
-means the alien is friendly, and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-means the alien is blue, etc. For simplicity assume every code is only
-1-letter long. Then we can simply encode this status code with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>26</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log(26)</annotation></semantics></math>
-bits, where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mn>0</mn><mi>…</mi><mn>0</mn><mo>,</mo><mi>B</mi><mo>=</mo><mn>0</mn><mi>…</mi><mn>1</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">A = 0 \dots 0, B = 0\dots 1, \dots</annotation></semantics></math>.
-However, we can be a little clever because we know most of the time the
-spaceship won’t be finding new civilizations. In that case, the
-satellite can remain silent to indicate “nothing new”; otherwise it
+example <span class="math inline">F</span> means the alien is friendly,
+and <span class="math inline">B</span> means the alien is blue, etc. For
+simplicity assume every code is only 1-letter long. Then we can simply
+encode this status code with <span class="math inline">\log(26)</span>
+bits, where <span class="math inline">A = 0 \dots 0, B = 0\dots 1,
+\dots</span>. However, we can be a little clever because we know most of
+the time the spaceship won’t be finding new civilizations. In that case,
+the satellite can remain silent to indicate “nothing new”; otherwise it
 sends the status code with our original encoding <a href="#fn1"
 class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>.</p>
@@ -197,60 +210,42 @@ role="doc-noteref"><sup>1</sup></a>.</p>
 minute. In general, we can save some bits if we know certain messages
 occur with high/low probability. In other words, the minimum commucation
 cost depends on the probability distribution of the data. Entropy
-precisely formalizes this intuition. Formally, if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-is a random variable with outcomes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>x</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">x_1, \dots, x_N</annotation></semantics></math>
-each of probabilities
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>p</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">p_1, \dots, p_N</annotation></semantics></math>,
-then its <strong>entropy</strong> is defined as:</p>
+precisely formalizes this intuition. Formally, if <span
+class="math inline">X</span> is a random variable with outcomes <span
+class="math inline">x_1, \dots, x_N</span> each of probabilities <span
+class="math inline">p_1, \dots, p_N</span>, then its
+<strong>entropy</strong> is defined as:</p>
 <pre class="math"><code>H(X) = \sum_i p_i \log \frac{1}{p_i}</code></pre>
-<p>This matches our intuition: when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-is uniform and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>X</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">|X| = N</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>N</mi><mo>log</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>log</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">H(X)=N(1/N \log N)=\log N</annotation></semantics></math>;
-when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-is almost always a certain message, say
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
-then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>p</mi><mi>A</mi></msub><mo>log</mo><mfrac><mn>1</mn><msub><mi>p</mi><mi>A</mi></msub></mfrac><mo>+</mo><msub><mo>∑</mo><mrow><mi>i</mi><mo>≠</mo><mi>A</mi></mrow></msub><msub><mi>p</mi><mi>i</mi></msub><mo>log</mo><mfrac><mn>1</mn><msub><mi>p</mi><mi>i</mi></msub></mfrac><mo>=</mo><mn>0.99999</mn><mo>log</mo><mfrac><mn>1</mn><mn>0.99999</mn></mfrac><mo>+</mo><mi>δ</mi><mo>≈</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H(X)= p_A \log \frac{1}{p_A} + \sum_{i \not = A} p_i \log \frac{1}{p_i} = 0.99999 \log \frac{1}{0.99999} + \delta \approx 0</annotation></semantics></math>.
-For a more general case, suppose message
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-occurs half of the time,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-one quarter of the time,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
-one eighth and so on. Then we can use one bit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-to indiate that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-occurs; otherwise we first send one bit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
-to indicate it’s not
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
-then send one bit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-occurs and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
-otherwise, and so on. On average we need
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>A</mi></msub><mo>×</mo><mn>1</mn><mo>+</mo><msub><mi>p</mi><mi>B</mi></msub><mo>×</mo><mn>2</mn><mo>+</mo><mi>…</mi><mo>=</mo><msub><mi>p</mi><mi>A</mi></msub><mo>×</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><msub><mi>p</mi><mi>A</mi></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>p</mi><mi>B</mi></msub><mo>×</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><msub><mi>p</mi><mi>B</mi></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>…</mi><mo>=</mo><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">p_A \times 1 + p_B \times 2 + \dots = p_A \times \log(\frac{1}{p_A}) + p_B \times \log(\frac{1}{p_B}) + \dots = H(X)</annotation></semantics></math>
-bits.</p>
+<p>This matches our intuition: when <span class="math inline">X</span>
+is uniform and <span class="math inline">|X| = N</span>, <span
+class="math inline">H(X)=N(1/N \log N)=\log N</span>; when <span
+class="math inline">X</span> is almost always a certain message, say
+<span class="math inline">A</span>, then <span class="math inline">H(X)=
+p_A \log \frac{1}{p_A} + \sum_{i \not = A} p_i \log \frac{1}{p_i} =
+0.99999 \log \frac{1}{0.99999} + \delta \approx 0</span>. For a more
+general case, suppose message <span class="math inline">A</span> occurs
+half of the time, <span class="math inline">B</span> one quarter of the
+time, <span class="math inline">C</span> one eighth and so on. Then we
+can use one bit <span class="math inline">1</span> to indiate that <span
+class="math inline">A</span> occurs; otherwise we first send one bit
+<span class="math inline">0</span> to indicate it’s not <span
+class="math inline">A</span>, then send one bit <span
+class="math inline">1</span> if <span class="math inline">B</span>
+occurs and <span class="math inline">0</span> otherwise, and so on. On
+average we need <span class="math inline">p_A \times 1 + p_B \times 2 +
+\dots = p_A \times \log(\frac{1}{p_A}) + p_B \times \log(\frac{1}{p_B})
++ \dots = H(X)</span> bits.</p>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1"><p>This works fine because we assume the spaceship is not
-dead. Otherwise we can have the spacehip send a single bit
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
-every minute to signal it’s alive; when it finds an alien, we could also
-prefix the status code with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>
-so that the message doesn’t get mangled with the alive-bits.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+dead. Otherwise we can have the spacehip send a single bit <span
+class="math inline">0</span> every minute to signal it’s alive; when it
+finds an alien, we could also prefix the status code with <span
+class="math inline">1</span> so that the message doesn’t get mangled
+with the alive-bits.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
 </body>

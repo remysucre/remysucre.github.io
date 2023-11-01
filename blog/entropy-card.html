@@ -164,6 +164,24 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -193,68 +211,45 @@ precise later, carries information about the relation. Inequalities over
 entropic functions have also been studied for decades, so we can
 leverage the results to derive bounds for database queries.</p>
 <p>We begin by reviewing several basic definitions in information
-theory. First, the <em>entropy</em>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h(X)</annotation></semantics></math>
-of a finite random variable
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-is defined as follows:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mover><mo>=</mo><mtext mathvariant="normal">def</mtext></mover><mo>−</mo><munder><mo>∑</mo><mi>i</mi></munder><msub><mi>p</mi><mi>i</mi></msub><mo>log</mo><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">
+theory. First, the <em>entropy</em> <span
+class="math inline">h(X)</span> of a finite random variable <span
+class="math inline">X</span> is defined as follows:</p>
+<p><span class="math display">
 h(X) \stackrel{\text{def}}{=} -\sum_i p_i \log p_i
-</annotation></semantics></math></p>
-<p>where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>i</mi></msub><annotation encoding="application/x-tex">p_i</annotation></semantics></math>
-is the probability of the outcome
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>i</mi></msub><annotation encoding="application/x-tex">X_i</annotation></semantics></math>,
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>log</mo><annotation encoding="application/x-tex">\log</annotation></semantics></math>
-has base 2. Intuitively, the entropy measures the <em>randomness</em> of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>:
-if
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-is deterministic, then:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">when </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mo>=</mo><mi>c</mi></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">when </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mo>≠</mo><mi>c</mi></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
+</span></p>
+<p>where <span class="math inline">p_i</span> is the probability of the
+outcome <span class="math inline">X_i</span>, and <span
+class="math inline">\log</span> has base 2. Intuitively, the entropy
+measures the <em>randomness</em> of <span class="math inline">X</span>:
+if <span class="math inline">X</span> is deterministic, then:</p>
+<p><span class="math display">
 p_i = \begin{cases}
 1 &amp; \text{when } i = c \\
 0 &amp; \text{when } i \neq c
 \end{cases}
-</annotation></semantics></math></p>
-<p>for some constant
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>.
-Therefore
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>−</mo><mn>1</mn><mo>log</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h(X)= - 1 \log 1 = 0</annotation></semantics></math>.
-If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
-is uniform (as random as it gets), then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>−</mo><mi>m</mi><mo>×</mo><mfrac><mn>1</mn><mi>m</mi></mfrac><mo>×</mo><mo>log</mo><mfrac><mn>1</mn><mi>m</mi></mfrac><mo>=</mo><mo>log</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">h(X) = - m \times \frac{1}{m} \times \log \frac{1}{m} = \log m</annotation></semantics></math>,
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-is the size of the support for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>.</p>
-<p>When
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐗</mi><annotation encoding="application/x-tex">\mathbf{X}</annotation></semantics></math>
-is a set of variables,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐗</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h(\mathbf{X})</annotation></semantics></math>
-denotes the entropy over the joint distribution over the set. We write
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐗</mi><mi>𝐘</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h(\mathbf{X}\mathbf{Y})</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐗</mi><mo>∪</mo><mi>𝐘</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h(\mathbf{X}\cup \mathbf{Y})</annotation></semantics></math>,
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h(XY)</annotation></semantics></math>
-for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">{</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h(\{X, Y\})</annotation></semantics></math>.
-For a set of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-random variables
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐗</mi><annotation encoding="application/x-tex">\mathbf{X}</annotation></semantics></math>,
-we define the <em>entropic vector</em> as a function from any subset of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐗</mi><annotation encoding="application/x-tex">\mathbf{X}</annotation></semantics></math>
-to the entropy of their joint distribution:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐗</mi><mi>S</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>S</mi><mo>⊆</mo><mrow><mo stretchy="true" form="prefix">[</mo><mi>n</mi><mo stretchy="true" form="postfix">]</mo></mrow></mrow></msub><mo>∈</mo><msubsup><mi>ℝ</mi><mo>+</mo><msup><mn>2</mn><mi>n</mi></msup></msubsup></mrow><annotation encoding="application/x-tex">
+</span></p>
+<p>for some constant <span class="math inline">c</span>. Therefore <span
+class="math inline">h(X)= - 1 \log 1 = 0</span>. If <span
+class="math inline">X</span> is uniform (as random as it gets), then
+<span class="math inline">h(X) = - m \times \frac{1}{m} \times \log
+\frac{1}{m} = \log m</span>, where <span class="math inline">n</span> is
+the size of the support for <span class="math inline">X</span>.</p>
+<p>When <span class="math inline">\mathbf{X}</span> is a set of
+variables, <span class="math inline">h(\mathbf{X})</span> denotes the
+entropy over the joint distribution over the set. We write <span
+class="math inline">h(\mathbf{X}\mathbf{Y})</span> for <span
+class="math inline">h(\mathbf{X}\cup \mathbf{Y})</span>, and <span
+class="math inline">h(XY)</span> for <span class="math inline">h(\{X,
+Y\})</span>. For a set of <span class="math inline">n</span> random
+variables <span class="math inline">\mathbf{X}</span>, we define the
+<em>entropic vector</em> as a function from any subset of <span
+class="math inline">\mathbf{X}</span> to the entropy of their joint
+distribution:</p>
+<p><span class="math display">
 (h(\mathbf{X}_S))_{S \subseteq [n]} \in \mathbb{R}^{2^n}_+
-</annotation></semantics></math></p>
-<p>As an example, let’s consider the distribution over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>,</mo><mi>Y</mi><mo>,</mo><mi>Z</mi></mrow><annotation encoding="application/x-tex">X,Y,Z</annotation></semantics></math>
-as shown in the table below:</p>
+</span></p>
+<p>As an example, let’s consider the distribution over <span
+class="math inline">X,Y,Z</span> as shown in the table below:</p>
 <table>
 <thead>
 <tr class="header">
@@ -291,89 +286,78 @@ as shown in the table below:</p>
 </tr>
 </tbody>
 </table>
-<p>The entropic vector
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
-then has values as shown in the Hasse diagram below:</p>
+<p>The entropic vector <span class="math inline">h</span> then has
+values as shown in the Hasse diagram below:</p>
 <p><img title="" src="ipe.svg" alt="ipe.svg" width="468"></p>
 <p>We next define the <em>conditional entropy</em> as an analog to the
 conditional distribution:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐕</mi><mo>∣</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow><mover><mo>=</mo><mtext mathvariant="normal">def</mtext></mover><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mi>𝐕</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
-h(\mathbf{V}\mid \mathbf{U}) \stackrel{\text{def}}{=} h(\mathbf{UV}) - h(\mathbf{U})
-</annotation></semantics></math></p>
+<p><span class="math display">
+h(\mathbf{V}\mid \mathbf{U}) \stackrel{\text{def}}{=} h(\mathbf{UV}) -
+h(\mathbf{U})
+</span></p>
 <p>Importantly, <em>the conditional entropy is not an entropic
 vector</em>! In other words, there may not always be a distribution
 whose entropies corresponds to a given conditional entropy. Instead, the
 conditional entropy can be equivalently defined as the expectation of
-the entropy of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐕</mi><annotation encoding="application/x-tex">\mathbf{V}</annotation></semantics></math>
-given
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐔</mi><annotation encoding="application/x-tex">\mathbf{U}</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mo>𝔼</mo><mi>𝐮</mi></msub><mrow><mo stretchy="true" form="prefix">[</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐕</mi><mo>∣</mo><mi>𝐔</mi><mo>=</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
-h(\mathbf{V\mid U}) = \mathop{{}\mathbb{E}}_\mathbf{u}[h(\mathbf{V}\mid \mathbf{U}=\mathbf{u})]
-</annotation></semantics></math></p>
+the entropy of <span class="math inline">\mathbf{V}</span> given <span
+class="math inline">\mathbf{U}</span>:</p>
+<p><span class="math display">
+h(\mathbf{V\mid U}) = \mathop{{}\mathbb{E}}_\mathbf{u}[h(\mathbf{V}\mid
+\mathbf{U}=\mathbf{u})]
+</span></p>
 <p>The reader can verify this is indeed equivalent to the definition on
 our example above.</p>
 <p>One final bit of notation we need is the <em>conditional mutual
 information</em>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>h</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐕</mi><mo>;</mo><mi>𝐖</mi><mo>∣</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow><mover><mo>=</mo><mtext mathvariant="normal">def</mtext></mover><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mi>𝐕</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mi>𝐖</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mi>𝐕</mi><mi>𝐖</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
-I_h(\mathbf{V};\mathbf{W}\mid\mathbf{U}) \stackrel{\text{def}}{=} h(\mathbf{UV}) + h(\mathbf{UW}) - h(\mathbf{UVW}) - h(\mathbf{U})
-</annotation></semantics></math></p>
-<p>The key property is that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐕</mi><annotation encoding="application/x-tex">\mathbf{V}</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐖</mi><annotation encoding="application/x-tex">\mathbf{W}</annotation></semantics></math>
-are independent given
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐔</mi><annotation encoding="application/x-tex">\mathbf{U}</annotation></semantics></math>
-iff
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>h</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐕</mi><mo>;</mo><mi>𝐖</mi><mo>∣</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I_h(\mathbf{V};\mathbf{W}\mid\mathbf{U})=0</annotation></semantics></math>.
+<p><span class="math display">
+I_h(\mathbf{V};\mathbf{W}\mid\mathbf{U}) \stackrel{\text{def}}{=}
+h(\mathbf{UV}) + h(\mathbf{UW}) - h(\mathbf{UVW}) - h(\mathbf{U})
+</span></p>
+<p>The key property is that <span class="math inline">\mathbf{V}</span>
+and <span class="math inline">\mathbf{W}</span> are independent given
+<span class="math inline">\mathbf{U}</span> iff <span
+class="math inline">I_h(\mathbf{V};\mathbf{W}\mid\mathbf{U})=0</span>.
 Rearranging in terms of conditional entropies can perhaps make the
 definition more intuitive:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>I</mi><mi>h</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">;</mo><mi>𝐖</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mi>𝐕</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mi>𝐕</mi><mi>𝐖</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mi>𝐖</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi><mi>𝐖</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><span class="math display">
 \begin{align*}
-I_h(\mathbf{V;W \mid U}) 
-&amp; = (h(\mathbf{UV}) - h(\mathbf{U})) - (h(\mathbf{UVW}) - h(\mathbf{UW})) \\
+I_h(\mathbf{V;W \mid U})
+&amp; = (h(\mathbf{UV}) - h(\mathbf{U})) - (h(\mathbf{UVW}) -
+h(\mathbf{UW})) \\
 &amp; = h(\mathbf{V\mid U}) - h(\mathbf{V\mid UW})
 \end{align*}
-</annotation></semantics></math></p>
-<p>Here we see that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>h</mi></msub><annotation encoding="application/x-tex">I_h</annotation></semantics></math>
-measures how much less random
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐕</mi><annotation encoding="application/x-tex">\mathbf{V}</annotation></semantics></math>
-becomes once we know
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐖</mi><annotation encoding="application/x-tex">\mathbf{W}</annotation></semantics></math>,
-if we already knew
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐔</mi><annotation encoding="application/x-tex">\mathbf{U}</annotation></semantics></math>.
-Or, how much more information we gain about
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐕</mi><annotation encoding="application/x-tex">\mathbf{V}</annotation></semantics></math>
-after conditioning on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐖</mi><annotation encoding="application/x-tex">\mathbf{W}</annotation></semantics></math>.
-Note that the definition is symmetric:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>h</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">;</mo><mi>𝐖</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>I</mi><mi>h</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐖</mi><mo mathvariant="bold">;</mo><mi>𝐕</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">I_h(\mathbf{V;W\mid U}) = I_h(\mathbf{W;V\mid U})</annotation></semantics></math>.</p>
+</span></p>
+<p>Here we see that <span class="math inline">I_h</span> measures how
+much less random <span class="math inline">\mathbf{V}</span> becomes
+once we know <span class="math inline">\mathbf{W}</span>, if we already
+knew <span class="math inline">\mathbf{U}</span>. Or, how much more
+information we gain about <span class="math inline">\mathbf{V}</span>
+after conditioning on <span class="math inline">\mathbf{W}</span>. Note
+that the definition is symmetric: <span
+class="math inline">I_h(\mathbf{V;W\mid U}) = I_h(\mathbf{W;V\mid
+U})</span>.</p>
 <p>From these definitions, the three fundamental entropic inequalities,
 called <em>Shannon inequalities</em>, fall out very naturally:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mo>≤</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">|</mo><mtext mathvariant="normal">supp</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">|</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mo>≤</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mo mathvariant="bold">∣</mo><mi>𝐕</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mo>≤</mo><msub><mi>I</mi><mi>h</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">;</mo><mi>𝐖</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><span class="math display">
 \begin{align}
 0 &amp; \leq h(\mathbf{U}) \leq \log |\text{supp}(\mathbf{U})| \\
 0 &amp; \leq h(\mathbf{U \mid V}) \\
 0 &amp; \leq I_h(\mathbf{V;W\mid U})
 \end{align}
-</annotation></semantics></math></p>
-<p>where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">|</mo><mtext mathvariant="normal">supp</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">|</mo></mrow><annotation encoding="application/x-tex">|\text{supp}(\mathbf{U})|</annotation></semantics></math>
-is the size of the support of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐔</mi><annotation encoding="application/x-tex">\mathbf{U}</annotation></semantics></math>,
+</span></p>
+<p>where <span class="math inline">|\text{supp}(\mathbf{U})|</span> is
+the size of the support of <span class="math inline">\mathbf{U}</span>,
 i.e. number of possible outcomes. The second inequality is called
-<em>monotonicity</em>, because it is equivalent to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐕</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mi>𝐕</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h(\mathbf{V}) \leq h(\mathbf{UV})</annotation></semantics></math>,
-which says the distribution over more variables becomes more random. The
-last inequality is called <em>submodularity</em> (a.k.a. “law of
-diminishing returns”). If we replace
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐕</mi><annotation encoding="application/x-tex">\mathbf{V}</annotation></semantics></math>
-with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>,
-we can rewrite the inequality as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mo mathvariant="bold">∪</mo><mi>𝐖</mi></mrow><mo>∪</mo><mi>δ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐔</mi><mo mathvariant="bold">∪</mo><mi>𝐖</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐔</mi><mo>∪</mo><mi>δ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐔</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h(\mathbf{U\cup W} \cup \delta) - h(\mathbf{U\cup W}) \leq h(\mathbf{U}\cup\delta) - h(\mathbf{U})</annotation></semantics></math>
-which is exactly the law of diminishing returns.</p>
+<em>monotonicity</em>, because it is equivalent to <span
+class="math inline">h(\mathbf{V}) \leq h(\mathbf{UV})</span>, which says
+the distribution over more variables becomes more random. The last
+inequality is called <em>submodularity</em> (a.k.a. “law of diminishing
+returns”). If we replace <span class="math inline">\mathbf{V}</span>
+with <span class="math inline">\delta</span>, we can rewrite the
+inequality as <span class="math inline">h(\mathbf{U\cup W} \cup \delta)
+- h(\mathbf{U\cup W}) \leq h(\mathbf{U}\cup\delta) -
+h(\mathbf{U})</span> which is exactly the law of diminishing
+returns.</p>
 <p>OK, enough about entropies! How can we use them for databases? The
 key idea is to see a relation as a distribution over its tuples. Our
 example before (copied here) assigns the same probability to every tuple
@@ -416,119 +400,92 @@ tuples.</p>
 </tbody>
 </table>
 <p>Then, we can use the first Shannon inequality to connect the entropy
-of a relation to its size, because the relation
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo>,</mo><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">R(X, Y, Z)</annotation></semantics></math>
-is exactly the support
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">supp</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text{supp}(XYZ)</annotation></semantics></math>,
-so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">h(XYZ) \leq \log |R|</annotation></semantics></math>.
-Similarly, we can connect the conditional entropy to <em>degree
-constraints</em>. For two sets of attributes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐔</mi><mo mathvariant="bold">,</mo><mi>𝐕</mi></mrow><annotation encoding="application/x-tex">\mathbf{U, V}</annotation></semantics></math>
-and values
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐮</mi><annotation encoding="application/x-tex">\mathbf{u}</annotation></semantics></math>,
-define the <em>degree</em> of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐕</mi><annotation encoding="application/x-tex">\mathbf{V}</annotation></semantics></math>
-given
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐔</mi><mo mathvariant="bold">=</mo><mi>𝐮</mi></mrow><annotation encoding="application/x-tex">\mathbf{U = u}</annotation></semantics></math>,
-written
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi><mo mathvariant="bold">=</mo><mi>𝐮</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text{deg}(\mathbf{V \mid U=u})</annotation></semantics></math>,
-as the number of tuples with distinct
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐕</mi><annotation encoding="application/x-tex">\mathbf{V}</annotation></semantics></math>
-values given
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐔</mi><mo mathvariant="bold">=</mo><mi>𝐮</mi></mrow><annotation encoding="application/x-tex">\mathbf{U=u}</annotation></semantics></math>.
-For example,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mo>∣</mo><mi>Z</mi><mo>=</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\text{deg}(XY\mid Z=0)=2</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∣</mo><mi>Y</mi><mi>Z</mi><mo>=</mo><mn>01</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\text{deg}(X\mid YZ=01)=1</annotation></semantics></math>,
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mi>Z</mi><mo>∣</mo><mi>∅</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">\text{deg}(XYZ\mid \emptyset) = |R| = 4</annotation></semantics></math>.
-The max degree of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐕</mi><annotation encoding="application/x-tex">\mathbf{V}</annotation></semantics></math>
-given
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐔</mi><annotation encoding="application/x-tex">\mathbf{U}</annotation></semantics></math>,
-written
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>max</mo><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\max \text{deg}(\mathbf{V \mid U})</annotation></semantics></math>,
-is the maximum of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi><mo mathvariant="bold">=</mo><mi>𝐮</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text{deg}(\mathbf{V \mid U = u})</annotation></semantics></math>
-over all
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐮</mi><mo mathvariant="bold">∈</mo><mi>𝐔</mi></mrow><annotation encoding="application/x-tex">\mathbf{u \in U}</annotation></semantics></math>.
+of a relation to its size, because the relation <span
+class="math inline">R(X, Y, Z)</span> is exactly the support <span
+class="math inline">\text{supp}(XYZ)</span>, so <span
+class="math inline">h(XYZ) \leq \log |R|</span>. Similarly, we can
+connect the conditional entropy to <em>degree constraints</em>. For two
+sets of attributes <span class="math inline">\mathbf{U, V}</span> and
+values <span class="math inline">\mathbf{u}</span>, define the
+<em>degree</em> of <span class="math inline">\mathbf{V}</span> given
+<span class="math inline">\mathbf{U = u}</span>, written <span
+class="math inline">\text{deg}(\mathbf{V \mid U=u})</span>, as the
+number of tuples with distinct <span
+class="math inline">\mathbf{V}</span> values given <span
+class="math inline">\mathbf{U=u}</span>. For example, <span
+class="math inline">\text{deg}(XY\mid Z=0)=2</span>, <span
+class="math inline">\text{deg}(X\mid YZ=01)=1</span>, and <span
+class="math inline">\text{deg}(XYZ\mid \emptyset) = |R| = 4</span>. The
+max degree of <span class="math inline">\mathbf{V}</span> given <span
+class="math inline">\mathbf{U}</span>, written <span
+class="math inline">\max \text{deg}(\mathbf{V \mid U})</span>, is the
+maximum of <span class="math inline">\text{deg}(\mathbf{V \mid U =
+u})</span> over all <span class="math inline">\mathbf{u \in U}</span>.
 Then we have:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mo>𝔼</mo><mi>𝐮</mi></msub><mrow><mo stretchy="true" form="prefix">[</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐕</mi><mo>∣</mo><mi>𝐔</mi><mo>=</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>≤</mo><munder><mo>max</mo><mi>𝐮</mi></munder><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐕</mi><mo>∣</mo><mi>𝐔</mi><mo>=</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>≤</mo><munder><mo>max</mo><mi>𝐮</mi></munder><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐕</mi><mo>∣</mo><mrow><mi>𝐔</mi><mo mathvariant="bold">=</mo><mi>𝐮</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mo>max</mo><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐕</mi><mo mathvariant="bold">∣</mo><mi>𝐔</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><span class="math display">
 \begin{align*}
-h(\mathbf{V \mid U}) &amp; = \mathop{{}\mathbb{E}}_\mathbf{u}[h(\mathbf{V}\mid \mathbf{U}=\mathbf{u})] \\
+h(\mathbf{V \mid U}) &amp; =
+\mathop{{}\mathbb{E}}_\mathbf{u}[h(\mathbf{V}\mid
+\mathbf{U}=\mathbf{u})] \\
 &amp; \leq \max_\mathbf{u} h(\mathbf{V}\mid \mathbf{U}=\mathbf{u}) \\
-&amp; \leq \max_\mathbf{u} \log (\text{deg}(\mathbf{V} \mid \mathbf{U=u})) \\
+&amp; \leq \max_\mathbf{u} \log (\text{deg}(\mathbf{V} \mid
+\mathbf{U=u})) \\
 &amp; = \log (\max \text{deg}(\mathbf{V\mid U}))
 \end{align*}
-</annotation></semantics></math></p>
+</span></p>
 <p>With this, we can translate bounds on the size of relations and
 degree constraints into bounds on entropies. Note that degree
 constraints generalize functional dependencies (FDs). For example an FD
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>→</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">X \rightarrow Y</annotation></semantics></math>
-can be expressed as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∣</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\text{deg}(X\mid Y) \leq 1</annotation></semantics></math>.
-This means we can take advantage of functional dependencies
-(e.g. primary keys) when deriving bounds on query output size. Let’s try
-it!</p>
+<span class="math inline">X \rightarrow Y</span> can be expressed as
+<span class="math inline">\text{deg}(X\mid Y) \leq 1</span>. This means
+we can take advantage of functional dependencies (e.g. primary keys)
+when deriving bounds on query output size. Let’s try it!</p>
 <p>Consider the following query:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo>,</mo><mi>Z</mi><mo>,</mo><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∧</mo><mi>S</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mo>,</mo><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∧</mo><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Z</mi><mo>,</mo><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∧</mo><mi>A</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Z</mi><mo>,</mo><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∧</mo><mi>B</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo>,</mo><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
-Q(X, Y, Z, U) = R(X, Y) \wedge S(Y, Z) \wedge T(Z, U) \wedge A(X, Z, U) \wedge B(X, Y, U)
-</annotation></semantics></math></p>
-<p>And suppose we know
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>S</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>T</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">|R| = |S| = |T| = N</annotation></semantics></math>,
-but we don’t how large
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-can be. Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
-can be as large as the cartesian product of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>,
-so
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>Q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><msup><mi>N</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">|Q| \leq N^2</annotation></semantics></math>.
-But suppose we also know the FDs
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mi>Z</mi><mo>→</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">XZ \rightarrow U</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mi>U</mi><mo>→</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">YU \rightarrow X</annotation></semantics></math>
-hold, we can use the Shannon inequalities to derive a tighter bound.
-First, consider a uniform distribution over the <em>output</em> of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
-Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>π</mi><mrow><mi>X</mi><mi>Y</mi></mrow></msub><mi>Q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">h(XY) \leq \log |\pi_{XY}Q|\leq \log |R|</annotation></semantics></math>
-because the projection of the output on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mi>Y</mi></mrow><annotation encoding="application/x-tex">XY</annotation></semantics></math>
-must be in the input
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">R(X, Y)</annotation></semantics></math>,
-and similarly for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mo>,</mo><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(Y, Z)</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Z</mi><mo>,</mo><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">T(Z, U)</annotation></semantics></math>.
-By the same reasoning,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>∣</mo><mi>X</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mo>log</mo><mo>max</mo><msub><mtext mathvariant="normal">deg</mtext><mi>Q</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>∣</mo><mi>X</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mo>log</mo><mo>max</mo><msub><mtext mathvariant="normal">deg</mtext><mi>A</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>∣</mo><mi>X</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h(U\mid XZ) \leq \log \max \text{deg}_Q(U \mid XZ) \leq \log \max \text{deg}_A (U \mid XZ)</annotation></semantics></math>,
-because the degree of any (sets of) attribute(s) in the output is
-bounded by the degree in the input. We can now derive:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>log</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>+</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>S</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>+</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>T</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>+</mo><mo>log</mo><mo>max</mo><msub><mtext mathvariant="normal">deg</mtext><mi>A</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>∣</mo><mi>X</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mo>log</mo><mo>max</mo><msub><mtext mathvariant="normal">deg</mtext><mi>B</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∣</mo><mi>Y</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mo>≥</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Z</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>∣</mo><mi>X</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∣</mo><mi>Y</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mo>≥</mo></mtd><mtd columnalign="left" style="text-align: left"><munder><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mo accent="true">_</mo></munder><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Z</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>∣</mo><mi>X</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∣</mo><mi>Y</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mo>≥</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><munder><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mi>Z</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mo accent="true">_</mo></munder><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>∣</mo><mi>X</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∣</mo><mi>Y</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mo>≥</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mi>Z</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><munder><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>∣</mo><mi>X</mi><mi>Y</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∣</mo><mi>Y</mi><mi>Z</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mo accent="true">_</mo></munder></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><mn>2</mn><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mi>Y</mi><mi>Z</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>2</mn><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>Q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><span class="math display">
+Q(X, Y, Z, U) = R(X, Y) \wedge S(Y, Z) \wedge T(Z, U) \wedge A(X, Z, U)
+\wedge B(X, Y, U)
+</span></p>
+<p>And suppose we know <span class="math inline">|R| = |S| = |T| =
+N</span>, but we don’t how large <span class="math inline">A</span> and
+<span class="math inline">B</span> can be. Then <span
+class="math inline">Q</span> can be as large as the cartesian product of
+<span class="math inline">R</span> and <span
+class="math inline">T</span>, so <span class="math inline">|Q| \leq
+N^2</span>. But suppose we also know the FDs <span
+class="math inline">XZ \rightarrow U</span> and <span
+class="math inline">YU \rightarrow X</span> hold, we can use the Shannon
+inequalities to derive a tighter bound. First, consider a uniform
+distribution over the <em>output</em> of <span
+class="math inline">Q</span>. Then <span class="math inline">h(XY) \leq
+\log |\pi_{XY}Q|\leq \log |R|</span> because the projection of the
+output on <span class="math inline">XY</span> must be in the input <span
+class="math inline">R(X, Y)</span>, and similarly for <span
+class="math inline">S(Y, Z)</span> and <span class="math inline">T(Z,
+U)</span>. By the same reasoning, <span class="math inline">h(U\mid XZ)
+\leq \log \max \text{deg}_Q(U \mid XZ) \leq \log \max \text{deg}_A (U
+\mid XZ)</span>, because the degree of any (sets of) attribute(s) in the
+output is bounded by the degree in the input. We can now derive:</p>
+<p><span class="math display">
 \begin{align*}
-&amp; \log |R| + \log |S| + \log |T| + \log \max \text{deg}_A (U \mid XZ) + \log \max \text{deg}_B (X \mid YU) \\
+&amp; \log |R| + \log |S| + \log |T| + \log \max \text{deg}_A (U \mid
+XZ) + \log \max \text{deg}_B (X \mid YU) \\
 \geq &amp; h(XY) + h(YZ) + h(ZU) + h(U\mid XZ) + h(X \mid YU) \\
-\geq &amp; \underline{h(XYZ) + h(Y)} + h(ZU) + h(U\mid XZ) + h(X \mid YU) \\
+\geq &amp; \underline{h(XYZ) + h(Y)} + h(ZU) + h(U\mid XZ) + h(X \mid
+YU) \\
 \geq &amp; h(XYZ) + \underline{h(YZU)} + h(U\mid XZ) + h(X \mid YU) \\
 \geq &amp; h(XYZ) + h(YZU) + \underline{h(U\mid XYZ) + h(X \mid YZU)} \\
 = &amp; 2h(XYZU) = 2 \log(|Q|)
 \end{align*}
-</annotation></semantics></math></p>
+</span></p>
 <p>All inequalities after the first one follow from submodularity, and
 the second-to-last equality follows from the definition of conditional
-entropy. Removing the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>log</mo><annotation encoding="application/x-tex">\log</annotation></semantics></math>
-by exponentiation on both sides, we get:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>Q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><msqrt><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>R</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>S</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>T</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>⋅</mo><mo>max</mo><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>U</mi><mo>∣</mo><mi>X</mi><mi>Z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mo>max</mo><mtext mathvariant="normal">deg</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>∣</mo><mi>Y</mi><mi>U</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msqrt><mo>=</mo><msup><mi>N</mi><mfrac><mn>3</mn><mn>2</mn></mfrac></msup></mrow><annotation encoding="application/x-tex">
-|Q| \leq \sqrt{|R|\cdot |S| \cdot |T| \cdot \max \text{deg}(U \mid XZ) \cdot \max \text{deg}(X\mid YU)} = N^{\frac{3}{2}} 
-</annotation></semantics></math></p>
-<p>And it’s tighter than the naïve
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>N</mi><mn>2</mn></msup><annotation encoding="application/x-tex">N^2</annotation></semantics></math>
+entropy. Removing the <span class="math inline">\log</span> by
+exponentiation on both sides, we get:</p>
+<p><span class="math display">
+|Q| \leq \sqrt{|R|\cdot |S| \cdot |T| \cdot \max \text{deg}(U \mid XZ)
+\cdot \max \text{deg}(X\mid YU)} = N^{\frac{3}{2}}
+</span></p>
+<p>And it’s tighter than the naïve <span class="math inline">N^2</span>
 bound!</p>
 <p>Of course, to use these entropic bounds in a database system, we
 can’t ask a database theorist to find a proof every time we want to run
