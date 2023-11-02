@@ -208,8 +208,8 @@ in a line of work including <a
 href="https://arxiv.org/abs/1711.03860">AGM13</a>, <a
 href="https://theory.stanford.edu/~valiant/papers/GLV_pods.pdf">GLVV12</a>,
 <a href="https://arxiv.org/pdf/1111.1109.pdf">GM14</a>, <a
-href="https://arxiv.org/abs/1604.00111">KNS16</a>, <a
-href="https://arxiv.org/abs/1612.02503">KNS17</a>. See <a
+href="https://arxiv.org/abs/1604.00111">ANS16</a>, <a
+href="https://arxiv.org/abs/1612.02503">ANS17</a>. See <a
 href="https://arxiv.org/abs/2304.11996">Suc23</a> for a wonderful survey
 of the literature.</p>
 <p>The intuition behind using information theory to estimate join output
@@ -446,7 +446,7 @@ h(\mathbf{V \mid U}) &amp; =
 degree constraints into bounds on entropies. Note that degree
 constraints generalize functional dependencies (FDs). For example an FD
 <span class="math inline">X \rightarrow Y</span> can be expressed as
-<span class="math inline">\text{deg}(X\mid Y) \leq 1</span>. This means
+<span class="math inline">\text{deg}(Y\mid X) \leq 1</span>. This means
 we can take advantage of functional dependencies (e.g. primary keys)
 when deriving bounds on query output size. Let’s try it!</p>
 <p>Consider the following query:</p>

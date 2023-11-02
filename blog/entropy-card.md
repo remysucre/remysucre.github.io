@@ -11,7 +11,7 @@ header-includes: |
 
 # The Entropic Framework for Cardinality Bounds
 
-One of the most exciting developments in database theory in recent years is the entropic framework for cardinality bounds, which emerges from deep connections between database theory and information theory. In this blog post, I explain the fundamental concepts and key steps for estimating join size via information inequalities. This post is based on a lecture by Dan Suciu during the Simons Institute program [Logic and Algorithms in Database Theory and AI](https://simons.berkeley.edu/programs/logic-algorithms-database-theory-ai). The technique is developed in a line of work including [AGM13](https://arxiv.org/abs/1711.03860), [GLVV12](https://theory.stanford.edu/~valiant/papers/GLV_pods.pdf), [GM14](https://arxiv.org/pdf/1111.1109.pdf), [KNS16](https://arxiv.org/abs/1604.00111), [KNS17](https://arxiv.org/abs/1612.02503). See [Suc23](https://arxiv.org/abs/2304.11996) for a wonderful survey of the literature. 
+One of the most exciting developments in database theory in recent years is the entropic framework for cardinality bounds, which emerges from deep connections between database theory and information theory. In this blog post, I explain the fundamental concepts and key steps for estimating join size via information inequalities. This post is based on a lecture by Dan Suciu during the Simons Institute program [Logic and Algorithms in Database Theory and AI](https://simons.berkeley.edu/programs/logic-algorithms-database-theory-ai). The technique is developed in a line of work including [AGM13](https://arxiv.org/abs/1711.03860), [GLVV12](https://theory.stanford.edu/~valiant/papers/GLV_pods.pdf), [GM14](https://arxiv.org/pdf/1111.1109.pdf), [ANS16](https://arxiv.org/abs/1604.00111), [ANS17](https://arxiv.org/abs/1612.02503). See [Suc23](https://arxiv.org/abs/2304.11996) for a wonderful survey of the literature. 
 
 The intuition behind using information theory to estimate join output size is that the *entropy of a relation*, a notion to be made precise later, carries information about the relation. Inequalities over entropic functions have also been studied for decades, so we can leverage the results to derive bounds for database queries. 
 
@@ -117,7 +117,7 @@ h(\mathbf{V \mid U}) & = \mathop{{}\mathbb{E}}_\mathbf{u}[h(\mathbf{V}\mid \math
 \end{align*}
 $$
 
-With this, we can translate bounds on the size of relations and degree constraints into bounds on entropies. Note that degree constraints generalize functional dependencies (FDs). For example an FD $X \rightarrow Y$ can be expressed as $\text{deg}(X\mid Y) \leq 1$. This means we can take advantage of functional dependencies (e.g. primary keys) when deriving bounds on query output size. Let's try it! 
+With this, we can translate bounds on the size of relations and degree constraints into bounds on entropies. Note that degree constraints generalize functional dependencies (FDs). For example an FD $X \rightarrow Y$ can be expressed as $\text{deg}(Y\mid X) \leq 1$. This means we can take advantage of functional dependencies (e.g. primary keys) when deriving bounds on query output size. Let's try it! 
 
 Consider the following query: 
 
