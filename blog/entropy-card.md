@@ -1,3 +1,14 @@
+---
+header-includes: |
+  <style>
+  table {
+    display: table;
+    margin: auto;
+    width: auto;
+  }
+  </style>
+---
+
 # The Entropic Framework for Cardinality Bounds
 
 One of the most exciting developments in database theory in recent years is the entropic framework for cardinality bounds, which emerges from deep connections between database theory and information theory. In this blog post, I explain the fundamental concepts and key steps for estimating join size via information inequalities. This post is based on a lecture by Dan Suciu during the Simons Institute program [Logic and Algorithms in Database Theory and AI](https://simons.berkeley.edu/programs/logic-algorithms-database-theory-ai). The technique is developed in a line of work including [AGM13](https://arxiv.org/abs/1711.03860), [GLVV12](https://theory.stanford.edu/~valiant/papers/GLV_pods.pdf), [GM14](https://arxiv.org/pdf/1111.1109.pdf), [KNS16](https://arxiv.org/abs/1604.00111), [KNS17](https://arxiv.org/abs/1612.02503). See [Suc23](https://arxiv.org/abs/2304.11996) for a wonderful survey of the literature. 
@@ -38,7 +49,9 @@ As an example, let's consider the distribution over $X,Y,Z$ as shown in the tabl
 
 The entropic vector $h$ then has values as shown in the Hasse diagram below: 
 
+<div style="text-align: center;">
 <img title="" src="ipe.svg" alt="ipe.svg" width="468">
+</div>
 
 We next define the *conditional entropy* as an analog to the conditional distribution: 
 
