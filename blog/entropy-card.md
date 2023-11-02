@@ -30,7 +30,7 @@ p_i = \begin{cases}
 \end{cases}
 $$
 
-for some constant $c$. Therefore $h(X)= - 1 \log 1 = 0$. If $X$ is uniform (as random as it gets), then $h(X) = - m \times \frac{1}{m} \times \log \frac{1}{m} = \log m$, where $n$ is the size of the support for $X$. 
+for some constant $c$. Therefore $h(X)= - 1 \log 1 = 0$. If $X$ is uniform (as random as it gets), then $h(X) = - m \times \frac{1}{m} \times \log \frac{1}{m} = \log m$, where $m$ is the size of the support for $X$. 
 
 When $\mathbf{X}$ is a set of variables, $h(\mathbf{X})$ denotes the entropy over the joint distribution over the set. We write $h(\mathbf{X}\mathbf{Y})$ for $h(\mathbf{X}\cup \mathbf{Y})$, and $h(XY)$ for $h(\{X, Y\})$. For a set of $n$ random variables $\mathbf{X}$, we define the *entropic vector* as a function from any subset of $\mathbf{X}$ to the entropy of their joint distribution: 
 
