@@ -6,6 +6,7 @@ header-includes: |
     margin: auto;
     width: auto;
   }
+  .katex-display { overflow: auto hidden }
   </style>
 ---
 
@@ -88,11 +89,11 @@ Here we see that $I_h$ measures how much less random $\mathbf{V}$ becomes once w
 From these definitions, the three fundamental entropic inequalities, called *Shannon inequalities*, fall out very naturally: 
 
 $$
-\begin{align}
+\begin{align*}
 0 & \leq h(\mathbf{U}) \leq \log |\text{supp}(\mathbf{U})| \\
 0 & \leq h(\mathbf{U \mid V}) \\
 0 & \leq I_h(\mathbf{V;W\mid U})
-\end{align}
+\end{align*}
 $$
 
 where $|\text{supp}(\mathbf{U})|$ is the size of the support of $\mathbf{U}$, i.e. number of possible outcomes. The second inequality is called *monotonicity*, because it is equivalent to $h(\mathbf{V}) \leq h(\mathbf{UV})$, which says the distribution over more variables becomes more random. The last inequality is called *submodularity* (a.k.a. "law of diminishing returns"). If we replace $\mathbf{V}$ with $\delta$, we can rewrite the inequality as  $h(\mathbf{U\cup W} \cup \delta) - h(\mathbf{U\cup W}) \leq h(\mathbf{U}\cup\delta) - h(\mathbf{U})$ which is exactly the law of diminishing returns. 
