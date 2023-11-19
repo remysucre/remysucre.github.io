@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Remy’s blog</title>
+  <title>PANDA</title>
   <style>
     html {
       font-family: sans-serif;
@@ -164,118 +164,95 @@
       vertical-align: middle;
     }
   </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
-<p>Posts by <a href="https://remy.wang/">Remy Wang</a>. Source on <a
-href="https://github.com/remysucre/remysucre.github.io">GitHub</a>.</p>
-<table style="width:100%;">
-<colgroup>
-<col style="width: 35%" />
-<col style="width: 30%" />
-<col style="width: 35%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Topic</th>
-<th style="text-align: left;">Date</th>
-<th style="text-align: left;">Title</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Misc.</td>
-<td style="text-align: left;">2023-11-18</td>
-<td style="text-align: left;"><a href="chinese.html">When to Speak
-Chinese</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Database theory</td>
-<td style="text-align: left;">2023-11-01</td>
-<td style="text-align: left;"><a href="entropy-card.html">The Entropic
-Framework for Cardinality Bounds</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Database theory</td>
-<td style="text-align: left;">2023-08-03</td>
-<td style="text-align: left;"><a
-href="relational-calculus.html">Relative Safety in Relational
-Calculus</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">SQL</td>
-<td style="text-align: left;">2023-07-26</td>
-<td style="text-align: left;"><a href="sql-eq.html">How to Check 2 SQL
-Tables are the Same</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Tools</td>
-<td style="text-align: left;">2023-05-31</td>
-<td style="text-align: left;"><a href="email-cure.html">Filter every
-mail: a cure for email addiction</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Datalog</td>
-<td style="text-align: left;">2023-02-08</td>
-<td style="text-align: left;"><a href="datalog-resources.html">Datalog
-resources</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Join Algorithms</td>
-<td style="text-align: left;">2023-01-31</td>
-<td style="text-align: left;"><a href="late-materialization.html">Late
-materialization is (almost) worst-case optimal</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Join Algorithms</td>
-<td style="text-align: left;">2023-01-30</td>
-<td style="text-align: left;"><a href="recursive-agm.html">AGM bound for
-transitive closure</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Program Synthesis</td>
-<td style="text-align: left;">2021-04-27</td>
-<td style="text-align: left;"><a href="cegis.html">Counterexample-guided
-inductive synthesis</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Join Algorithms</td>
-<td style="text-align: left;">2021-04-27</td>
-<td style="text-align: left;"><a href="wcoj.html">Generic join
-algorithms</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Equality Saturation</td>
-<td style="text-align: left;">2021-01-17</td>
-<td style="text-align: left;"><a href="egraph-inter.html">E-graph
-intersection</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Unix, Tools</td>
-<td style="text-align: left;">2020-06-18</td>
-<td style="text-align: left;"><a href="ssh-image.html">Viewing images on
-remote machines</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Information Theory</td>
-<td style="text-align: left;">2020-06-17</td>
-<td style="text-align: left;"><a href="entropic-bounds.html">Fundamental
-entropic bounds</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Information Theory</td>
-<td style="text-align: left;">2020-06-17</td>
-<td style="text-align: left;"><a href="entropy.html">Entropy</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Proofs</td>
-<td style="text-align: left;">2019-02-13</td>
-<td style="text-align: left;"><a href="grad-ind.html">A canonicity proof
-via gradient induction</a></td>
-</tr>
-</tbody>
-</table>
+<h1 id="panda">PANDA</h1>
+<p>In the last post, we talked about how to derive bounds on query
+output size using information theory. By applying Shannon inequalities,
+we were able to derive a tighter bound from cardinality constraints and
+degree constraints. But we only proved the bound by hand, for one single
+query. In this post, we show a general way to find the bound using
+linear programming, which we can implement in a query optimizer to
+automatically compute bounds.</p>
+<p>We will use the same query as before, and with input constraints
+<span class="math inline">|R| = |S| = |T| = N</span> and functional
+dependencies <span class="math inline">XY \rightarrow U</span> and <span
+class="math inline">YU \rightarrow X</span>:</p>
+<p><span class="math display">
+Q(X, Y, Z, U) = R(X, Y) \wedge S(Y, Z) \wedge T(Z, U) \wedge A(X, Z, U)
+\wedge B(X, Y, U).
+</span></p>
+<p>Recall that we consider the uniform distribution over the query
+output:</p>
+<p><span class="math display">
+h(X, Y, Z, U) = \log |Q(X,Y,Z,U)|
+</span></p>
+<p>Then we relate the size of an input relation to its entropy, and
+degree constraints to the conditional entropy:</p>
+<p><span class="math display">
+\begin{align*}
+\text{cardinality constraints: }&amp;
+\begin{cases}
+h(X, Y) &amp; \leq \log |R(X, Y)| \\
+h(Y, Z) &amp; \leq \log |S(Y, Z)| \\
+h(Z, U) &amp; \leq \log |T(Z, U)|
+\end{cases}\\\\
+\text{degree constraints: }&amp;
+\begin{cases}
+h(U \mid XZ) &amp; \leq \log \max \text{deg}_A(U \mid XZ)\\
+h(X \mid YU) &amp; \leq \log \max \text{deg}_B(X \mid YU)
+\end{cases}
+\end{align*}
+</span></p>
+<p>Our goal is to calculate the largest possible output size,
+<strong>which is the same as maximizing the output entropy under the
+above constraints</strong>! Since all the constraints are linear, we can
+encode them in a linear program. In addition, we also need to encode the
+Shannon inequalities (submodularity and monotonicity) to relate the
+entropies over different variables to each other. That is, for all
+subsets of variables <span class="math inline">\mathbf{U},
+\mathbf{V}</span> we have:</p>
+<p><span class="math display">
+\begin{align*}
+h(\mathbf{U}) &amp; \leq h(\mathbf{U \cup V}) &amp; \text{ monotonicity}
+\\
+h(\mathbf{U\cup V}) + h(\mathbf{U\cap V})  &amp; \leq h(\mathbf{U}) +
+h(\mathbf{V}) &amp; \text{submudolarity}
+\end{align*}
+</span></p>
+<p>Overall, the linear program is:</p>
+<p><span class="math display">
+\begin{align*}
+\textbf{maximize: } &amp; h(X, Y, Z, U) \\
+\textbf{subject to: } &amp; \text{carinality constraints} \\
+&amp; \text{degree constraints} \\
+&amp; \text{monotonicity} \\
+&amp; \text{submodularity}
+\end{align*}
+</span></p>
+<p>The solution of the linear program is then the <span
+class="math inline">\log</span> of the maximum output size of the
+query.</p>
 </body>
 </html>
