@@ -8,7 +8,7 @@ When should I speak Chinese?"
 
 Short answer: never. Long answer: speak your language
  when you are certain that no one who doesn't 
- speak your language will join your conversation.
+ speak it will join your conversation.
 [Your success in life will be largely determined by your ability
  to speak, your ability to write, and the quality of your ideas, 
  in that order](https://ocw.mit.edu/courses/res-tll-005-how-to-speak-january-iap-2018/pages/how-to-speak/). 
