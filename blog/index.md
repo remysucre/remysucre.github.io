@@ -7,6 +7,7 @@ Source on [GitHub](https://github.com/remysucre/remysucre.github.io).
 
 | Topic | Date | Title |
 |:------|:-----|:------|
+| Misc. | 2023-11-27 | [An Allegory on Science from AI](ai-science.html)
 | Misc. | 2023-11-18 | [When to Speak Chinese](chinese.html)
 | Database theory | 2023-11-01 | [The Entropic Framework for Cardinality Bounds](entropy-card.html)
 | Database theory | 2023-08-03 | [Relative Safety in Relational Calculus](relational-calculus.html)

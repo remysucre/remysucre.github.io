@@ -192,16 +192,20 @@ Inductive Synthesis</h1>
 <p>CEGIS takes a grammar and a specification, and outputs a program
 defined in the grammar satisfying the spec.</p>
 <p>Formally, it solves formula of the form</p>
-<pre class="math"><code>\exists f . \forall x, y, \dots . \phi</code></pre>
+<p><span class="math display">
+\exists f . \forall x, y, \dots . \phi
+</span></p>
 <p>where <span class="math inline">\phi</span> is the specification and
 <span class="math inline">f(x,y,\dots)</span> is a program drawn from
 the given grammar.</p>
 <p>For example, we can ask for a function satisfying the following
 spec:</p>
-<pre class="math"><code>\exists f . \forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x = f(x,y) \vee y = f(x,y))</code></pre>
-<p>In English, <span class="math inline">f(x,y)</span> must be no less
-than both x and y, and it should be equal to either x or y (hint: it’s
-the function <code>max</code>).</p>
+<p><span class="math display">
+\exists f . \forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x
+= f(x,y) \vee y = f(x,y))
+</span> In English, <span class="math inline">f(x,y)</span> must be no
+less than both x and y, and it should be equal to either x or y (hint:
+it’s the function <code>max</code>).</p>
 <p>The essence of CEGIS is illustrated by this picture:</p>
 <figure>
 <img src="assets/cegis/cegis.png" alt="CEGIS loop" />
@@ -240,17 +244,26 @@ use the following simple grammar:</p>
 <p>Suppose the generator proposes <span
 class="math inline">\max(x,y)</span> as a candidate; the checker then
 instantiates the spec with <span class="math inline">f=\max</span>:</p>
-<pre class="math"><code>\forall x, y . \max(x,y) \geq x \wedge \max(x,y) \geq y \wedge (x = \max(x,y) \vee y = \max(x,y))</code></pre>
+<p><span class="math display">
+\forall x, y . \max(x,y) \geq x \wedge \max(x,y) \geq y \wedge (x =
+\max(x,y) \vee y = \max(x,y))
+</span></p>
 <p>To check the validity of this formula, the checker simply drops the
 <span class="math inline">\forall</span> and asks the solver if the
 <em>negation</em> of the body is satisfiable:</p>
-<pre class="math"><code>\text{SAT?} \Big( \neg \big( \max(x,y) \geq x \wedge \max(x,y) \geq y \wedge (x = \max(x,y) \vee y = \max(x,y)) \big) \Big)</code></pre>
+<p><span class="math display">
+\text{SAT?} \Big( \neg \big( \max(x,y) \geq x \wedge \max(x,y) \geq y
+\wedge (x = \max(x,y) \vee y = \max(x,y)) \big) \Big)
+</span></p>
 <p>This is unsatisfiable, meaning <em>no</em> values of x and y can make
 the negated spec true. That is the same as saying no x and y can make
 the orignal spec false. Therefore the candidate is correct.</p>
 <p>If the generator proposes x+y as a candidate, the checker will
 instantiate the spec with f=+ and check for the following formula:</p>
-<pre class="math"><code>\text{SAT?} \Big( \neg \big( x+y \geq x \wedge x+y \geq y \wedge (x = x+y \vee y = x+y) \big) \Big)</code></pre>
+<p><span class="math display">
+\text{SAT?} \Big( \neg \big( x+y \geq x \wedge x+y \geq y \wedge (x =
+x+y \vee y = x+y) \big) \Big)
+</span></p>
 <p>Clearly this is satisfiable: when x=y=1, x+y=2 equals to neither x
 nor y. The checker therefore rejects the candidate and provides {x=1,
 y=1} as the counterexample.</p>
@@ -266,29 +279,48 @@ an SMT formula</strong>! To do so, we simply introduce a boolean
 <p>For example, our grammar above becomes:</p>
 <pre><code>if?b then:f=x+y else:f=max(x,y)</code></pre>
 <p>In first order logic, this is</p>
-<pre class="math"><code>(b \Rightarrow f(x,y) = x + y) \wedge (\neg b \Rightarrow f(x,y) = max(x,y))</code></pre>
+<p><span class="math display">
+(b \Rightarrow f(x,y) = x + y) \wedge (\neg b \Rightarrow f(x,y) =
+max(x,y))
+</span></p>
 <p>With this encoding, we just need to decide the right value for b such
 that the spec is satisfied:</p>
-<pre class="math"><code>(b \Rightarrow f = +) \wedge (\neg b \Rightarrow f = \max) \wedge
-\forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x = f(x,y) \vee y = f(x,y))</code></pre>
+<p><span class="math display">
+(b \Rightarrow f = +) \wedge (\neg b \Rightarrow f = \max) \wedge
+\forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x = f(x,y)
+\vee y = f(x,y))
+</span></p>
 <p>There is one last wrinkle: we need to remove the <span
 class="math inline">\forall</span> quantification, since quantified
 formula are usually undecidable. So instead of solving for all x and y,
 we instantiate the formula with the counterexamples:</p>
-<pre class="math"><code>b \Rightarrow f = + \wedge \neg b \Rightarrow f = \max \wedge
-f(1,1) \geq 1 \wedge f(1,1) \geq 1 \wedge (1 = f(1,1) \vee 1 = f(1,1))</code></pre>
-<p>After “inlining” f, this becomes:</p>
-<pre class="math"><code>b \Rightarrow 1+1 \geq 1 \wedge 1+1 \geq 1 \wedge (1 = 1+1 \vee 1 = 1+1)</code></pre>
-<pre class="math"><code>\wedge \neg b \Rightarrow \max(1,1) \geq 1 \wedge \max(1,1) \geq 1 \wedge (1 = \max(1,1) \vee 1 = \max(1,1))</code></pre>
+<p><span class="math display">
+b \Rightarrow f = + \wedge \neg b \Rightarrow f = \max \wedge
+f(1,1) \geq 1 \wedge f(1,1) \geq 1 \wedge (1 = f(1,1) \vee 1 = f(1,1))
+</span> After “inlining” f, this becomes:</p>
+<p><span class="math display">
+b \Rightarrow 1+1 \geq 1 \wedge 1+1 \geq 1 \wedge (1 = 1+1 \vee 1 = 1+1)
+</span> <span class="math display">
+\wedge \neg b \Rightarrow \max(1,1) \geq 1 \wedge \max(1,1) \geq 1
+\wedge (1 = \max(1,1) \vee 1 = \max(1,1))
+</span></p>
 <p>Now it’s very easy to see that b must be false to make the above
 true, and an SMT-solver would return exactly that. We encountered only 1
 counterexample pair {x=1, y=1}; had we found more, the generator would
 instantiate the formula for each of them. For example, if we also have
 {x=2, y=2} as an CE, the instantiation would be:</p>
-<pre class="math"><code>b \Rightarrow 2+2 \geq 2 \wedge 2+2 \geq 2 \wedge (2 = 2+2 \vee 2 = 2+2)</code></pre>
-<pre class="math"><code>\wedge \neg b \Rightarrow \max(2,2) \geq 2 \wedge \max(2,2) \geq 2 \wedge (2 = \max(2,2) \vee 2 = \max(2,2))</code></pre>
-<pre class="math"><code>\wedge b \Rightarrow 1+1 \geq 1 \wedge 1+1 \geq 1 \wedge (1 = 1+1 \vee 1 = 1+1)</code></pre>
-<pre class="math"><code>\wedge \neg b \Rightarrow \max(1,1) \geq 1 \wedge \max(1,1) \geq 1 \wedge (1 = \max(1,1) \vee 1 = \max(1,1))</code></pre>
+<p><span class="math display">
+\begin{align*}
+b &amp; \Rightarrow 2+2 \geq 2 \wedge 2+2 \geq 2 \wedge (2 = 2+2 \vee 2
+= 2+2) \\
+\wedge \neg b &amp; \Rightarrow \max(2,2) \geq 2 \wedge \max(2,2) \geq 2
+\wedge (2 = \max(2,2) \vee 2 = \max(2,2)) \\
+\wedge b &amp; \Rightarrow 1+1 \geq 1 \wedge 1+1 \geq 1 \wedge (1 = 1+1
+\vee 1 = 1+1) \\
+\wedge \neg b &amp; \Rightarrow \max(1,1) \geq 1 \wedge \max(1,1) \geq 1
+\wedge (1 = \max(1,1) \vee 1 = \max(1,1))
+\end{align*}
+</span></p>
 <p>This encoding can be easily extended to recusive grammars, if we
 bound the depth of the grammar and gradually increase this bound. The
 reader can take up as a challenge to figure out how exactly to achieve

@@ -5,18 +5,18 @@ and outputs a program defined in the grammar satisfying the spec.
 
 Formally, it solves formula of the form 
 
-```math
+$$
 \exists f . \forall x, y, \dots . \phi
-```
+$$
 
 where $\phi$ is the specification and $f(x,y,\dots)$ is a program
 drawn from the given grammar. 
 
 For example, we can ask for a function satisfying the following spec:
 
-```math
+$$
 \exists f . \forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x = f(x,y) \vee y = f(x,y))
-```
+$$
 In English, $f(x,y)$ must be no less than both x and y,
 and it should be equal to either x or y 
 (hint: it's the function `max`).
@@ -74,16 +74,16 @@ e := x + y | max(x,y)
 Suppose the generator proposes $\max(x,y)$ as a candidate;
 the checker then instantiates the spec with $f=\max$:
 
-```math
+$$
 \forall x, y . \max(x,y) \geq x \wedge \max(x,y) \geq y \wedge (x = \max(x,y) \vee y = \max(x,y))
-```
+$$
 
 To check the validity of this formula, the checker simply drops the $\forall$
 and asks the solver if the *negation* of the body is satisfiable:
 
-```math
+$$
 \text{SAT?} \Big( \neg \big( \max(x,y) \geq x \wedge \max(x,y) \geq y \wedge (x = \max(x,y) \vee y = \max(x,y)) \big) \Big)
-```
+$$
 
 This is unsatisfiable, meaning *no* values of x and y can make the negated spec true.
 That is the same as saying no x and y can make the orignal spec false.
@@ -93,9 +93,9 @@ If the generator proposes x+y as a candidate,
 the checker will instantiate the spec with f=+ 
 and check for the following formula:
 
-```math
+$$
 \text{SAT?} \Big( \neg \big( x+y \geq x \wedge x+y \geq y \wedge (x = x+y \vee y = x+y) \big) \Big)
-```
+$$
 
 Clearly this is satisfiable: when x=y=1, x+y=2 equals to neither x nor y. 
 The checker therefore rejects the candidate 
@@ -120,35 +120,35 @@ if?b then:f=x+y else:f=max(x,y)
 
 In first order logic, this is
 
-```math
+$$
 (b \Rightarrow f(x,y) = x + y) \wedge (\neg b \Rightarrow f(x,y) = max(x,y))
-```
+$$
 
 With this encoding, we just need to decide the right value for b such that 
 the spec is satisfied:
 
-```math
+$$
 (b \Rightarrow f = +) \wedge (\neg b \Rightarrow f = \max) \wedge
 \forall x, y . f(x,y) \geq x \wedge f(x,y) \geq y \wedge (x = f(x,y) \vee y = f(x,y))
-```
+$$
 
 There is one last wrinkle: we need to remove the $\forall$ quantification, 
 since quantified formula are usually undecidable. 
 So instead of solving for all x and y, we instantiate the formula with the
 counterexamples:
 
-```math
+$$
 b \Rightarrow f = + \wedge \neg b \Rightarrow f = \max \wedge
 f(1,1) \geq 1 \wedge f(1,1) \geq 1 \wedge (1 = f(1,1) \vee 1 = f(1,1))
-```
+$$
 After "inlining" f, this becomes:
 
-```math
+$$
 b \Rightarrow 1+1 \geq 1 \wedge 1+1 \geq 1 \wedge (1 = 1+1 \vee 1 = 1+1)
-```
-```math
+$$
+$$
 \wedge \neg b \Rightarrow \max(1,1) \geq 1 \wedge \max(1,1) \geq 1 \wedge (1 = \max(1,1) \vee 1 = \max(1,1))
-```
+$$
 
 Now it's very easy to see that b must be false to make the above true,
 and an SMT-solver would return exactly that.
@@ -156,18 +156,14 @@ We encountered only 1 counterexample pair {x=1, y=1};
 had we found more, the generator would instantiate the formula for each of them.
 For example, if we also have {x=2, y=2} as an CE, the instantiation would be: 
 
-```math
-b \Rightarrow 2+2 \geq 2 \wedge 2+2 \geq 2 \wedge (2 = 2+2 \vee 2 = 2+2)
-```
-```math
-\wedge \neg b \Rightarrow \max(2,2) \geq 2 \wedge \max(2,2) \geq 2 \wedge (2 = \max(2,2) \vee 2 = \max(2,2))
-```
-```math
-\wedge b \Rightarrow 1+1 \geq 1 \wedge 1+1 \geq 1 \wedge (1 = 1+1 \vee 1 = 1+1)
-```
-```math
-\wedge \neg b \Rightarrow \max(1,1) \geq 1 \wedge \max(1,1) \geq 1 \wedge (1 = \max(1,1) \vee 1 = \max(1,1))
-```
+$$
+\begin{align*}
+b & \Rightarrow 2+2 \geq 2 \wedge 2+2 \geq 2 \wedge (2 = 2+2 \vee 2 = 2+2) \\
+\wedge \neg b & \Rightarrow \max(2,2) \geq 2 \wedge \max(2,2) \geq 2 \wedge (2 = \max(2,2) \vee 2 = \max(2,2)) \\
+\wedge b & \Rightarrow 1+1 \geq 1 \wedge 1+1 \geq 1 \wedge (1 = 1+1 \vee 1 = 1+1) \\
+\wedge \neg b & \Rightarrow \max(1,1) \geq 1 \wedge \max(1,1) \geq 1 \wedge (1 = \max(1,1) \vee 1 = \max(1,1)) 
+\end{align*}
+$$
 
 This encoding can be easily extended to recusive grammars,
 if we bound the depth of the grammar and gradually increase this bound.
