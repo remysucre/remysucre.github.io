@@ -24,8 +24,6 @@ pagetitle: Remy's blog
 
 2021.01.17 &nbsp; [E-graph intersection](egraph-inter.html)
 
-2020.06.18 &nbsp; [Viewing images on remote machines](ssh-image.html)
-
 2020.06.17 &nbsp; [Fundamental entropic bounds](entropic-bounds.html)
 
 2020.06.17 &nbsp; [Entropy](entropy.html)
