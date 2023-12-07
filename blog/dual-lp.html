@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>dual-lp</title>
+  <style>
+    html {
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+  img {
+    display: block;
+    margin: auto;
+  }
+  .katex-display { overflow: auto hidden }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="duality-in-linear-programming">Duality in Linear
+Programming</h1>
+<p>Duality in linear programming relates a pair of linear programs:</p>
+<p><strong>The primal program</strong>:</p>
+<p><span class="math display">
+\begin{align*}
+\text{maximize: } &amp; \mathbf{c}^\top \mathbf{x} \\
+\text{subject to: } &amp; A \mathbf{x} \leq \mathbf{b} \text{ and }
+\mathbf{x} \geq 0
+\end{align*}
+</span></p>
+<p><strong>The dual program</strong>: <span class="math display">
+\begin{align*}
+\text{minimize: } &amp; \mathbf{b}^\top \mathbf{y} \\
+\text{subject to: } &amp; A^\top \mathbf{y} \geq \mathbf{c} \text{ and }
+\mathbf{y} \geq 0
+\end{align*}
+</span></p>
+<p>The weak duality theorem says that the minima of <span
+class="math inline">\mathbf{b}^\top \mathbf{y}</span> is an upper bound
+on the maxima of <span class="math inline">\mathbf{c}^\top
+\mathbf{x}</span>. The strong duality theorem says that any optima of
+either program is also the optima of the other program. In other words,
+the upper bound given by the weak duality theorem is <em>tight</em>. In
+this post I will give a geometric interpretation of the weak duality
+theorem.</p>
+<p>Let’s first visualize a set of linear constraints. Each linear
+constraint is a (hyper)plane that cuts the space into halves. In 3D
+space, a linear constraint is a plane; in 2D, a linear constraint is a
+line. The figure below shows 3 linear constraints: <span
+class="math inline">x_1 \leq 2</span>, <span class="math inline">x_1 +
+x_2 \leq 1.5</span>, and <span class="math inline">x_2 \leq 2</span>.
+Here we also assume <span class="math inline">x_1 \geq 0</span> and
+<span class="math inline">x_2 \geq 0</span>. Given a set of constraints,
+the <em>feasible space</em> contains every point that satisfies all
+constraints in the set. This is shown by the shaded area in the
+figure.</p>
+<p><img src="lin-con.png" alt="linear constraints" width=50%/></p>
+<p>We can therefore think of the primal program as picking a point in
+the feasible region of the constraints that maximizes <span
+class="math inline">\mathbf{c}^\top \mathbf{x}</span>. Note that for a
+given <span class="math inline">\mathbf{p}</span>, <span
+class="math inline">\mathbf{c}^\top \mathbf{x} = \mathbf{p}</span>
+itself is also a line, so we are basically trying to push this line as
+far up (and to the right) as possible, as long as it still intersects
+the feasible region. For example, suppose in our 2D case <span
+class="math inline">\mathbf{c}^\top \mathbf{x}</span> is just <span
+class="math inline">x_1 + x_2</span>, then the best we can do is <span
+class="math inline">x_1 + x_2 = 1.5</span> which coincides with our
+second constraint.</p>
+<p>A crucial concept to understand the dual program is the <em>linear
+combination of constraints</em>. To linearly combine constraints, we
+just multiply both sides of each constraint by some number, and add all
+the left sides together to get a new left side, and similarly add the
+right sides. For example, adding all of our 3 constraints above together
+gets us <span class="math inline">2x_1 + 2x_2 \leq 5.5</span>, which is
+the same as <span class="math inline">x_1 + x_2 \leq 2.75</span>. Note
+that the feasible region of this new constraint contains the entire
+feasible region of the old constraints, and this very important fact is
+true in general: let <span class="math inline">F</span> be the feasible
+region of a set of constraints <span class="math inline">C</span>, and
+let <span class="math inline">c&#39;</span> be a linear combination of
+the constraints in <span class="math inline">C</span>. <strong>Then the
+feasible region of <span class="math inline">c&#39;</span> is a superset
+of <span class="math inline">F</span></strong>. The proof is simple:
+consider any point <span class="math inline">\mathbf{x}</span> in the
+feasible region <span class="math inline">F</span>. Then <span
+class="math inline">\mathbf{x}</span> must satisfy every constraint
+<span class="math inline">c \in C</span>. Multiplying both sides of a
+constraint by <span class="math inline">k</span> does not change the
+constraint, so <span class="math inline">\mathbf{x}</span> also
+satisfies <span class="math inline">kc</span> for any <span
+class="math inline">k</span>. If <span
+class="math inline">\mathbf{x}</span> satisfies two constraints <span
+class="math inline">c_1</span> and <span class="math inline">c_2</span>,
+it also satisfies <span class="math inline">c_1 + c_2</span>, because if
+two inequalities <span class="math inline">l_1 \leq r_1</span> and <span
+class="math inline">l_2 \leq r_2</span> both hold, <span
+class="math inline">l_1 + l_2 \leq r_1 + r_2</span> also holds.
+Therefore, <span class="math inline">\mathbf{x}</span> must satisfy any
+linear combinations of the constraints in <span
+class="math inline">C</span>, including <span
+class="math inline">c&#39;</span>.</p>
+<p>Now let’s focus on the dual program. We can understand it as trying
+to derive an <em>upper bound</em> on the maxima of the primal program,
+i.e. of <span class="math inline">\mathbf{c}^\top \mathbf{x}</span>. The
+key idea is, <strong>we can derive such an upper bound from a linear
+combination of the primal constraints</strong>! This is a natural idea,
+because our primal constraints already look like upper bounds, so all we
+need to do is to combine them into an upper bound on <span
+class="math inline">\mathbf{c}^\top \mathbf{x}</span>. This is where the
+linear combination of constraints comes in: we need to assign a weight
+<span class="math inline">y</span> to each constraint, add them
+together, so that the left hand side is at least <span
+class="math inline">\mathbf{c}^\top \mathbf{x}</span>. But this is
+exactly the dual constraints <span class="math inline">A^\top \mathbf{y}
+\geq \mathbf{c}</span>! On the right hand side, we now have <span
+class="math inline">\mathbf{b}^\top \mathbf{y}</span> which we can use
+as our upper bound. It is a <em>valid</em> upper bound, because of our
+little lemma above that the feasible region of a linear combination of
+<span class="math inline">C</span> over approximates the feasible region
+of <span class="math inline">C</span> itself. In addition, we also want
+this upper bound to be as tight as possible, which is why we are
+minimizing the objective <span
+class="math inline">\mathbf{b}^\top\mathbf{y}</span>.</p>
+<p>In short, the primal program tries to pick a point in the feasible
+region of the constraints that maximizes the objective. The dual program
+tries to derive a tight upper bound on the objective, by linearly
+combining the primal constraints. So far we only focused on the weak
+duality theorem. The strong duality theorem involves a bit more work (so
+it is even more fun), and hopefully we’ll get to it in a future
+post.</p>
+</body>
+</html>
