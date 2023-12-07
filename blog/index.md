@@ -4,6 +4,7 @@ pagetitle: Remy's blog
 
 Posts by [Remy Wang](https://remy.wang/).
 Source on [GitHub](https://github.com/remysucre/remysucre.github.io).
+Subscribe by [RSS](feed.rss).
 
 | Topic | Date | Title |
 |:------|:-----|:------|
