@@ -12,7 +12,6 @@ Subscribe by [RSS](feed.rss).
 | Database theory | 2023-11-01 | [The Entropic Framework for Cardinality Bounds](entropy-card.html)
 | Database theory | 2023-08-03 | [Relative Safety in Relational Calculus](relational-calculus.html)
 | SQL | 2023-07-26 | [How to Check 2 SQL Tables are the Same](sql-eq.html)
-| Tools | 2023-05-31 | [Filter every mail: a cure for email addiction](email-cure.html)
 | Datalog | 2023-02-08 | [Datalog resources](datalog-resources.html)
 | Join Algorithms | 2023-01-31 | [Late materialization is (almost) worst-case optimal](late-materialization.html)
 | Join Algorithms | 2023-01-30 | [AGM bound for transitive closure](recursive-agm.html)
