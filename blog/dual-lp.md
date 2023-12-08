@@ -14,21 +14,16 @@ header-includes: |
 Duality in linear programming relates a pair of linear programs:
 
 **The primal program**:
-
-$$
-\begin{align*}
+$$\begin{align*}
 \text{maximize: } & \mathbf{c}^\top \mathbf{x} \\
 \text{subject to: } & A \mathbf{x} \leq \mathbf{b} \text{ and } \mathbf{x} \geq 0
-\end{align*}
-$$
+\end{align*}$$
 
 **The dual program**:
-$$
-\begin{align*}
+$$\begin{align*}
 \text{minimize: } & \mathbf{b}^\top \mathbf{y} \\
 \text{subject to: } & A^\top \mathbf{y} \geq \mathbf{c} \text{ and } \mathbf{y} \geq 0
-\end{align*}
-$$
+\end{align*}$$
 
 The weak duality theorem says that the minima of $\mathbf{b}^\top \mathbf{y}$
 is an upper bound on the maxima of $\mathbf{c}^\top \mathbf{x}$.
