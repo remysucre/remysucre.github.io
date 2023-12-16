@@ -16,7 +16,7 @@ If you want to join my lab,
 
 ___
 
-[SIGMOD'23] We propose [free join](https://arxiv.org/abs/2301.10841), a new join algorithm unifying and generalizing traditional binary joins with worst-case optimal joins. Free join brings the best of both worlds, and outperforms both binary join and WCOJ in practice.
+[SIGMOD'23] **SIGMOD Research Highlight Award** We propose [free join](https://arxiv.org/abs/2301.10841), a new join algorithm unifying and generalizing traditional binary joins with worst-case optimal joins. Free join brings the best of both worlds, and outperforms both binary join and WCOJ in practice.
 
 [EGRAPHS'22] We tease out [deep connections](https://remy.wang/reports/dfta.pdf) among e-graphs, finite-state tree automata, and version space algebra. By fusing together powerful ideas from these different perspectives, we gain orders-of-magnitude speedup and discover a new technique for automated proofs.
 
