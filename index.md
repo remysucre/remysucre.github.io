@@ -7,10 +7,9 @@ pagetitle: Remy Wang
 - Email: remywang at cs.ucla.edu
 - Links: [Blog](./blog/index.html), [DBLP](https://dblp.org/pid/185/9964.html), [Photo](./imgs/remy.jpg)
 
+I'm an Assistant Professor at UCLA.
 I optimize modern data systems with advanced techniques from programming languages and databases. 
-**I will start as an Assistant Professor at UCLA in 2024.**
-If you want to join my lab, 
- please read [this](projects.html) before contacting me.
+If you want to join my lab, please read [this](projects.html) before contacting me.
 
 ___
 
