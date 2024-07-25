@@ -1,4 +1,4 @@
-Yes, I'm looking for students to join my lab.
+I always welcome exceptional students at all levels to join my lab.
 There are two ways you can demonstrate your potential to become a good researcher: 
 
 1. You have made significant contribution to a research project, even if the project has not succeeded yet. 
