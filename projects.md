@@ -16,5 +16,3 @@ Algorithms:
 * [FAQ](https://arxiv.org/abs/1504.04044)
 
 * [LEAPS](https://www.cs.utexas.edu/~miranker/papers/1990/leaps-aaai90.pdf)
-
-* [DP-based join ordering](https://www.researchgate.net/profile/Thomas_Neumann2/publication/47861835_Analysis_of_Two_Existing_and_One_New_Dynamic_Programming_Algorithm_for_the_Generation_of_Optimal_Bushy_Join_Trees_without_Cross_Products/links/0912f506d90ad19031000000.pdf)
