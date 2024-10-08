@@ -10,6 +10,35 @@ pagetitle: Remy Wang
 I'm an Assistant Professor at UCLA.
 I optimize modern data systems with advanced techniques from programming languages and databases. 
 If you want to join my lab, please read [this](projects.html) before contacting me.
+I'm very lucky to work with many brilliant students:
+
+<table>
+  <tbody style="border: none;">
+    <tr>
+      <td>**PhD**</td>
+      <td>
+        [Zheng Luo](http://zhengluo.org),
+        [Sai Achalla](https://www.linkedin.com/in/saikrishna-achalla) (co-advised w/ [Sam Kumar](https://www.samkumar.org))
+      </td>
+    </tr>
+    <tr>
+      <td>**MS**</td>
+      <td>
+        [Alan Yao](https://www.linkedin.com/in/alan-yao-ucla),
+        [Jiahe Yan](https://www.linkedin.com/in/jiahe-yan)
+      </td>
+    </tr>
+    <tr>
+      <td>**UG**</td>
+      <td>
+        Paul Zhang,
+        Daniel Yang,
+        [Tom Binford](https://www.linkedin.com/in/tombinford),
+        [Vishal Yathish](https://www.linkedin.com/in/vishal-yathish)
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ___
 
@@ -30,11 +59,3 @@ ___
 [OOPSLA'21] **Distinguished Paper** We used egg to [invent rewrite rules](https://dl.acm.org/doi/10.1145/3485496) that are in turn given to egg itself for equality saturation.
 
 [VLDB'20] [SPORES](https://dl.acm.org/doi/10.14778/3407790.3407799) is an optimizer for large scale linear algebra. It transforms linear algebra code through the powerful abstraction of relational algebra.
-
-___
-
-I have been very lucky to work with many brilliant undergraduate / master students:
-
-[Jonathan Leang](https://www.linkedin.com/in/jleang) meticuously performed many intricate experiments for SPORES. Jonathan now works at Snowflake, and at the same time (!!) teaches Databases at UW.
-
-[Yihong Zhang](https://effect.systems/) turned our idea of relational pattern matching into implementation and a publication. With this work, Yihong won 1st place in the PLDI 2021 Student Research Competition.
