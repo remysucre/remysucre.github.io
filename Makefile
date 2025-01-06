@@ -8,12 +8,18 @@ PANDOC_OPTIONS := -f markdown+inline_code_attributes+superscript \
                   -V linestretch=1.6 \
                   --highlight-style=monochrome
 
-all: index.html projects.html $(BLOG)
+all: index.html contact.html projects.html awards.html $(BLOG)
 
 index.html: index.md
 	pandoc $< $(PANDOC_OPTIONS) -o $@
 
+contact.html: contact.md
+	pandoc $< $(PANDOC_OPTIONS) -o $@
+
 projects.html: projects.md
+	pandoc $< $(PANDOC_OPTIONS) -o $@
+
+awards.html: awards.md
 	pandoc $< $(PANDOC_OPTIONS) -o $@
 
 blog/%.html: blog/%.md
