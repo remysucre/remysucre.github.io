@@ -1,4 +1,4 @@
-[![Testimonial from Hacker News](imgs/hn.png){width=40%}](https://news.ycombinator.com/item?id=36889656)
+[![Hacker News Testimonial](imgs/hn.png){width=40%}](https://news.ycombinator.com/item?id=36889656)
 
 * 2024 Jim Gray Dissertation Award: Runner-Up
 * Google Research Fellowship @ Simons Institute (2023)
