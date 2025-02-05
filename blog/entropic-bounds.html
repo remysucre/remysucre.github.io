@@ -193,7 +193,9 @@ know 3 inequalities: the “entropy range”, monotonicity, and
 submodularity. Luckily I don’t have to memorize the bounds as each
 inequality has a very simple intuition. First, the “entropy range”
 simply bounds the value of any entropy function:</p>
-<pre class="math"><code>0 \leq H(X) \leq \log(|X|)</code></pre>
+<p><span class="math display">
+0 \leq H(X) \leq \log(|X|)
+</span></p>
 <p>On one hand, the entropy is 0 if <span class="math inline">X</span>
 takes a certain value <span class="math inline">A</span> with probabilty
 <span class="math inline">1</span>. In that case, we know <span
@@ -204,7 +206,9 @@ class="math inline">\log(|X|)</span> bits to encode <span
 class="math inline">X</span>, ignoring the probability distribution.</p>
 <p><strong>Monotonicity</strong> says that the entropy of a string of
 random variables is no less than the entropy of any substring:</p>
-<pre class="math"><code>H(X) \leq H(XY)</code></pre>
+<p><span class="math display">
+H(X) \leq H(XY)
+</span></p>
 <p>Here <span class="math inline">XY</span> simply “concatenates” <span
 class="math inline">X</span> and <span class="math inline">Y</span>, in
 that a value of <span class="math inline">XY</span> concatenates a value
@@ -231,7 +235,9 @@ we can save some bits by inferring facts from the correlation of data;
 if all variables are independent we can save nothing. With this
 intuition, let’s look at the formal statement of
 <strong>submodularity</strong>:</p>
-<pre class="math"><code>H(X) + H(Y) \geq H(X \cup Y) + H(X \cap Y)</code></pre>
+<p><span class="math display">
+H(X) + H(Y) \geq H(X \cup Y) + H(X \cap Y)
+</span></p>
 <p>Rearranging, we get <span class="math inline">H(X \cup Y) - H(X) \leq
 H(Y) - H(X \cap Y)</span>. Note <span class="math inline">(X \cup Y) - X
 = Y - (X\cap Y)</span>, and if we define <span
