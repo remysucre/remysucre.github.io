@@ -21,9 +21,9 @@ probability distribution of the data. Entropy precisely formalizes this
 intuition. Formally, if $X$ is a random variable with outcomes $x_1, \dots, x_N$
 each of probabilities $p_1, \dots, p_N$, then its **entropy** is defined as:
 
-```math
+$$
 H(X) = \sum_i p_i \log \frac{1}{p_i}
-```
+$$
 
 This matches our intuition: when $X$ is uniform and $|X| = N$, $H(X)=N(1/N
 \log N)=\log N$; when $X$ is almost always a certain message, say $A$, then
