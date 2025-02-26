@@ -35,7 +35,7 @@ I'm very lucky to work with many brilliant students:
     <tr>
       <td>**UG**</td>
       <td>
-        Paul Zhang,
+        [Paul Zhang](https://www.linkedin.com/in/paulzyzhang),
         Daniel Yang
       </td>
     </tr>
