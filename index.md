@@ -36,8 +36,7 @@ I'm very lucky to work with many brilliant students:
       <td>**UG**</td>
       <td>
         Paul Zhang,
-        Daniel Yang,
-        [Tom Binford](https://www.linkedin.com/in/tombinford)
+        Daniel Yang
       </td>
     </tr>
   </tbody>
