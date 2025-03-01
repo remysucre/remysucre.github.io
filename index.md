@@ -22,7 +22,7 @@ I'm very lucky to work with many brilliant students:
       <td>**PhD**</td>
       <td>
         [Zheng Luo](http://zhengluo.org),
-        [Sai Achalla](https://saikrishna-achalla.github.io) (w/ [Sam Kumar](https://www.samkumar.org))
+        [Sai Achalla](https://www.saiachalla.com) (w/ [Sam Kumar](https://www.samkumar.org))
       </td>
     </tr>
     <tr>
