@@ -12,6 +12,7 @@ header-includes: |
 **[Remy Wang](https://remy.wang/) :: [GitHub](https://github.com/remysucre/remysucre.github.io) :: [RSS](feed.rss)**
 
 ---------- --------------------------------------------------
+2025.03.17 [Reading Papers in a Paper-Reading Seminar](reading.html)
 2023.12.06 [Duality in Linear Programming](dual-lp.html)
 2023.11.01 [The Entropic Framework for Cardinality Bounds](entropy-card.html)
 2023.08.03 [Relative Safety in Relational Calculus](relational-calculus.html)
