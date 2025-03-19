@@ -345,7 +345,13 @@ a generalization of that fragment. The key mechanism in their algorithm
 is a principled way to do <em>quantifier instantiation</em>, which can
 be thought of as a smarter way to do our brute-force term enumeration by
 only building terms using functions that appear in <span
-class="math inline">E</span> and <span class="math inline">e</span>.</p>
+class="math inline">E</span> and <span class="math inline">e</span>.
+Another related work is Guided Equality Saturation, where the user
+manually insert “magic terms” to help out the rewriting process. As <a
+href="https://egraphs.zulipchat.com/#narrow/channel/328977-topic.2Ftheory/topic/ground.20vs.20non-ground.20theorem.20proving/near/505062654">Andrés
+Goens pointed out</a>, our proof here shows Guided Equality Saturation
+is not limited to run time improvements but actually extends the
+<em>proving power</em> of plain equality saturation.</p>
 <p>The formalisms I’ve used in this post mostly follow <a
 href="https://www.cambridge.org/core/books/term-rewriting-and-all-that/71768055278D0DEF4FFC74722DE0D707">Term
 Rewriting and All That</a>, with a few small changes: they write <span
