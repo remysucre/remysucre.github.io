@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>birkhoff</title>
+  <style>
+    html {
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1
+id="completeness-of-equational-proofs-with-equality-saturation">Completeness
+of Equational Proofs with Equality Saturation</h1>
+<p>I’ve always assumed equality saturation is complete for proving
+equality between terms, until Ryan Wisnesky <a
+href="https://egraphs.zulipchat.com/#narrow/channel/328977-topic.2Ftheory/topic/ground.20vs.20non-ground.20theorem.20proving/near/502918453">ask
+for a proof</a> on Zulip. Turns out simply running equality saturation
+is not enough! But the good news is, we can get completeness by adding a
+pretty simple step (just keep enumerating terms and add each one to the
+e-graph). Proving this works though requires quite a bit of formalism,
+and I’ll try to lay out the essential parts in this post.</p>
+<p><strong>The Problem</strong>. Informally, we want to know the
+following: given a set <span class="math inline">E</span> of equational
+axioms and a pair <span class="math inline">t_1</span>, <span
+class="math inline">t_2</span> of equivalent (according to <span
+class="math inline">E</span>) terms, can we prove <span
+class="math inline">t_1 = t_2</span> from the axioms in <span
+class="math inline">E</span>? Here both <span
+class="math inline">t_1</span> and <span class="math inline">t_2</span>
+are <em>ground</em> terms. We’ll define exactly what that means in a
+bit. One example is, given the axioms <span class="math inline">\forall
+X, Y: X\times Y = Y\times X</span>, we can prove <span
+class="math inline">a \times b = b \times a</span> by setting <span
+class="math inline">X = a</span> and <span class="math inline">Y =
+b</span>. There is also a more general version of the problem: given a
+set <span class="math inline">E</span> of axioms, can we prove another
+equation <span class="math inline">e</span> is implied by <span
+class="math inline">E</span>? For example, given the axioms: <span
+class="math display">\forall X, Y: X\times Y = Y\times X</span> <span
+class="math display">\forall X, Y, Z: (X\times Y) \times Z = X \times (Y
+\times Z)</span> we can prove <span class="math inline">\forall X, Y, Z:
+(X \times Z) \times Y = X \times (Y \times Z)</span>. One important
+detail is that we only want to <em>prove</em> <span
+class="math inline">e</span> if the equality truly holds, and we don’t
+have to disprove any false equalities. In other words, we want a
+semi-decision procedure instead of a decision procedure.</p>
+<p>Now let’s make the problem statement a bit more formal. Given a
+vocabulary of function symbols (including constants) <span
+class="math inline">\Sigma</span> and a set of variables <span
+class="math inline">X</span>, <span class="math inline">T(\Sigma)</span>
+denotes the set of expressions constructed from <span
+class="math inline">\Sigma</span>, also called <em>ground terms</em>.
+<span class="math inline">T(\Sigma, X)</span> denotes the set of
+expressions constructed from both the function and constant symbols as
+well as the variables, also called <em>open terms</em>. A <em>model</em>
+(a.k.a. <em>interpretation</em>) <span class="math inline">M</span>
+assigns a value to each constant symbol, and a function to each function
+symbol. <span class="math inline">M</span> also comes with a
+<em>domain</em> of values which is usually implicit. An axiom <span
+class="math inline">e = \forall \bar X: \phi(\bar X)</span>
+<em>holds</em> in an interpretation, written <span class="math inline">M
+\models e</span>, if <span class="math inline">\phi(\bar X)</span> is
+true for any assignment of <span class="math inline">\bar X</span> to
+values in the domain of <span class="math inline">M</span>, after
+interpreting each function and constant symbol in <span
+class="math inline">\phi</span> according to <span
+class="math inline">M</span>. A set <span class="math inline">E</span>
+of axioms <em>implies</em> another axiom <span
+class="math inline">e</span>, if <span class="math inline">M \models
+e</span> for any model such that <span class="math inline">M \models
+E</span> (which means all axioms in <span class="math inline">E</span>
+hold in <span class="math inline">M</span>). When <span
+class="math inline">e</span> is an equality of the form <span
+class="math inline">e = \forall \bar X: t_1 = t_2</span> (where <span
+class="math inline">t_1</span> and <span class="math inline">t_2</span>
+are open terms over <span class="math inline">\bar X</span>), we write
+<span class="math inline">t_1 =_E t_2</span> to mean <span
+class="math inline">E</span> implies <span
+class="math inline">e</span>.</p>
+<p>Note that <span class="math inline">=_E</span> is a <em>semantic</em>
+relation, because it says that two terms are equal over all
+interpretations satisfying <span class="math inline">E</span>. Let’s now
+consider some <em>syntactic</em> relations that will form the basis of
+equality saturation. Given an open term <span
+class="math inline">t_p</span> (also called a <em>pattern</em>), we say
+<span class="math inline">t_p</span> <em>matches</em> another term <span
+class="math inline">t</span> if there is a substitution <span
+class="math inline">\sigma</span> mapping variables to terms such that
+<span class="math inline">\sigma(t_p)</span> is the same as <span
+class="math inline">t</span>. Note that <span
+class="math inline">t</span> does not need to be ground, and <span
+class="math inline">\sigma</span> can also map variables to open terms.
+A <em>rewrite rule</em> has the form <span class="math inline">l
+\rightarrow r</span> where each <span class="math inline">l</span> and
+<span class="math inline">r</span> is an open term. Note that unlike
+rewrite rules in <a href="https://egraphs-good.github.io">egg</a>, we
+don’t require the variables in <span class="math inline">r</span> to be
+a subset of that in <span class="math inline">l</span>.
+<em>Applying</em> a rewrite rule <span class="math inline">l
+\rightarrow</span> to a term <span class="math inline">t</span> involves
+first finding a subterm of <span class="math inline">t</span> that
+matches <span class="math inline">l</span> under some substitution <span
+class="math inline">\sigma</span>, then replacing that subterm with
+<span class="math inline">\sigma(r)</span>. We write <span
+class="math inline">t \rightarrow_e s</span> if rewriting <span
+class="math inline">t</span> with the rule <span
+class="math inline">e</span> results in <span
+class="math inline">s</span>. <span class="math inline">t \rightarrow_E
+s</span> means <span class="math inline">t \rightarrow_e s</span> for
+some <span class="math inline">e \in E</span>. Finally, we write <span
+class="math inline">\leftrightarrow_e^*</span> for the reflexive,
+symmetric, and transitive closure of <span
+class="math inline">\rightarrow_E</span>. In other words, <span
+class="math inline">t_0 \leftrightarrow_E^* t_k</span> iff there is a
+sequence <span class="math inline">t_1, t_2, \ldots, t_{k-1}</span> such
+that <span class="math inline">t_i \leftrightarrow_E t_{i+1}</span> for
+all <span class="math inline">0 \leq i &lt; k</span>.</p>
+<p>The key result establishing the completeness of equality saturation
+for equational proofs is Birkhoff’s theorem, which says <span
+class="math inline">t_1 =_E t_2</span> iff <span class="math inline">t_1
+\leftrightarrow_E^* t_2</span>. In English, this says that the terms are
+equivalent if and only if there is a sequence of rewritings between the
+terms. As the terms here can be open, the theorem applies to both the
+ground version and the more general open version of our problem.</p>
+<p>At first I thought the completeness of equality saturation directly
+follows from Birkhoff’s theorem, but that’s actually not true! Consider
+this example (thanks to <a
+href="https://egraphs.zulipchat.com/#narrow/channel/328977-topic.2Ftheory/topic/ground.20vs.20non-ground.20theorem.20proving/near/504474125">Philip
+Zucker</a>): given the axioms <span class="math inline">\forall X . f(X)
+= a</span> and <span class="math inline">\forall X. f(X) = b</span>,
+prove <span class="math inline">a = b</span>. <a
+href="https://egraphs-good.github.io/egglog/?program=XQAAgAB7AAAAAAAAAAAUGQgnfMUD9dO1z8bgG1j6kaTP2h1OxcpyZZa24MNfiu-w0tkVd84NjEqmb3GFrnBsvJhXin81HzEaRhWwvUFVmE54Mdew2ng8wLpq90gRBWT_mMFgAA%253D%253D">Chugging
+these into egg</a> won’t work, because the rules can only be applied
+from left-to-right; to apply either rule from right-to-left, we would
+have to “guess” some term for <span class="math inline">X</span>.
+However, if we just insert a tern <span class="math inline">f(a)</span>
+into the e-graph, we succeed: now both rules can be applied to <span
+class="math inline">f(a)</span> which rewrites to <span
+class="math inline">a</span> and <span class="math inline">b</span>
+respectively.</p>
+<p>The reason equality saturation failed is that a rewrite rule a la
+equality saturation is different from the <span
+class="math inline">\rightarrow_E</span> relation: in equality
+saturation, the right-hand-side can only use variables from the
+left-hand-side. But our “fix” to the example above suggests a general
+algorithm: equality saturation works as long as the e-graph has enough
+term to “trigger” the rewrites. To make equality saturation complete
+(i.e. a semi-decision procedure), we just need to keep enumerating terms
+from <span class="math inline">T(\Sigma, X)</span> and insert each one
+into the e-graph, along side the normal rule applications. This will
+eventually allow us to construct any finite sequence of rewrites between
+<span class="math inline">t_1</span> and <span
+class="math inline">t_2</span>, and by Birkhoff’s theorem proves <span
+class="math inline">t_1 =_E t_2</span>.</p>
+<p>In this post we have focused on a rather narrow problem, namely
+checking equalities from a set of equational axioms. Turns out this is a
+special case of the more general <em>equational logic</em>, where you
+can have arbitrary first-order sentences over equalities. More
+precisely, the theory of <em>equational logic with uninterpreted
+functions</em> is a fragment of FOL where the only predicate is equality
+(uninterpreted functions and constants are also allowed). This is
+actually a <em>decidable</em> fragment, and <a
+href="https://link.springer.com/chapter/10.1007/978-3-642-02658-4_25">this
+fantastic paper</a> by Ge &amp; de Moura gives a decision procedure for
+a generalization of that fragment. The key mechanism in their algorithm
+is a principled way to do <em>quantifier instantiation</em>, which can
+be thought of as a smarter way to do our brute-force term enumeration by
+only building terms using functions that appear in <span
+class="math inline">E</span> and <span class="math inline">e</span>.</p>
+<p>The formalisms I’ve used in this post mostly follow <a
+href="https://www.cambridge.org/core/books/term-rewriting-and-all-that/71768055278D0DEF4FFC74722DE0D707">Term
+Rewriting and All That</a>, with a few small changes: they write <span
+class="math inline">\stackrel{*}{\leftrightarrow}_E</span> instead of
+<span class="math inline">\leftrightarrow^*_E</span> and <span
+class="math inline">\approx_E</span> instead of <span
+class="math inline">=_E</span> which are a bit harder to type.</p>
+</body>
+</html>
