@@ -4,12 +4,13 @@ pagetitle: Remy Wang
 
 # Remy Wang
 
-[blog](./blog/index.html)&nbsp;
-[papers](http://remy.wang/papers/)&nbsp;
-[awards](awards.html)&nbsp;
-[photo](./imgs/remy.jpg)&nbsp;
-[contact](contact.html)
-<!-- [cs249qo](https://remy.wang/cs249qo/) -->
+[blog](./blog/index.html)
+&nbsp;[papers](http://remy.wang/papers/)
+&nbsp;[awards](awards.html)
+&nbsp;[photo](./imgs/remy.jpg)
+&nbsp;[contact](contact.html)
+&nbsp;[cs143](cs143.html)
+<!-- &nbsp;[cs249qo](https://remy.wang/cs249qo/) -->
 
 I'm an Assistant Professor at UCLA.
 I optimize modern data systems with advanced techniques from programming languages and databases. 
