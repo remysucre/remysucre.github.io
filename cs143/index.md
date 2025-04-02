@@ -5,7 +5,7 @@
     <tr>
       <td>**Course Staff**</td>
       <td>
-        [Remy Wang](https://remy.wang) (Instructor), [Zifan He](https://vast.cs.ucla.edu/people/student/zifan-he) (TA)
+        [Remy Wang](https://remy.wang) (Instructor), [Zifan He](https://vast.cs.ucla.edu/people/student/zifan-he) (TA), [Vincent Lin](https://github.com/vinlin24#about) (TA)
       </td>
     </tr>
     <tr>
