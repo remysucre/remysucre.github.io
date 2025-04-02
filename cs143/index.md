@@ -33,10 +33,10 @@
           Introduction & Basic SQL
       </td>
       <td>
-          [keynote](./cs143/lec1.key)
+          [keynote](lec1.key)
       </td>
       <td>
-          [pdf](./cs143/lec1.pdf)
+          [pdf](lec1.pdf)
       </td>
     </tr>
   </tbody>
