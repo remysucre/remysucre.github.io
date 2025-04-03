@@ -1,0 +1,9 @@
+pet	breed	age	origin	kind	person	addr.	phone	job
+casa	tabby	8	seattle	cat	remy	LA	###	UCLA
+kira	tuxedo	6	hawaii	cat	remy	LA	###	UCLA
+toby	border collie	17	seattle	dog	remy	LA	###	UCLA
+maya	husky	10	LA	dog	remy	LA	###	UCLA
+casa	tabby	8	seattle	cat	remy	seattle	###	UW
+kira	tuxedo	6	hawaii	cat	remy	seattle	###	UW
+toby	border collie	17	seattle	dog	remy	seattle	###	UW
+maya	husky	10	LA	dog	remy	seattle	###	UW
