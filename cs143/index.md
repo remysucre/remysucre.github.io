@@ -50,6 +50,9 @@
       <td>
           [pdf](lec2.pdf)
       </td>
+      <td>
+          [db](lec2/lec2.db)
+      </td>
     </tr>
   </tbody>
 </table>
