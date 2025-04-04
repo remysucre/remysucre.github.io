@@ -39,6 +39,18 @@
           [pdf](lec1.pdf)
       </td>
     </tr>
+    <tr>
+      <td>2025-04-03</td>
+      <td>
+          Decomposition and Joins
+      </td>
+      <td>
+          [keynote](lec2.key)
+      </td>
+      <td>
+          [pdf](lec2.pdf)
+      </td>
+    </tr>
   </tbody>
 </table>
 
