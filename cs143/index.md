@@ -54,6 +54,21 @@
           [db](lec2/lec2.db)
       </td>
     </tr>
+    <tr>
+      <td>2025-04-08</td>
+      <td>
+          More SQL
+      </td>
+      <td>
+          [keynote](lec3/lec3.key)
+      </td>
+      <td>
+          [pdf](lec3/lec3.pdf)
+      </td>
+      <td>
+          [db](lec3/lec3.db)
+      </td>
+    </tr>
   </tbody>
 </table>
 
