@@ -23,6 +23,18 @@
   </tbody>
 </table>
 
+<table>
+  <tbody style="border: none;">
+    <tr>
+      <td>HW1</td>
+      <td>"due" 4/18</td>
+      <td>
+         [The Dark Side of the City of Angels](hw/hw1.html)
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ----
 
 <table>

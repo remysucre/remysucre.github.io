@@ -1,5 +1,8 @@
-MARKDOWN_FILES := $(wildcard blog/*.md)
-BLOG := $(patsubst %.md,%.html,$(MARKDOWN_FILES))
+BLOGMD := $(wildcard blog/*.md)
+BLOG := $(patsubst %.md,%.html,$(BLOGMD))
+
+HOMEWORKMD := $(wildcard cs143/hw/*.md)
+HOMEWORK := $(patsubst %.md,%.html,$(HOMEWORKMD))
 
 PANDOC_OPTIONS := -f markdown+inline_code_attributes+superscript \
                   -t html --katex -s \
@@ -8,7 +11,7 @@ PANDOC_OPTIONS := -f markdown+inline_code_attributes+superscript \
                   -V linestretch=1.6 \
                   --highlight-style=monochrome
 
-all: index.html contact.html projects.html awards.html cs143/index.html $(BLOG)
+all: index.html contact.html projects.html awards.html cs143/index.html $(BLOG) $(HOMEWORK)
 
 cs143/index.html: cs143/index.md
 	pandoc $< $(PANDOC_OPTIONS) -o $@
@@ -26,6 +29,9 @@ awards.html: awards.md
 	pandoc $< $(PANDOC_OPTIONS) -o $@
 
 blog/%.html: blog/%.md
+	pandoc $< $(PANDOC_OPTIONS) -o $@
+
+cs143/hw/%.html: cs143/hw/%.md
 	pandoc $< $(PANDOC_OPTIONS) -o $@
 
 .PHONY: all

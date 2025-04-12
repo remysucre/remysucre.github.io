@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>hw1</title>
+  <style>
+    html {
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="the-dark-side-of-the-city-of-angels">The Dark Side of the City
+of Angels</h1>
+<p>In this homework we will put our SQL-fu to use, getting a peek to the
+dark underworld of our city. We will be exploring the public Crime
+Dataset of Los Angeles. Buckle up, becuase what lies ahead may not be
+what you expect.</p>
+<p>The dataset is hosted on data.gov, home to hundreds of thousands of
+public datasets spanning all domains of the American life. I highly
+recommend you to poke around the website and see what you can find. The
+<a
+href="https://catalog.data.gov/dataset/crime-data-from-2020-to-present">LA
+Crime dataset</a> we’re working with is apparently the second most-viewd
+dataset on the website.</p>
+<p>Start by downloading the CSV (Comma Separated Values File) data from
+<a
+href="https://catalog.data.gov/dataset/crime-data-from-2020-to-present">this
+page</a>. Once download finishes, load the data into <a
+href="https://sqlitebrowser.org/dl/">SQLite Browser</a> as follows
+(these instructions are for macOS; if you use linux/windows please refer
+to the SQLite <a
+href="https://github.com/sqlitebrowser/sqlitebrowser/wiki">documentation</a>):</p>
+<ol type="1">
+<li><p>Create a new database with File &gt; New Database. It will ask
+you for a name and a location to save the database file. Give any name
+you like and click “save”. Another window titled “Edit table definition”
+will popup - that is for creating new tables. ignore that by clicking
+cancel.</p></li>
+<li><p>Now, we will import our dataset as a table into the database.
+Click File &gt; Import &gt; Table from CSV file. Locate the CSV file you
+just downloaded, and click Open. Another window pops up with a preview
+of the data. Change the Table name to “crime”, and make sure the Field
+seperator is set to “,” (comma), and you should be able to see a
+spreadsheet-like preview of the data with many rows and columns. Click
+OK.</p></li>
+</ol>
+<p>Now we have our data in the database! Take a look around by clicking
+on “Browse Data”. This should display a spreadsheet showing the entire
+table. Note that the table is very wide with many columns - bad design!
+Also note that there are NULLs <em>literally every where</em>. So this
+data is a bit dirty, and we will clean it up first. But to clean it up
+we first need to understand what’s in the data. Let’s go column by
+column.</p>
+<p>The first column is a bit mysterious and contains a bunch of random
+numbers. Usually, this is some kind of ID used to uniquely idenitfy each
+data record. In other words, it should form a <strong>primary
+key</strong> of the table. Let’s test out our hypothesis:</p>
+<ul>
+<li>What SQL query can you write to check if the <code>DR_NO</code>
+column is a primary key?</li>
+</ul>
+<p>The second and third columns are more self-explanatory:
+<code>Date Rptd</code> probably means date reported, and
+<code>Date OCC</code> is the date that the crime actually occured. After
+each date we also see a time, but it looks like the time is always 12
+AM? Let’s check if that’s the case. To do that, we first need to pull
+out the time part out of the string.</p>
+<ul>
+<li><p>Write a SQL query to extract the time out of each of the two
+columns. You may ask AI to find the appropriate SQLite feature for this.
+Tip: when you have spaces and other weird charactors in column names,
+you need to quote it:
+<code>SELECT "Date Rptd" FROM crime;</code></p></li>
+<li><p>Now, write another query to see if the time is always 12
+AM.</p></li>
+</ul>
+<p>Spoiler: turns out the time is always 12 AM, so we can just drop
+that.</p>
+<ul>
+<li>Write a query that extracts the date from the two columns.</li>
+</ul>
+<p>There is a small problem: SQLite <a
+href="https://sqlite.org/lang_datefunc.html#tmval">requires</a> date to
+be stored in <code>YYYY-MM-DD</code>, but in this dataset it’s stored as
+<code>MM/DD/YYYY</code>.</p>
+<ul>
+<li>Write a query that corrects the date.</li>
+</ul>
+<p>Now moving on to the <code>TIME OCC</code> column. You guessed it
+from the name: it’s the time that the crime actually occured. If you
+read a few entries you’ll realize they are using “military time”,
+i.e. 2100 means 21:00.</p>
+<ul>
+<li>Write a query that combines the <code>DATE OCC</code> column and
+<code>TIME OCC</code> column into SQLite datetime format
+<code>YYYY-MM-DD HH:MM</code></li>
+</ul>
+<p>The next two columns are <code>AREA</code> and
+<code>AREA NAME</code>. If you sort by <code>AREA</code> (by clicking on
+it), you’ll see that the <code>AREA</code> column is probably some kind
+of <code>ID</code> for <code>AREA NAME</code>. But it’s not a primary
+key for this table!</p>
+<ul>
+<li>Write a query to check if <code>AREA</code> uniquely determines
+<code>AREA NAME</code>.</li>
+</ul>
+<p>Next comes a column named <code>Rpt Dist No</code>. Compare this to
+<code>AREA</code>, you’ll find some patterns.</p>
+<ul>
+<li>Write a query to check if <code>AREA</code> always appears at the
+front of <code>Rpt Dist No</code></li>
+</ul>
+<p>The column <code>Part 1-2</code> seems to suggest some crimes has
+part 1 and part 2, but I actually couldn’t figure out a way to link two
+parts of the same crime together. So if you found a way, please let me
+know!</p>
+<p>After that we have <code>Crm Cd</code>, which should determine
+<code>Crm Cd Desc</code>, and you can check that in the usual way. I’m
+not 100% sure what <code>Mocodes</code> are but searching online it
+seems to be some “modus operandi” codes describing specific activities
+invovled in the crime. The next columns of age, sex and descent are
+self-explanantory. The premis, weapon, and status columns are also
+similar to what we have seen.</p>
+<p>But now we see four columns <code>Crm Cd 1</code> -
+<code>Crm Cd 4</code> again! This seems to suggest certain incidents
+involve multiple crimes. But this way of keeping track of multiple
+crimes is pretty awkward, evident by the NULLs everywhere.</p>
+<ul>
+<li>Think about how you would instead store multiple crimes. We will get
+back to this when we decompose the table.</li>
+</ul>
+<p>Finally, we have some columns recording the location and coordinates
+of the crimes. Then we’re done! Phew!</p>
+<p>So we’ve said the organization of the table isn’t ideal - there are
+way too many columns! We know the solution is to decompose the table
+into multiple ones. Given that we have a primary key, there is actually
+a rather extreme way of decomposition:</p>
+<ul>
+<li>Decompose the table into as many tables as possible to minimize the
+number of columns per table. How many tables do you need? How many
+columns for each table?</li>
+</ul>
+<p>There is another nice side effect of this extreme decomposition: if
+there is a NULL in an entry, we can just drop that row without really
+losing information.</p>
+<ul>
+<li><p>For each table in your decomposition, drop any row containing
+NULLs.</p></li>
+<li><p>After dropping the NULLs, how can you reconstruct the original
+table?</p></li>
+</ul>
+<p>Decomposing tables like that is usually not necessary, and can
+complicate our queries. Usually it suffices to remove strict
+independency and dependency as we have done in class. There isn’t really
+any useful strict independency despite some trivial ones in this
+table:</p>
+<ul>
+<li>There are actually lots of “trivial”/“degenerate” independencies
+cause by the primary key. Can you find some examples?</li>
+</ul>
+<p>In other words, if we decompose using the trivial independencies, we
+would end up with the extreme decomposition above. So we won’t do that.
+Instead, we will deal with the dependencies. For example, because we
+know <code>AREA</code> determines <code>AREA NAME</code>, we can “factor
+out” the <code>AREA NAME</code> column into a separate table. I.e., we
+keep the <code>AREA</code> column, and make a new table with columns
+<code>AREA</code> and <code>AREA NAME</code>.</p>
+<ul>
+<li>Write a SQL query to create the new table with the two columns.</li>
+</ul>
+<p>Now do the same for all other strict dependencies in the table
+<em>except for</em> those from the primary key.</p>
+<p>There is one dependency that’s very special: recall that
+<code>Rpt Dist No</code> determines <code>AREA</code>, so we would be
+factoring them out into a separate table. But that table will look a bit
+silly, where the <code>AREA</code> column simply drops the last 2 digits
+from the <code>Rpt Dist No</code> column. This is a case when
+<em>database views</em> can be very helpful: instead of actually
+creating the physical table, we create a <em>virtual table</em> that
+computes the <code>AREA</code> code from <code>Rpt Dist No</code>.</p>
+<ul>
+<li>Write a query using only the <code>Rpt Dist No</code> but returns
+the same result as
+<code>SELECT DISTINCT "Rpt Dist No", AREA FROM crime</code>.</li>
+</ul>
+<p>The last bit to clean up is the issue with the crime codes: every row
+has a <code>Crm Cd</code> column as well as additional
+<code>Crm Cd 1</code> through <code>Crm Cd 4</code>. Also, it seems
+<code>Crm Cd</code> is always contained in one of the
+<code>Crm Cd n</code> columns and therefore might be redundant.</p>
+<ul>
+<li>Write a query to check if that’s always the case. Be careful with
+NULLs!</li>
+</ul>
+<p>The current way of storing crime code is quite awkward, and that’s an
+artifact of using only one table to store all information. But we’re
+using a database, and we can use more tables!</p>
+<ul>
+<li>Write a SQL query to separate the crime codes into another table.
+Drop the NULLs.</li>
+</ul>
+<p>At this point, our table is more or less clean! Your table schema
+should look something like this:</p>
+<pre><code>crime(DR_NO, Date Rptd, Date OCC, TIME OCC, Rpt Dist No, 
+      Part 1-2, mocodes, age, sex, descent, 
+      Premis Cd, Weapon Cd, Status, 
+      Location, Cross Street, Lat, Lon)
+
+dist_area(Rpt Dist No, AREA) (virtual table)
+
+area(AREA, AREA_NAME)
+
+code(DR_NO, Crm Cd) (this consolidates all crime codes)
+
+code_desc(Crm Cd, Crm Cd Desc)
+
+premise(Premis Cd, Premis Desc)
+
+weapon(Weapon Cd, Weapon Desc)
+
+status(Status, Status Desc)</code></pre>
+<p>We can create these new tables in two different ways:</p>
+<ol type="1">
+<li><p>Use <code>CREATE TABLE</code> to actually create them
+“physically”</p></li>
+<li><p>Create them as views/“virtual tables”</p></li>
+</ol>
+<p>Let’s try the first approach first.</p>
+<ul>
+<li><p>Be careful to save your work. For example, you can first save a
+version of the DB containig both the original table and the new
+ones.</p></li>
+<li><p>Now save two different copies of the DB file, one with the
+original crime table created directly from CSV, and another with only
+the decomposed tables. Compare their size.</p></li>
+</ul>
+<p>The benefit of creating the table physically is that we can save
+space, and we can query the decomposed tables directly. The issue is
+that, if the city of LA sends us new data, it’s probably in the form of
+the original table, and we would have to manually insert those into our
+new schema. That’s where views come in:</p>
+<ul>
+<li>Create the new tables as views. Then try inserting a new row into
+the crime table, and watch the change automatically appear in the
+views.</li>
+</ul>
+<p>With the data cleaned, now we can ask some interesting questions! For
+example:</p>
+<ul>
+<li><p>What are the most popular weapons?</p></li>
+<li><p>What are the least popular weapons?</p></li>
+<li><p>How many different weapons are there?</p></li>
+<li><p>What’s the “most dangerous” neighborhood?</p></li>
+</ul>
+<p>There’s also a nice plot feature in SQLite browser that lets you do
+some quick visualization, for example</p>
+<ul>
+<li><p>What’s the crime distribution over hours of the day?</p></li>
+<li><p>What’s the crime distribution over months of a year?</p></li>
+</ul>
+<p>My favorite one is this:</p>
+<ul>
+<li>Plot <code>LAT</code> against <code>LON</code>, and you might
+recognize the shape. You’ll need to remove 0.0 which denotes missing
+values, and it also helps to subtract min(lat) and min(lon) from lat and
+lon (you’ll need nested queries). The visualization could be a little
+laggy due to having too many points.</li>
+</ul>
+<p>If you’re really up for it, use some proper visualization library
+together with the SQLite library for your favorite language to run some
+more analysis. Make some interactive maps, go wild!</p>
+</body>
+</html>
