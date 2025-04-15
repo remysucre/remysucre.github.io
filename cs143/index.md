@@ -96,6 +96,20 @@
           [db](lec4/lec4.db)
       </td>
     </tr>
+    <tr>
+      <td>2025-04-15</td>
+      <td>
+          SQL wrap up
+      </td>
+      <td>
+      </td>
+      <td>
+          [pdf](lec5/lec5.pdf)
+      </td>
+      <td>
+          [db](lec5/lec5.db)
+      </td>
+    </tr>
   </tbody>
 </table>
 
