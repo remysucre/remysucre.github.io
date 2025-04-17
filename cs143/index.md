@@ -110,6 +110,17 @@
           [db](lec5/lec5.db)
       </td>
     </tr>
+    <tr>
+      <td>2025-04-17</td>
+      <td>
+          Relational Algebra & ER diagrams
+      </td>
+      <td>
+      </td>
+      <td>
+          [pdf](lec6/lec6.pdf)
+      </td>
+    </tr>
   </tbody>
 </table>
 
