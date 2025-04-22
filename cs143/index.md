@@ -121,6 +121,18 @@
           [pdf](lec6/lec6.pdf)
       </td>
     </tr>
+    <tr>
+      <td>2025-04-22</td>
+      <td>
+          Dependencies and Decomposition
+      </td>
+      <td>
+          [keynote](lec7/lec7.key)
+      </td>
+      <td>
+          [pdf](lec7/lec7.pdf)
+      </td>
+    </tr>
   </tbody>
 </table>
 

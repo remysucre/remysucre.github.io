@@ -16,6 +16,12 @@ examples = [
     Payroll(5, "Charlie Davis", "DevOps Engineer", 75000)
 ]
 
-for p in examples:
-    print(p)
+# for p in examples:
+#     print(p)
 
+# for p in examples:
+#     if p.Salary > 55000 and p.Job == "Software Engineer":
+#         print(p)
+
+for p in examples:
+    print(p.Job, p.Name)

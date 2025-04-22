@@ -16,6 +16,12 @@ The first column is a bit mysterious and contains a bunch of random numbers. Usu
 
 * What SQL query can you write to check if the `DR_NO` column is a primary key?
 
+> There are different ways to do this, including using `GROUP BY`:
+
+```sql
+SELECT * FROM crime GROUP BY DR_NO HAVING COUNT(*) > 1
+```
+
 The second and third columns are more self-explanatory: `Date Rptd` probably means date reported, and `Date OCC` is the date that the crime actually occured. After each date we also see a time, but it looks like the time is always 12 AM? Let's check if that's the case. To do that, we first need to pull out the time part out of the string. 
 
 * Write a SQL query to extract the time out of each of the two columns. You may ask AI to find the appropriate SQLite feature for this. Tip: when you have spaces and other weird charactors in column names, you need to quote it: `SELECT "Date Rptd" FROM crime;`
