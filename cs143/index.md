@@ -133,6 +133,18 @@
           [pdf](lec7/lec7.pdf)
       </td>
     </tr>
+    <tr>
+      <td>2025-04-24</td>
+      <td>
+          Normal Forms & Intro to Transactions
+      </td>
+      <td>
+          [keynote](lec8/lec8.key)
+      </td>
+      <td>
+          [pdf](lec8/lec8.pdf)
+      </td>
+    </tr>
   </tbody>
 </table>
 
