@@ -32,6 +32,13 @@
          [The Dark Side of the City of Angels](hw/hw1.html)
       </td>
     </tr>
+    <tr>
+      <td>HW2</td>
+      <td>"due" 5/2</td>
+      <td>
+         [SQL at home](hw/hw2.html)
+      </td>
+    </tr>
   </tbody>
 </table>
 
