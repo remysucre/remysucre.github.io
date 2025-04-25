@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>hw2</title>
+  <style>
+    html {
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { font-weight: bold; } /* Alert */
+    code span.an { font-style: italic; } /* Annotation */
+    code span.cf { font-weight: bold; } /* ControlFlow */
+    code span.co { font-style: italic; } /* Comment */
+    code span.cv { font-style: italic; } /* CommentVar */
+    code span.do { font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.er { font-weight: bold; } /* Error */
+    code span.in { font-style: italic; } /* Information */
+    code span.kw { font-weight: bold; } /* Keyword */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.wa { font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="sql-at-home">SQL at home</h1>
+<p><img src="athome.jpg" /></p>
+<p>We spent a lot of time learning SQL, but tbh it’s a pretty limited
+language - it’s just a bunch of nested loops! So why don’ we just write
+loops instead? Yes.</p>
+<p>In this homework, we’ll do it the hard way and implement “SQL at
+home”. Really we’ll try to implement the relational algebra operators.
+This will solidify our knowledge of relational algebra. As Feynman said,
+“what I cannot create, I cannot understand”.</p>
+<p>Let’s start with representing table schema. Recall the schema of a
+table lists its column names, along with the type of each column. As we
+will be writing Python which is untyped (also pronounced “dynamically
+typed”), we’ll just think about the column names. We use
+<strong>dictionaries</strong> to represent schema as follows:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;name&quot;</span>: <span class="st">&quot;casa&quot;</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;age&quot;</span>: <span class="dv">8</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;origin&quot;</span>: <span class="st">&quot;seattle&quot;</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;kind&quot;</span>: <span class="st">&quot;cat&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;person&quot;</span>: <span class="st">&quot;remy&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(p)</span></code></pre></div>
+<p>Now to get a table of pets, we just have a list of dictionaries:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pets <span class="op">=</span> [</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;name&quot;</span>: <span class="st">&quot;casa&quot;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;age&quot;</span>: <span class="dv">8</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;origin&quot;</span>: <span class="st">&quot;seattle&quot;</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;kind&quot;</span>: <span class="st">&quot;cat&quot;</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;person&quot;</span>: <span class="st">&quot;remy&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;name&quot;</span>: <span class="st">&quot;luna&quot;</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;age&quot;</span>: <span class="dv">2</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;origin&quot;</span>: <span class="st">&quot;seattle&quot;</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;kind&quot;</span>: <span class="st">&quot;dog&quot;</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;person&quot;</span>: <span class="st">&quot;remy&quot;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;name&quot;</span>: <span class="st">&quot;milo&quot;</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;age&quot;</span>: <span class="dv">1</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;origin&quot;</span>: <span class="st">&quot;seattle&quot;</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;kind&quot;</span>: <span class="st">&quot;dog&quot;</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;person&quot;</span>: <span class="st">&quot;remy&quot;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
+<p>You might notice a small difference between SQL tables and our hacky
+version of tables using Python dictionaries: in SQL, each schema is
+associated to an entire table, so every row in the table will have the
+same schema. In Python, at least the way we’re doing it, each “schema”
+is only attached to one row. So in theory we could also have added a row
+with a “person” schema to the <code>pets</code> list. We can prevent
+this by using a typed language, but let’s ignore this for now.</p>
+<p>With some data in hand, we can start implementing the relational
+algebra operators. Let’s start with projection.</p>
+<ul>
+<li>Write a function that takes a list of pets and a column name, and
+returns a list of the values in that column.</li>
+</ul>
+<p>That was a special case of the general projection operator. But
+before we move to the general case, let’s consider the selection
+operator.</p>
+<ul>
+<li>Write a function that takes a list of pets and return all the
+dogs.</li>
+</ul>
+<p>In the function above we hardcoded the condition
+<code>kind = "dog"</code>. In general, the selection operator should
+take the condition as a parameter. To do that, we need to implement
+selection as a <a
+href="https://en.wikipedia.org/wiki/Higher-order_function">higher-order
+function</a>.</p>
+<ul>
+<li>Write a function that takes one pet and checks if it is a dog.</li>
+<li>Write a function that takes two parameters: a list of pets and a
+function of type <code>Dict -&gt; bool</code>. This function should
+return the list of pets that satisfy the condition defined by the
+function.</li>
+</ul>
+<p>Now we can implement the general projection operator.</p>
+<ul>
+<li>Write a function that takes a list of pets and a function
+<code>f</code> of type <code>Dict -&gt; T</code> for any <code>T</code>.
+This function should return a list of the values of <code>f</code>
+applied to each pet.</li>
+<li>Actually, this function is already implemented in Python’s standard
+library. Do you know what it’s called?</li>
+</ul>
+<p>The next interesting operator is the cartesian product.</p>
+<ul>
+<li>Write a function that takes two lists and returns their cartesian
+product. You should use the <code>|</code> operator to merge
+dictionaries, e.g. <code>dict1 | dict2</code>.</li>
+</ul>
+<p>Once we have the cartesian product, we can have joins.</p>
+<ul>
+<li>Implement the join operator by combining the cartesian product and
+the selection operator.</li>
+</ul>
+<p>But that’s quite an inefficient way to do joins! If we need to join
+<code>k</code> tables each with <code>n</code> rows, we will have to do
+<code>O(n^k)</code> work to compute the cartesian product. In practice,
+joins are implemented using special algorithms. We will consider a
+simplified version of the hash join algorithm. But before that, let’s
+implement a “grouping” operator that will be useful for both the hash
+join and “group by”.</p>
+<ul>
+<li>Write a function that takes a list of pets and returns a dictionary
+mapping each <code>kind</code> to a list of pets of that kind.</li>
+<li>Now, generalize that function to take a column name as parameter,
+and return a dictionary mapping each value in that column to a list of
+pets with that value.</li>
+<li>Generalize the function further so that it can accept a
+<em>list</em> of column names, and implements “group by” on those
+columns.</li>
+</ul>
+<p>The “group by” is in scare quotes, because the output of the function
+above is not a relation. It’s rather the “first half” of the group
+by-aggregate operator, before we apply the aggregate function.</p>
+<ul>
+<li>Complete the implementation of group by-aggregate. It should be a
+function that takes the following parameters:
+<ul>
+<li>a list representing a table</li>
+<li>a list of column names to group by</li>
+<li>one column name to aggregate over</li>
+<li>a function that takes a list of values and returns a single
+value</li>
+</ul></li>
+</ul>
+<p>The function should return a dictionary mapping each value in the
+group by columns to the result of applying the aggregate function to
+aggregate column.</p>
+<p>We’ll also use the grouping operator to implement the hash join.
+Let’s start with the simple case. Suppose we have two tables,
+<code>R(x, y)</code> and <code>S(y, z)</code>, and we want to join them
+on the column <code>y</code>. Let’s also assume <code>S</code> satisfies
+the functional dependency <code>y -&gt; z</code>.</p>
+<ul>
+<li>Create a dictionary mapping each value of <code>y</code> in
+<code>S</code> to the corresponding value of <code>z</code>.</li>
+<li>Compute the join of <code>R</code> and <code>S</code> on
+<code>y</code> by iterating over <code>R</code> and looking up the value
+of <code>z</code> in the dictionary.</li>
+</ul>
+<p>That’s really the spirit of the hash join algorithm: instead of
+having two nested loops over <code>R</code> and <code>S</code>, we build
+a hash table for <code>S</code> and then do a single loop over
+<code>R</code> to find the matching values. In general, when there may
+not be a functional dependency, we need to be careful and keep all
+possible values of <code>z</code> for each <code>y</code>.</p>
+<ul>
+<li>Create a dictionary mapping each value of <code>y</code> in
+<code>S</code> to a list of values of <code>z</code>, such that
+<code>(y, z)</code> is in <code>S</code>.</li>
+<li>Compute the join of <code>R</code> and <code>S</code> on
+<code>y</code> by iterating over <code>R</code> and looking up the list
+of values of <code>z</code> in the dictionary.</li>
+</ul>
+<p>With this, we’re now ready to implement hash join in the general
+case.</p>
+<ul>
+<li>Write a function that takes two tables and a list of column names to
+join on. The function should return the join of the two tables on those
+columns. The grouping operator will be useful here.</li>
+</ul>
+<p>With this, we have implemented the basic operators of relational
+algebra. I guess we didn’t really need SQL anyways?</p>
+<ul>
+<li>Run some experiments and compare the performance of your
+implementation with SQLite. You can generate some large data using
+Python, or use the crime data set from the last homework. You can
+simplify the queries and data a bit so that they can be mapped to the
+operators we implemented.</li>
+</ul>
+</body>
+</html>
