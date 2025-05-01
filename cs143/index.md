@@ -152,6 +152,30 @@
           [pdf](lec8/lec8.pdf)
       </td>
     </tr>
+    <tr>
+      <td>2025-04-29</td>
+      <td>
+          Transaction schedules
+      </td>
+      <td>
+          [keynote](lec9/lec9.key)
+      </td>
+      <td>
+          [pdf](lec9/lec9.pdf)
+      </td>
+    </tr>
+    <tr>
+      <td>2025-05-01</td>
+      <td>
+          Normal Forms & Intro to Transactions
+      </td>
+      <td>
+          [keynote](lec10/lec10.key)
+      </td>
+      <td>
+          [pdf](lec10/lec10.pdf)
+      </td>
+    </tr>
   </tbody>
 </table>
 
