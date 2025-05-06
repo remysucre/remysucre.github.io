@@ -1,0 +1,7 @@
+* isolation, API; query execution
+
+* on disk storage, indexes, external algos
+
+* advanced joins, cardinality estimation, information theory
+
+* datalog, snowflake, review

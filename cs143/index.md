@@ -176,6 +176,18 @@
           [pdf](lec10/lec10.pdf)
       </td>
     </tr>
+    <tr>
+      <td>2025-05-06</td>
+      <td>
+          Isolation Levels & Application Programming
+      </td>
+      <td>
+          [keynote](lec11/lec11.key)
+      </td>
+      <td>
+          [pdf](lec11/lec11.pdf)
+      </td>
+    </tr>
   </tbody>
 </table>
 
