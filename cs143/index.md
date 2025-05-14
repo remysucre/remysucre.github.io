@@ -188,6 +188,15 @@
           [pdf](lec11/lec11.pdf)
       </td>
     </tr>
+    <tr>
+      <td>2025-05-14</td>
+      <td>
+          Join Algorithms
+      </td>
+      <td>
+          [notes](notes/lec13.html)
+      </td>
+    </tr>
   </tbody>
 </table>
 

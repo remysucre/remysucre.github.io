@@ -372,25 +372,13 @@ class="math inline">R</span>, replace <span class="math inline">R</span>
 with <span class="math inline">R \ltimes T</span>, where <span
 class="math inline">T</span> is the parent of <span
 class="math inline">R</span>.</li>
-<li>Compute the final result using binary hash join in any order.</li>
+<li>Compute the final result using binary hash join bottom-up.</li>
 </ol>
+<p>The key property is that, after the two semijoin passes, every tuple
+that remains in any relation must contribute to an output.</p>
 <p>This algorithm runs in time <span class="math inline">O(|IN| +
 |OUT|)</span>, because each semijoin operation takes <span
 class="math inline">O(|IN|)</span> time, and the final hash join takes
 <span class="math inline">O(|OUT|)</span> time.</p>
-<p>To determine if such rewrite is possible, we use the GYO reduction.
-For any vertex <span class="math inline">v</span>, an edge <span
-class="math inline">e</span> is a <em>parent edge</em> for <span
-class="math inline">v</span> if <span class="math inline">e</span>
-contains all of <span class="math inline">v</span>’s join attributes.
-Any <span class="math inline">v</span> that has a parent edge is called
-an <em>ear</em>. GYO reduction then repeats the following steps:</p>
-<ol type="1">
-<li>Find any unmarked ear <span class="math inline">v</span>.</li>
-<li>Mark <span class="math inline">v</span> and any parent edge of <span
-class="math inline">v</span>.</li>
-<li>Remove all unmarked edges adjacent to <span
-class="math inline">v</span>.</li>
-</ol>
 </body>
 </html>
