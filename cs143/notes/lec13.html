@@ -374,11 +374,56 @@ class="math inline">T</span> is the parent of <span
 class="math inline">R</span>.</li>
 <li>Compute the final result using binary hash join bottom-up.</li>
 </ol>
+<p>In the above <span class="math inline">R \ltimes S_i</span> is the
+<em>semijoin</em> operation, which returns the tuples of <span
+class="math inline">R</span> that have a match in <span
+class="math inline">S_i</span>. In other words it removes any tuple in
+<span class="math inline">R</span> that does not have a match in <span
+class="math inline">S_i</span>.</p>
 <p>The key property is that, after the two semijoin passes, every tuple
 that remains in any relation must contribute to an output.</p>
 <p>This algorithm runs in time <span class="math inline">O(|IN| +
 |OUT|)</span>, because each semijoin operation takes <span
 class="math inline">O(|IN|)</span> time, and the final hash join takes
 <span class="math inline">O(|OUT|)</span> time.</p>
+<p>Let us now consider the problem of checking if a query is acyclic. A
+simple way to do this is to try dropping any subset of predicates, and
+see if the resulting query is still equivalent to the original query and
+has an acyclic predicate graph. However this will take exponential time.
+There is a more efficient algorithm that directly constructs the acyclic
+predicate graph from a <em>hypergraph</em> representation of the
+query.</p>
+<p>A hypergraph generalizes a graph by allowing edges to connect more
+than two vertices. Given a natural join query, the hypergraph of the
+query has a vertex for each attribute (a.k.a. variable), and a hyperedge
+for each relation. The hyperedge for a relation <span
+class="math inline">R(x_1, x_2, \ldots, x_n)</span> covers the vertices
+<span class="math inline">x_1, x_2, \ldots, x_n</span>. You should draw
+pictures of the hypergraphs of some example queries.</p>
+<p>An attribute is a <em>join attribute</em> if it appears in more than
+one relation. A hyperedge <span class="math inline">p</span> is a
+<em>parent</em> of another hyperedge <span class="math inline">e</span>,
+if <span class="math inline">p</span> covers all the join attributes in
+<span class="math inline">e</span>. A hyperedge <span
+class="math inline">e</span> is an <em>ear</em> if it has a parent.</p>
+<p>We can now follow a simple algorithm to construct the acyclic
+predicate graph from the hypergraph representation of the query.</p>
+<ol start="0" type="1">
+<li>Initialize the predicate graph to contain one vertex per relation,
+but no edges.</li>
+<li>Find an ear <span class="math inline">e</span> in the hypergraph,
+and find a parent <span class="math inline">p</span> of <span
+class="math inline">e</span>.</li>
+<li>In the predicate graph, connect the vertices corresponding to <span
+class="math inline">p</span> and <span
+class="math inline">e</span>.</li>
+<li>Remove <span class="math inline">e</span> from the hypergraph (and
+any vertex appearing only in <span class="math inline">e</span>), and
+repeat from step 1.</li>
+</ol>
+<p>If the query is acyclic, the above algorithm will terminate after
+removing all hyperedges from the hypergraph and construct an acyclic
+predicate graph. Otherwise, the algorithm will “get stuck” when it
+cannot find an ear, implying that the query is cyclic.</p>
 </body>
 </html>

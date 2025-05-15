@@ -197,6 +197,15 @@
           [notes](notes/lec13.html)
       </td>
     </tr>
+    <tr>
+      <td>2025-05-13</td>
+      <td>
+          Join Algorithms Cont.
+      </td>
+      <td>
+          [notes](notes/lec13.html)
+      </td>
+    </tr>
   </tbody>
 </table>
 
