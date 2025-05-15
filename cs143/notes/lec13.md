@@ -135,8 +135,36 @@ Then the Yannakakis algorithm works as follows:
 2. Traverse the tree top-down. For each internal node $R$, replace $R$ with $R \ltimes T$, where $T$ is the parent of $R$.
 3. Compute the final result using binary hash join bottom-up.
 
+In the above $R \ltimes S_i$ is the *semijoin* operation, which returns the tuples of $R$ that have a match in $S_i$.
+In other words it removes any tuple in $R$ that does not have a match in $S_i$.
+
 The key property is that, after the two semijoin passes, every tuple that remains in any relation
 must contribute to an output.
 
 This algorithm runs in time $O(|IN| + |OUT|)$, because each semijoin operation takes $O(|IN|)$ time,
 and the final hash join takes $O(|OUT|)$ time.
+
+Let us now consider the problem of checking if a query is acyclic. A simple way to do this is to
+try dropping any subset of predicates, and see if the resulting query is still equivalent to the original query
+and has an acyclic predicate graph. However this will take exponential time.
+There is a more efficient algorithm that directly constructs the acyclic predicate graph from a *hypergraph* representation of the query.
+
+A hypergraph generalizes a graph by allowing edges to connect more than two vertices.
+Given a natural join query, the hypergraph of the query has a vertex for each attribute (a.k.a. variable),
+and a hyperedge for each relation. The hyperedge for a relation $R(x_1, x_2, \ldots, x_n)$ covers the vertices $x_1, x_2, \ldots, x_n$.
+You should draw pictures of the hypergraphs of some example queries.
+
+An attribute is a *join attribute* if it appears in more than one relation.
+A hyperedge $p$ is a *parent* of another hyperedge $e$, if $p$ covers all the join attributes in $e$.
+A hyperedge $e$ is an *ear* if it has a parent.
+
+We can now follow a simple algorithm to construct the acyclic predicate graph from the hypergraph representation of the query.
+
+0. Initialize the predicate graph to contain one vertex per relation, but no edges.
+1. Find an ear $e$ in the hypergraph, and find a parent $p$ of $e$.
+2. In the predicate graph, connect the vertices corresponding to $p$ and $e$.
+3. Remove $e$ from the hypergraph (and any vertex appearing only in $e$), and repeat from step 1.
+
+If the query is acyclic, the above algorithm will terminate after removing all hyperedges from the hypergraph
+and construct an acyclic predicate graph.
+Otherwise, the algorithm will "get stuck" when it cannot find an ear, implying that the query is cyclic.
