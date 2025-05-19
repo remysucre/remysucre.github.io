@@ -39,6 +39,13 @@
          [SQL at home](hw/hw2.html)
       </td>
     </tr>
+    <tr>
+      <td>HW3</td>
+      <td>"due" 5/26</td>
+      <td>
+         [Transactions](hw/hw3.html)
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -198,7 +205,7 @@
       </td>
     </tr>
     <tr>
-      <td>2025-05-13</td>
+      <td>2025-05-15</td>
       <td>
           Join Algorithms Cont.
       </td>

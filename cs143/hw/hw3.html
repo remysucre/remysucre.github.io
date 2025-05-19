@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>hw3</title>
+  <style>
+    html {
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { font-weight: bold; } /* Alert */
+    code span.an { font-style: italic; } /* Annotation */
+    code span.cf { font-weight: bold; } /* ControlFlow */
+    code span.co { font-style: italic; } /* Comment */
+    code span.cv { font-style: italic; } /* CommentVar */
+    code span.do { font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.er { font-weight: bold; } /* Error */
+    code span.in { font-style: italic; } /* Information */
+    code span.kw { font-weight: bold; } /* Keyword */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.wa { font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="transactions">Transactions</h1>
+<p>For this homework, you are encouraged to use AI to figure out the API
+of the SQL libraries!</p>
+<p>So far we’ve only interacted with the DB on the command line, but in
+real applications, we would be writing programs that talk to the DB. For
+example, if you have an online shop, every time a customer clicks
+“submit order” the following chain of events take place:</p>
+<ul>
+<li>the customer’s web browser sends a message (a.k.a. a
+<em>request</em>) to your website</li>
+<li>the message is received by a piece of software called the <em>web
+server</em></li>
+<li>you wrote some code telling what the web server should do upon
+receiving every message</li>
+<li>the code you wrote probably asks the web server to insert the new
+order into a database</li>
+<li>when the database is updated, your code tells the web server to
+respond with a “success” message</li>
+<li>the “success” message gets sent to the customer and is displayed in
+the browser</li>
+</ul>
+<p>In fact, building a database-backed website is one of the best ways
+to practice your DB knowledge. However, working with the web involves a
+lot of tools that are not central to this class. In this assignment, we
+will focus on the relationship between your code and the database, and
+ignore the web part.</p>
+<p>So far we have been using SQLite thanks to its simplicity, but to
+fully appreciate the various flavors of transactions, we will move to a
+bigger system and use MySQL. Installing MySQL is quite a bit of hassle,
+but thankfully www.pythonanywhere.com provides a web environment with
+MySQL, for free!</p>
+<ul>
+<li>Make a free account on www.pythonanywhere.com, follow the tutorial
+to understand how to create files and execute code.</li>
+<li>Create a MySQL database and start a new MySQL console connected to
+your database. Try creating a table, insert some rows and run a
+query.</li>
+</ul>
+<p>As promised, we will be talking to the database from code instead of
+just the console. Here is a simple example of that (can you see what’s
+happening?):</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mysql.connector</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect to server</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cnx <span class="op">=</span> mysql.connector.<span class="ex">connect</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    host<span class="op">=</span><span class="st">&quot;yourname.mysql.pythonanywhere-services.com&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span><span class="st">&quot;yourname&quot;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    database<span class="op">=</span><span class="st">&#39;yourname$default&#39;</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    password<span class="op">=</span><span class="st">&quot;s3cre3t!(the-password-you-set)&quot;</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>cnx.start_transaction()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a cursor</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>cur <span class="op">=</span> cnx.cursor(buffered<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert a row</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">&quot;insert into R values (2)&quot;</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Execute a query</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>cur.execute(<span class="st">&quot;SELECT x from R&quot;</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch one result</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>row <span class="op">=</span> cur.fetchone()</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;x is: </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(row[<span class="dv">0</span>]))</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># commit the transaction</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>cnx.commit()</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Close connection</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>cnx.close()</span></code></pre></div>
+<p>A connection is self-explanantory: it’s an active channel where you
+can send commands and queries to the DB. The concept of a
+<em>cursor</em> is a bit informal: originally, a cursor was used so that
+we can iterate over the result returned by a query. Imagine you have a
+query that returns a lot of rows: chances are you don’t need all the
+rows, so for efficiency, the database won’t return everything all at
+once. Rather, the cursor is like a pointer to “the current row”, and you
+can call “get next row” on it one by one to retrieve the results you
+need. In any case, you can just think of it as something you need
+whenever you want to submit a command to the DB.</p>
+<p>Let’s now put some more interesting data into the DB:</p>
+<ul>
+<li>In the MySQL console, create a table with 2 columns: UID and
+score</li>
+<li>From your python program, insert 100 random UIDs and scores into the
+database</li>
+</ul>
+<p>That’s right, we’ll try to re-create our in-class exercise of giving
+everyone free scores.</p>
+<ul>
+<li>Recreate the chaos when we all tried to give 10 extra points to
+everyone, without any coordination. What isolation level should you set?
+Refer to the <a
+href="https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlconnection-start-transaction.html">documentation</a>.</li>
+<li>Now, what isolation level do you need to avoid the chaos? Also try
+out some other isolation levels - do they happen to be enough?</li>
+<li>The documentation says the default isolation level applies when the
+argument is not specified. Without looking it up, can you try out some
+experiments and figure out what the default level is?</li>
+<li>What is the difference between REPEATABLE READ and SERIALIZABLE? Can
+you write some code that will result in different behavior under those
+two levels? Hint: the <code>sleep()</code> command in SQL might be
+helpful.</li>
+</ul>
+<p>The reason we used MySQL instead of SQLite is that the former allows
+for finer-grained concurrency control. Locking in MySQL is per-item,
+(usually means per-row), whereas SQLite always locks the entire DB.</p>
+<ul>
+<li>To see the difference, write some python code to recreate when we
+did “everyone only gives points to oneself”, in both MySQL and SQLite.
+You will need the built-in <a
+href="https://docs.python.org/3/library/sqlite3.html">sqlite3</a>
+library in python.</li>
+<li>To make the difference more pronounced, use <code>sleep</code> to
+make each database action take longer.</li>
+<li>Without looking it up, can you run some experiments to figure out
+SQLite’s isolation level?</li>
+<li>Is it possible to have the phantom problem in SQLite? Why or why
+not?</li>
+</ul>
+</body>
+</html>
