@@ -22,7 +22,7 @@ intuition. Formally, if $X$ is a random variable with outcomes $x_1, \dots, x_N$
 each of probabilities $p_1, \dots, p_N$, then its **entropy** is defined as:
 
 $$
-H(X) = - \sum_i p_i \log \frac{1}{p_i}
+H(X) = \sum_i p_i \log \frac{1}{p_i}
 $$
 
 This matches our intuition: when $X$ is uniform and $|X| = N$, $H(X)=N(1/N

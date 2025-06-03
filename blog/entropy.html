@@ -62,6 +62,10 @@
     img {
       max-width: 100%;
     }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
     h1, h2, h3, h4, h5, h6 {
       margin-top: 1.4em;
     }
@@ -105,8 +109,8 @@
      overflow: visible;
     }
     hr {
-      background-color: #1a1a1a;
       border: none;
+      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -165,7 +169,7 @@
     }
   </style>
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -181,10 +185,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
 </head>
 <body>
 <h1 id="entropy">Entropy</h1>
@@ -216,14 +217,15 @@ class="math inline">x_1, \dots, x_N</span> each of probabilities <span
 class="math inline">p_1, \dots, p_N</span>, then its
 <strong>entropy</strong> is defined as:</p>
 <p><span class="math display">
-H(X) = - \sum_i p_i \log \frac{1}{p_i}
+H(X) = \sum_i p_i \log \frac{1}{p_i}
 </span></p>
 <p>This matches our intuition: when <span class="math inline">X</span>
 is uniform and <span class="math inline">|X| = N</span>, <span
-class="math inline">H(X)=N(1/N \log N)=\log N</span>; when <span
-class="math inline">X</span> is almost always a certain message, say
-<span class="math inline">A</span>, then <span class="math inline">H(X)=
-p_A \log \frac{1}{p_A} + \sum_{i \not = A} p_i \log \frac{1}{p_i} =
+class="math inline">H(X)=N(1/N
+\log N)=\log N</span>; when <span class="math inline">X</span> is almost
+always a certain message, say <span class="math inline">A</span>, then
+<span class="math inline">H(X)= p_A \log \frac{1}{p_A} + \sum_{i \not =
+A} p_i \log \frac{1}{p_i} =
 0.99999 \log \frac{1}{0.99999} + \delta \approx 0</span>. For a more
 general case, suppose message <span class="math inline">A</span> occurs
 half of the time, <span class="math inline">B</span> one quarter of the
@@ -235,9 +237,9 @@ class="math inline">A</span>, then send one bit <span
 class="math inline">1</span> if <span class="math inline">B</span>
 occurs and <span class="math inline">0</span> otherwise, and so on. On
 average we need <span class="math inline">p_A \times 1 + p_B \times 2 +
-\dots = p_A \times \log(\frac{1}{p_A}) + p_B \times \log(\frac{1}{p_B})
-+ \dots = H(X)</span> bits.</p>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+\dots = p_A \times \log(\frac{1}{p_A}) +
+p_B \times \log(\frac{1}{p_B}) + \dots = H(X)</span> bits.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -249,6 +251,6 @@ class="math inline">1</span> so that the message doesn’t get mangled
 with the alive-bits.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>
