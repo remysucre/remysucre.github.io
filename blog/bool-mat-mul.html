@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>bool-mat-mul</title>
+  <style>
+    html {
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<h1 id="method-of-four-russians">Method of Four Russians</h1>
+<p>The <a
+href="https://en.wikipedia.org/wiki/Method_of_Four_Russians">method of
+four Russians</a> is a simple algorithm for boolean matrix
+multiplication with many applications. The <a
+href="https://minorfree.github.io/FourRussian/">original paper</a> is
+only 2 pages but quite dense. The best explanation of the algorithm I’ve
+seen is from <em>The Design and Analysis of Computer Algorithms</em> by
+Aho, Hopcroft, and Ullman, but they only go over the matrix
+multiplication part without explaining the application to transitive
+closure computation from the original paper. I go over both topics in
+this post, while filling in some holes in the textbook.</p>
+<h2 id="multiplying-boolean-matrices">Multiplying Boolean Matrices</h2>
+<p>Consider the problem of multiplying two boolean matrices <span
+class="math inline">AB</span>, where <span
+class="math inline">\times</span> is the logical AND and <span
+class="math inline">+</span> is the logical OR. For simplicity assume
+the matrices are square, and the dimension is a power of 2.</p>
+<p>First partition the matrices as shown below, where each <span
+class="math inline">A_i</span> is <span class="math inline">n \times
+\log(n)</span>, and each <span class="math inline">B_i</span> is <span
+class="math inline">\log(n) \times n</span>. We can then calculate <span
+class="math inline">AB</span> by summing together each <span
+class="math inline">A_i B_i</span>: <span class="math inline">AB =
+\sum_{1\leq i \leq n/\log(n)} A_i B_i</span>.</p>
+<p align="center">
+<img src="assets/boolmatmul/matrices.svg" alt="Matrix Partitioning" width="500">
+</p>
+<p>To compute <span class="math inline">A_i B_i</span>, we multiply
+<span class="math inline">B_i</span> by each row of <span
+class="math inline">A_i</span> to get a row in the output. For example,
+multiplying the first row of <span class="math inline">A_i</span> below
+with <span class="math inline">B_i</span> produces the first row in
+<span class="math inline">C_i</span>. Because we are working with
+boolean matrices, to perform the multiplication we can just check for
+which bits of the row in <span class="math inline">A_i</span> are one,
+then add together the corresponding rows from <span
+class="math inline">B_i</span>. For example, the first row of <span
+class="math inline">A_i</span> only has the last bit as 1, so we simply
+return the last row of <span class="math inline">B_i</span>.</p>
+<p><span class="math display">
+\begin{array}{cc}
+    &amp;
+    B_i
+    \begin{bmatrix}
+    0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+    \end{bmatrix}
+  \\[2ex]
+  \\[2ex]
+    A_i
+    \begin{bmatrix}
+    0 &amp; 0 &amp; 1 \\
+    1 &amp; 0 &amp; 1 \\
+    1 &amp; 1 &amp; 1 \\
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 1
+    \end{bmatrix}
+    &amp;
+    C_i
+    \begin{bmatrix}
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0
+    \end{bmatrix}
+\end{array}
+</span></p>
+<p>Now comes the kick: because <span class="math inline">A_i</span> only
+has <span class="math inline">\log(n)</span> columns, it can have at
+most <span class="math inline">n</span> distinct rows. So instead of
+explicitly multiplying each row with <span
+class="math inline">B_i</span>, we precompute all possible products of
+<span class="math inline">B_i</span> with any row of length <span
+class="math inline">\log(n)</span> in a table indexed by the row, then
+simply look up the result from this table as we iterate through the rows
+in <span class="math inline">A_i</span>.</p>
+<p>We can do this precomputation in <span
+class="math inline">O(n^2)</span> time as follows. Treat each row as a
+binary encoding of an integer, and iterate over them in increasing
+order, i.e. <span class="math inline">[0,0,0], [0,0,1], [0,1,0],
+[0,1,1], [1,0,0], \ldots</span> The key observation is that, if we
+iterate over the rows in this order, every new row differs from an
+already visited row only by one bit (the highest bit <span
+class="math inline">j</span>). Therefore we can just lookup the product
+computed for the old row, then add the <span
+class="math inline">j</span>-th row from <span
+class="math inline">B_i</span> to it. The figure below shows the product
+of <span class="math inline">B_i</span> with all possible rows of length
+3. Also note that each row happens to be the binary encoding of its
+position in the table, so when we need to compute the product for a row
+in <span class="math inline">A_i</span>, we can just treat that row as a
+binary number and lookup the result.</p>
+<p><span class="math display">
+\begin{array}{cc}
+    &amp;
+    B_i
+    \begin{bmatrix}
+    0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+    \end{bmatrix}
+  \\[2ex]
+  \\[2ex]
+    T_i
+    \begin{bmatrix}
+    0 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 1 \\
+    0 &amp; 1 &amp; 0 \\
+    0 &amp; 1 &amp; 1 \\
+    1 &amp; 0 &amp; 0 \\
+    1 &amp; 0 &amp; 1 \\
+    1 &amp; 1 &amp; 0 \\
+    1 &amp; 1 &amp; 1
+    \end{bmatrix}
+    &amp;
+    C_i
+    \begin{bmatrix}
+    0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 1 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 1
+    \end{bmatrix}
+\end{array}
+</span></p>
+<p>Precomputing the result for each <span class="math inline">B_i</span>
+takes <span class="math inline">O(n^2)</span> time, and because there
+are <span class="math inline">n/\log(n)</span> blocks in total, overall
+the precomputation takes <span class="math inline">O(n^3/\log(n))</span>
+time.</p>
+<p>Multiplying each <span class="math inline">A_i</span> with <span
+class="math inline">B_i</span> involves <span
+class="math inline">n</span> lookups, one for each row in <span
+class="math inline">A_i</span>, taking a total of <span
+class="math inline">O(n^2)</span> time. And because there are <span
+class="math inline">O(n/\log(n))</span> blocks of <span
+class="math inline">A_i</span>, we can compute <span
+class="math inline">AB</span> in overall <span
+class="math inline">O(n^3/\log(n))</span> time. It is easy to generalize
+this algorithm to rectangular matrices, which is needed for the
+transitive closure computation below. Also note that unlike other fast
+matrix multiplication algorithms like Strassen’s Algorithm, the
+algorithm described above can be implemented very efficiently using
+<span class="math inline">O(n^2/\log(n))</span> bit vector
+operations.</p>
+<h2 id="computing-the-transitive-closure-of-a-dag">Computing the
+Transitive Closure of a DAG</h2>
+<p>First stratify the input DAG where each stratum <span
+class="math inline">K_i</span> contains vertices at depth <span
+class="math inline">i</span> (the original paper says to
+<em>partition</em> into <em>ranks</em> <span
+class="math inline">K_i</span>). Here, depth is measured by the
+<em>longest</em> path from the root to the vertex. Intuitively, we can
+layout the DAG in the “natural” way, where each node is strictly below
+its “parent”. The original paper cites a paper by Faradžev to perform
+the stratification in <span class="math inline">O(n^2)</span> time.
+Then, define each <span class="math inline">S_i</span> to be the union
+of all <span class="math inline">K_j</span> with <span
+class="math inline">j \leq i</span>, i.e. <span
+class="math inline">S_i</span> contains all nodes in the first <span
+class="math inline">i</span> levels. The figure below shows a stratified
+DAG (dotted edges are from the transitive closure). <span
+class="math inline">K_0</span> contains the unique root, <span
+class="math inline">K_1</span> contains the two nodes below it, <span
+class="math inline">K_2</span> contains the three nodes below <span
+class="math inline">K_1</span>, and <span class="math inline">K_3</span>
+contains the three leaves.</p>
+<p align="center">
+<img src="assets/boolmatmul/DAG.svg" alt="Stratified DAG" width="300">
+</p>
+<p>Define <span class="math inline">\gamma_i</span> to be the edges
+pointing from vertices in <span class="math inline">S_{i-1}</span> to
+vertices in <span class="math inline">K_i</span>, and <span
+class="math inline">\Gamma_i</span> to be the edges in the transitive
+closure pointing from <span class="math inline">S_{i-1}</span> to <span
+class="math inline">K_i</span>. Note that because of the way we have
+stratified the DAG, <em>any</em> edge (either in the original DAG or its
+transitive closure) pointing to a vertex in <span
+class="math inline">K_i</span> must come from a vertex strictly higher,
+i.e. <span class="math inline">\in S_{i-1}</span>. So we can just
+understand <span class="math inline">\gamma_i</span> as all DAG edges
+pointing to <span class="math inline">K_i</span> and <span
+class="math inline">\Gamma_i</span> as all edges in <span
+class="math inline">\Gamma</span> pointing to <span
+class="math inline">K_i</span>. Now the idea is that we will compute
+<span class="math inline">\Gamma</span> stratum by stratum.</p>
+<p>Define <span class="math inline">G_i=\bigcup_{j \leq i}
+\Gamma_j</span>, which contains edges in the transitive closure that
+points from <span class="math inline">S_{i-1}</span> to <span
+class="math inline">S_i</span>. To see this, consider any vertex <span
+class="math inline">v</span> at level <span
+class="math inline">K_j</span>. Because of stratification, any edge
+<span class="math inline">e</span> pointing to <span
+class="math inline">v</span> must come from a node <span
+class="math inline">u</span> above <span class="math inline">v</span>
+which means <span class="math inline">u \in S_{i-1}</span>, and
+therefore <span class="math inline">e\in \Gamma_j</span>.</p>
+<p>We can then compute <span class="math inline">G</span> recursively as
+follows (the final <span class="math inline">G</span> is <span
+class="math inline">\Gamma</span>):</p>
+<p><span class="math display">G_0 = \empty \qquad\Gamma_i =
+\gamma_iG_{i-1} \cup \gamma_i \qquad G_i = G_{i-1} \cup
+\Gamma_i</span></p>
+<p>To see this, recall <span class="math inline">\Gamma_i</span>
+contains all transitive edges from <span
+class="math inline">S_{i-1}</span> to <span
+class="math inline">K_i</span>. This can be partitioned into two parts:
+those pointing from <span class="math inline">S_{i-2}</span> to <span
+class="math inline">K_i</span>, and those pointing from <span
+class="math inline">K_{i-1}</span> to <span
+class="math inline">K_i</span> (because <span
+class="math inline">S_{i-1} = S_{i-2} \cup K_{i-1}</span>). The second
+part is contained in <span class="math inline">\gamma_i</span>, and we
+can compute the first part by joining <span
+class="math inline">G_{i-1}</span> (which contains all edges from <span
+class="math inline">S_{i-2}</span> to <span
+class="math inline">S_{i-1}</span>) with <span
+class="math inline">\gamma_i</span> (from <span
+class="math inline">S_{i-1}</span> to <span
+class="math inline">K_i</span>).</p>
+<p>If we store <span class="math inline">G_i</span> and <span
+class="math inline">\Gamma_i</span> naively as <span
+class="math inline">n\times n</span> matrices, computing <span
+class="math inline">G_{i-1} \cup \Gamma_i</span> takes <span
+class="math inline">O(n^2)</span> time for each <span
+class="math inline">i</span>, and because <span
+class="math inline">i</span> can be as large as <span
+class="math inline">n</span> in the worst case, this would take in total
+<span class="math inline">O(n^3)</span> which is no better than simpler
+algorithms like Floyd-Warshall. The benefit of stratification is that we
+can just store each <span class="math inline">\Gamma_i</span> as an
+<span class="math inline">n_i \times n</span> matrix where <span
+class="math inline">n_i = |K_i|</span>, because every edge in <span
+class="math inline">\Gamma_i</span> points to some vertex in <span
+class="math inline">K_i</span>. Similarly, we can store each <span
+class="math inline">G_i</span> as a <span class="math inline">|S_i|
+\times n</span> matrix where <span class="math inline">|S_i| =
+\sum_{1\leq j\leq i} n_j</span>. To compute <span
+class="math inline">G_{i-1} \cup \Gamma_i</span> we can simply “append”
+<span class="math inline">\Gamma_i</span> to the end of <span
+class="math inline">G_{i-1}</span>.</p>
+<p>Now, the key step is to compute <span
+class="math inline">\Gamma_i=\gamma_i G_{i-1} \cup \gamma_i</span>. Both
+<span class="math inline">\gamma_i</span> and <span
+class="math inline">\gamma_i G_{i-1}</span> are <span
+class="math inline">n_i \times n</span> matrices, so taking their union
+(bitwise-or) takes <span class="math inline">O(n_i \times n)</span> and
+in total <span class="math inline">O(n^2)</span> for all <span
+class="math inline">i</span>. All that remains is to compute <span
+class="math inline">\gamma_i G_{i-1}</span>, for which we can use the
+boolean matrix multiplication above in time <span
+class="math inline">O(n^2 n_i / \log n)</span>, and in total <span
+class="math inline">O(n^3 / \log n)</span> for all <span
+class="math inline">i</span>.</p>
+<p>The <a href="https://minorfree.github.io/FourRussian/">original
+paper</a> of Arlazarov, Dinič, Kronrod, and Faradžev show that once we
+can compute the transitive closure of a DAG, we can also compute the
+transitive closure of a general directed graph by constructing an
+acyclic <a
+href="https://en.wikipedia.org/wiki/Strongly_connected_component#Definitions">Herz
+graph/condensation graph</a>.</p>
+</body>
+</html>

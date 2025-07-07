@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" width="369.301" height="170.876" viewBox="0 0 369.301 170.876">
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".79701" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M0 0V170.08086H170.08086V0ZM170.08086 170.08086"/>
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M42.5202 0V170.08086"/>
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M85.04042 0V170.08086"/>
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M127.56062 0V170.08086"/>
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M170.08086 0V170.08086"/>
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".79701" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M198.42766 0V170.08086H368.5085V0ZM368.5085 170.08086"/>
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M198.42766 42.5202H368.5085"/>
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M198.42766 85.04042H368.5085"/>
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M198.42766 127.56062H368.5085"/>
+<path transform="matrix(1,0,0,-1,.398,170.477)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M198.42766 170.08086H368.5085"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 170.876)" font-size="9.9626" font-family="CMMI10" font-style="italic"><tspan y="-82.781" x="15.688">A</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 170.876)" font-size="6.9738" font-family="CMR7"><tspan y="-81.286998" x="23.16">1</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 -.0000038146974 170.876)" font-size="9.9626" font-family="CMMI10" font-style="italic"><tspan y="-82.781" x="58.207">A</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 -.0000038146974 170.876)" font-size="6.9738" font-family="CMR7"><tspan y="-81.286998" x="65.679">2</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 170.876)" font-size="9.9626" font-family="CMSY10" font-style="italic"><tspan y="-83.224" x="100.056 104.48936 108.91275">&#x00b7;&#x00b7;&#x00b7;</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 -.000015258789 170.876)" font-size="9.9626" font-family="CMMI10" font-style="italic"><tspan y="-83.805" x="131.753">A</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 -.000015258789 170.876)" font-size="6.9738" font-family="CMMI7" font-style="italic"><tspan y="-82.006" x="139.225 144.14852">n/</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 -.000015258789 170.876)" font-size="6.9738" font-family="CMR7"><tspan y="-82.006" x="149.58808 151.8406 155.81568">log</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 -.000015258789 170.876)" font-size="6.9738" font-family="CMMI7" font-style="italic"><tspan y="-82.006" x="161.2622">n</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 170.876)" font-size="9.9626" font-family="CMMI10" font-style="italic"><tspan y="-146.561" x="277.85">B</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 170.876)" font-size="6.9738" font-family="CMR7"><tspan y="-145.06601" x="285.407">1</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 170.876)" font-size="9.9626" font-family="CMMI10" font-style="italic"><tspan y="-104.041" x="277.85">B</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 170.876)" font-size="6.9738" font-family="CMR7"><tspan y="-102.547" x="285.407">2</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 170.876)" font-size="9.9626" font-family="CMR10"><tspan y="-64.648" x="282.479">.</tspan><tspan y="-60.663003" x="282.479">.</tspan><tspan y="-56.678" x="282.479">.</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 .000030517579 170.876)" font-size="9.9626" font-family="CMMI10" font-style="italic"><tspan y="-20.026" x="266.356">B</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 .000030517579 170.876)" font-size="6.9738" font-family="CMMI7" font-style="italic"><tspan y="-18.227" x="273.913 278.8365">n/</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 .000030517579 170.876)" font-size="6.9738" font-family="CMR7"><tspan y="-18.227" x="284.27607 286.5286 290.50367">log</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 .000030517579 170.876)" font-size="6.9738" font-family="CMMI7" font-style="italic"><tspan y="-18.227" x="295.9502">n</tspan></text>
+</svg>
