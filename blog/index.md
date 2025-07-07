@@ -12,6 +12,7 @@ header-includes: |
 **[Remy Wang](https://remy.wang/) :: [GitHub](https://github.com/remysucre/remysucre.github.io) :: [RSS](feed.rss)**
 
 ---------- --------------------------------------------------
+2025.07.07 [Method of Four Russians](bool-mat-mul.html)
 2025.03.19 [Completeness of Equality Saturation](birkhoff.html)
 2025.03.17 [Reading Papers in a Paper-Reading Seminar](reading.html)
 2023.12.06 [Duality in Linear Programming](dual-lp.html)
