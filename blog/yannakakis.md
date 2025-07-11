@@ -355,3 +355,41 @@ I'm hopeful that with the progress in instance-optimal join algorithms,
 we can take some magic away from the optimizer and make database systems much simpler and reliable.
 
 ## Technical Details
+
+The SQLite documentation recommends running `ANALYZE` for complex queries.
+However, running `ANALYZE` actually made many queries in JOB slower!
+The whole JOB benchmark did not finish even after several hours.
+This is another case of the optimizer being too clever:
+when it estimates the size of a relation to be small, 
+it will introduce cartesian products in the query plan
+to avoid building temporary indices (corresponds to hash tables).
+However, if the estimate is off and the query is large, 
+this leads to catastrophic slowdown.
+In order to get a complete result, the performance measurement is done without running `ANALYZE`,
+but I did observe even larger speedups with `ANALYZE`.
+
+Greedily enabling all bloom filters and probing them as early as possible
+is enough to guarantee instance-optimality for star schema.
+But JOB contains many queries that are not star joins,
+so not all queries run in liear time.
+There are also implementation details in SQLite that
+prevents pulling up bloom filters in some cases.
+Specifically, SQLite builds [temporary b-tree indices](https://www.sqlite.org/optoverview.html#automatic_query_time_indexes) (its substitute for hash tables)
+*lazily*, which means that the b-tree is only built right before the first probe.
+And on tables requiring temporary indices, the bloom filter is also built lazily
+together with the index.
+Of course, we can't probe into the filter before it is built,
+so in these cases we cannot pull up the bloom filter,
+unless we change SQLite to build all indices and filters eagerly.
+
+Benchmarking on JOB shows nearly universal speedup after the change,
+so should SQLite just merge the change?
+Not necessarily.
+JOB is more representative of *analytical* workloads, where we have
+complex queries touching large amount of data, involving many-to-many joins.
+However, traditionally SQLite is more often used for *transactional* workloads
+where queries are simpler and data is smaller.
+In these cases, the cost model tends to be more accurate,
+and any overhead introduced by the bloom filter will be more pronounced.
+But I do think instance-optimality fits SQLite's philosophy of being
+simple and robust.
