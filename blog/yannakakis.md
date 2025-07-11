@@ -267,6 +267,91 @@ plus $O(|\textsf{OUT}|)$ to produce the output.
 I'm going to call this idea of pulling the checks out of iterations
 **don't count your rows before they match**,
 and it is really the key idea behind different instance-optimal join algorithms.
+This idea is also quite old, dating back to at least the 90s and has incarnated
+under different names including sideway-information passing,
+lookahead information passing, hash filters, bitmap filters, etc.
+See the bibliography of [these papers](https://remy.wang/fast-acyclic-joins/) for more references.
 
+Nevertheless, it wasn't until recently when people made the connection between this optimization and
+instance-optimality. Because the optimization is not enough to make the join instance-optimal!
+Our [recent paper](https://arxiv.org/abs/2403.01631) shows a counterexample, 
+and proposes another simple tweak to fix it:
+whenever a hash probe fails, go back to the enclosing loop and *delete* the current tuple being iterated over.
+I won't go into the specifics here and encourage you to read the paper for details (we tried hard 
+to make it accessible).
+
+## Probing Even Earlier
+In the example above, we pulled out hash lookups to run earlier in the nested loops.
+But in many workloads most time is spent in building the hash tables before the loops even started.
+We can also save time there by running the probes as we build the hash tables:
+
+```python
+# build hash tables on R2
+# the same way as before
+h2 = {}
+for t2 in R2:
+  ...
+
+# probe into h2 as we build h3
+h3 = {}
+for t3 in R3:
+  if t3.x in h2: # only insert if x is in h2
+    if t3.x not in h3:
+      h3[t3.x] = [t3]
+    else:
+      h3[t3.x].append(t3)
+
+# probe into h3 as we build h4
+h4 = {}
+for t4 in R4:
+  if t4.x in h3: # only insert if x is in h3
+    if t4.x not in h4:
+      h4[t4.x] = [t4]
+    else:
+      h4[t4.x].append(t4)
+
+...
+```
+
+This way, we only insert tuples that can match the previous relations into the hash tables.
+This keeps the hash tables small which also speeds up the lookups (e.g. if the hash table is small enough, it can fit in the CPU cache).
+However, because we still need the probes in the nested loops, 
+we can end up performing 2x as many probes as before in the worst case.
+Consider the case where every tuple joins with every other tuple in the next relation,
+i.e., the hash lookups always succeed.
+Then the probes during hash building are completely futile.
+The focus of many recent papers is to mitigate this overhead.
+For example, the [predicate transfer](https://arxiv.org/abs/2502.15181) line of work
+probes into bloom filters instead of hash tables during the build phase
+to keep any potential overhead low.
+Another approach is to [keep track of pointers](https://dl.acm.org/doi/10.14778/3681954.3681995) to matching tuples for each probe 
+in the build phase. This way we can build up a [nested representation](https://arxiv.org/abs/2411.04042) of the join results,
+and in the nested loops we only need to flatten the nested representation without any additional probes.
+One can also [leverage key constraints](https://arxiv.org/abs/2504.03279) to avoid touching hash probes that do not affect the
+overall asymptotic complexity.
+
+## Back to SQLite
+
+So what did I actually to in SQLite to make it faster?
+In fact, the credit should go to the 
+[fine folks at SQLite and Wisconsin](https://dl.acm.org/doi/pdf/10.14778/3554821.3554842).
+Their paper describes an implementation of [lookahead information passing](https://dl.acm.org/doi/10.14778/3090163.3090167) (LIP) using bloom filters.
+Although not explicitly stated in the paper (which makes me believe they also didn't realize it),
+LIP can achieve instance-optimality for star schema joins.
+However, in the SQLite implementation they were too clever, and essentially implemented a
+cost-based heuristic to decide when and where to use bloom filters.
+But instance-optimality can only be achieved by using bloom filters *everywhere, as soon as possible*!
+That's exactly what happened in the diff above.
+
+This phenomenon of algorithm superseding query optimization is also noted by the [predicate transfer
+paper](https://arxiv.org/abs/2502.15181).
+They showed that join ordering basically doesn't matter anymore, if the join algorithm is instance-optimal.
+This is kind of a big deal, because the query optimizer is one of the hardest parts of a database.
+Many companies hire exclusively PhDs to work on the optimizer,
+and query optimization is fundamentally NP-hard.
+Optimizers also ship too much magic and makes debugging and performance tuning hard,
+because what's running has little to do with what you wrote in SQL.
+I'm hopeful that with the progress in instance-optimal join algorithms,
+we can take some magic away from the optimizer and make database systems much simpler and reliable.
 
 ## Technical Details
