@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>yannakakis</title>
+  <style>
+    html {
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 650px;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<h1 id="wip-draft">WIP DRAFT</h1>
+<h1 id="x-faster-sqlite-again-with--3-loc">~10x Faster SQLite (Again!)
+with -3 LoC</h1>
+<p><em>Why you should care about instance-optimal join
+algorithms</em></p>
+<p><strong>Disclaimer:</strong> I’ll admit to clickbaiting and this post
+mainly tries to get you to care about instance-optimal join algorithms.
+However, the speedup in SQLite <em>is meaningful</em>, but understanding
+it involves a lot of nuances. If you start to think “this is BS” at any
+point, check the <a href="#techical-details">fine print</a> at the end
+of this post.</p>
+<p>Let’s jump right to the numbers. The plot below compares the run time
+of SQLite on 113 queries from the <a
+href="https://github.com/gregrahn/join-order-benchmark/tree/master">Join
+Order Benchmark</a> before and after the change. Each data point
+corresponds to a query, where x-coordinate is the run time before the
+change, and y-coordinate is the run time after. If a point is below the
+diagonal line, it means the query ran faster after the change. For
+example, the big red dot is query 8c, taking 27.883 seconds before the
+change and 2.843 seconds after (a speedup of 9.8x).</p>
+<p align="center">
+<img src="assets/yannakakis/sqlite.svg" alt="SQLite run time on JOB." width="450">
+</p>
+<p>And here’s the diff, applied to commit
+<code>a67c71224f5821547040b637aad7cddf4ef0778a</code> of SQLite’s GitHub
+mirror:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode diff"><code class="sourceCode diff"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">diff --git a/src/where.c b/src/where.c</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>index 11e24a8d39..be1fa38b6f 100644</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">--- a/src/where.c</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">+++ b/src/where.c</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">@@ -6451,17 +6451,15 @@ static SQLITE_NOINLINE void whereCheckIfBloomFilterIsUseful(</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   assert( OptimizationEnabled(pWInfo-&gt;pParse-&gt;db, SQLITE_BloomFilter) );</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>   for(i=0; i&lt;pWInfo-&gt;nLevel; i++){</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>     WhereLoop *pLoop = pWInfo-&gt;a[i].pWLoop;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">-    const unsigned int reqFlags = (WHERE_SELFCULL|WHERE_COLUMN_EQ);</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="va">+    const unsigned int reqFlags = WHERE_COLUMN_EQ;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>     SrcItem *pItem = &amp;pWInfo-&gt;pTabList-&gt;a[pLoop-&gt;iTab];</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     Table *pTab = pItem-&gt;pSTab;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="st">-    if( (pTab-&gt;tabFlags &amp; TF_HasStat1)==0 ) break;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>     pTab-&gt;tabFlags |= TF_MaybeReanalyze;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>     if( i&gt;=1</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      &amp;&amp; (pLoop-&gt;wsFlags &amp; reqFlags)==reqFlags</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      /* vvvvvv--- Always the case if WHERE_COLUMN_EQ is defined */</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      &amp;&amp; ALWAYS((pLoop-&gt;wsFlags &amp; (WHERE_IPK|WHERE_INDEXED))!=0)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>     ){</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="st">-      if( nSearch &gt; pTab-&gt;nRowLogEst ){</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>         testcase( pItem-&gt;fg.jointype &amp; JT_LEFT );</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>         pLoop-&gt;wsFlags |= WHERE_BLOOMFILTER;</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>         pLoop-&gt;wsFlags &amp;= ~WHERE_IDX_ONLY;</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="dt">@@ -6470,7 +6468,6 @@ static SQLITE_NOINLINE void whereCheckIfBloomFilterIsUseful(</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>            &quot;lookups into %s which has only ~%.1e rows\n&quot;,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>            pLoop-&gt;cId, (double)sqlite3LogEstToInt(nSearch), pTab-&gt;zName,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            (double)sqlite3LogEstToInt(pTab-&gt;nRowLogEst)));</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="st">-      }</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>     nSearch += pLoop-&gt;nOut;</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>   }</span></code></pre></div>
+<p>What’s going on is actually very simple. We’re looking at the
+function <code>whereCheckIfBloomFilterIsUseful</code>, which decides
+whether to use a bloom filter in the query plan. The comment of the
+function is self-explanatory:</p>
+<pre><code>/*
+** Check to see if there are any SEARCH loops that might benefit from
+** using a Bloom filter.  Consider a Bloom filter if:
+**
+**   (1)  The SEARCH happens more than N times where N is the number
+**        of rows in the table that is being considered for the Bloom
+**        filter.
+**   (2)  Some searches are expected to find zero rows.  (This is determined
+**        by the WHERE_SELFCULL flag on the term.)
+**   (3)  Bloom-filter processing is not disabled.  (Checked by the
+**        caller.)
+**   (4)  The size of the table being searched is known by ANALYZE.
+**
+** This block of code merely checks to see if a Bloom filter would be
+** appropriate, and if so sets the WHERE_BLOOMFILTER flag on the
+** WhereLoop.  The implementation of the Bloom filter comes further
+** down where the code for each WhereLoop is generated.
+*/</code></pre>
+<p>Basically, SQLite makes a guess if (1) and (2) are true based on
+table statistics, and only uses a bloom filter if they are. My change
+just says: “don’t bother guessing and <strong>always use a bloom
+filter</strong>”.</p>
+<h2 id="instance-optimal-join-algorithms">Instance-Optimal Join
+Algorithms</h2>
+<p>To understand why such a small change can have such a dramatic
+effect, we will take a detour into database theory and talk about
+<em>instance-optimal join algorithms</em>. You are probably familiar
+with the notion of an <em>optimal</em> algorithm: we say an algorithm is
+optimal if there is no other algorithm with a lower asymptotic
+complexity. For example, merge sort is optimal because it has a
+<em>worst-case</em> complexity of <span class="math inline">O(n \log
+n)</span>, and there cannot be another algorithm with a lower
+complexity. However, although merge sort is optimal in the <em>worst
+case</em>, there are faster algorithms for certain input instances. For
+example, if the input is already sorted, insertion sort runs in linear
+time, while merge sort still runs in <span class="math inline">\Theta(n
+\log n)</span>. Instance optimality is therefore a much stronger notion
+than worst-case optimality: an algorithm is instance-optimal if it is
+the fastest possible algorithm <strong>for every input
+instance</strong>. A related concept with a catchier name is <a
+href="https://arxiv.org/abs/2311.11793">Universal Optimality</a> which
+is actually a weaker guarantee, but we will not go into details
+here.</p>
+<p>Instance-optimality is extremely rare in the world of algorithms,
+because such an algorithm is basically perfect in terms of asymptotic
+complexity. But there is actually an instance-optimal algorithm for one
+of the most fundamental operations in databases: the relational join.
+Plus, the algorithm is more than 40 years old! In 1981, Yannakakis
+describe the first algorithm for computing the join of multiple
+relations in time <span class="math inline">O(|\textsf{IN}| +
+|\textsf{OUT}|)</span>, where <span
+class="math inline">|\textsf{IN}|</span> is the total size of the input
+relations and <span class="math inline">|\textsf{OUT}|</span> is the
+size of the output. It’s easy to see why such an algorithm is
+instance-optimal: any deterministic algorithm must read the entire input
+and produce the entire output, so it cannot run faster than <span
+class="math inline">O(|\textsf{IN}| + |\textsf{OUT}|)</span>.</p>
+<p>If Yannakakis’ algorithm is so perfect, why haven’t you heard of it?
+And it’s not just you: none of the mainstream databases today implement
+it. You guessed it: the issue is hidden behind the big-<span
+class="math inline">O</span>. To achieve instance-optimality,
+Yannakakis’ algorithm makes two preprocessing passes over the input
+data, before making a third pass to compute the final output. This
+incurs an overhead of nearly 3x for every query. As a result, real
+systems sadly have to stick with suboptimal algorithms (like the binary
+hash join and sort-merge join) that are faster in practice.
+<strong>Until now.</strong></p>
+<p>In the past couple of years, there has been an <a
+href="https://remy.wang/fast-acyclic-joins/">explosion of research</a>
+on making instance-optimal join algorithms practical. Although these
+papers all appear to take different approaches, they are all based on
+the same principle. For the rest of the post, I’ll try to convince you
+that you could have come up with these new algorithms yourself.</p>
+<h2 id="join-as-nested-loops">Join as Nested Loops</h2>
+<p>Let’s consider with a simple join over <span
+class="math inline">k</span> relations <span class="math inline">R_1,
+R_2, \ldots, R_k</span>:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> R1, R2, R3, <span class="op">..</span>., Rk</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="kw">WHERE</span> R1.x <span class="op">=</span> R2.x </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">AND</span> R2.x <span class="op">=</span> R3.x </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   <span class="kw">AND</span> <span class="op">..</span>. </span></code></pre></div>
+<p>The relations contain other columns, but we don’t care about them for
+now. If you’ve taken a databases course, you probably remember the <a
+href="https://en.wikipedia.org/wiki/Nested_loop_join">nested loop
+join</a> being introduced as the most naive join algorithm. It works as
+follows: to join together <span class="math inline">k</span> relations,
+we construct a nested loop of <span class="math inline">k</span> levels,
+iterating over one relation at each level. Then, in the innermost loop,
+we check if all the join conditions hold. If so, we concatenate the
+tuples and output them. Otherwise we continue to the next iteration.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t1 <span class="kw">in</span> R1:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> t2 <span class="kw">in</span> R2:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t3 <span class="kw">in</span> R3:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      ...</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> join_condition(t1, t2, t3, ...):</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(t1 <span class="op">++</span> t2 <span class="op">++</span> t3 <span class="op">++</span> ...)</span></code></pre></div>
+<p>This would take <span class="math inline">\Theta(N^k)</span> time, if
+each relation has <span class="math inline">N</span> tuples. A better
+algorithm is the binary <a
+href="https://en.wikipedia.org/wiki/Hash_join">hash join</a>. It’s
+called <em>binary</em> because we join two relations at a time. For
+example, to join <span class="math inline">R_1</span> and <span
+class="math inline">R_2</span> with <span class="math inline">R_1.x =
+R_2.x</span>, we first build a hash table on <span
+class="math inline">R_2</span>, mapping each value <span
+class="math inline">x</span> to the set of tuples <span
+class="math inline">t_2 \in R_2</span> such that <span
+class="math inline">t_2</span> contains <span
+class="math inline">x</span>. Then, we iterate over <span
+class="math inline">R_1</span>, and for each tuple <span
+class="math inline">t_1 \in R_1</span>, we look up the hash table to
+find all tuples <span class="math inline">t_2 \in R_2</span> such that
+<span class="math inline">t_1.x = t_2.x</span>.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build hash table on R2 with keys on x</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>h2 <span class="op">=</span> {}</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t2 <span class="kw">in</span> R2:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> t2.x <span class="kw">not</span> <span class="kw">in</span> h2:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    h2[t2.x] <span class="op">=</span> [t2]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    h2[t2.x].append(t2)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over R1 and probe into h2</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t1 <span class="kw">in</span> R1:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> t1.x <span class="kw">in</span> h2:</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t2 <span class="kw">in</span> h2[t1.x]:</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(t1 <span class="op">++</span> t2)</span></code></pre></div>
+<p>To keep the code simple I’m <code>print</code>ing the output, but in
+practice we would save each output to a buffer. If we write <span
+class="math inline">R_1 \bowtie R_2</span> to mean the join of <span
+class="math inline">R_1</span> and <span class="math inline">R_2</span>,
+we can then compute the join of all <span class="math inline">k</span>
+relations by joining them one pair at a time, i.e.: <span
+class="math display">(((R_1 \bowtie R_2) \bowtie R_3) \bowtie \cdots
+\bowtie R_k)</span> Here each <span class="math inline">\bowtie</span>
+is computed using the binary hash join algorithm. Implemented naively,
+we would save the output of each join to a temporary relation, and then
+join that temorary relation with the next relation:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>T1 <span class="op">=</span> join(R1, R2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>T2 <span class="op">=</span> join(T1, R3)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div>
+<p>In reality, multiple joins are fused together into a
+<em>pipeline</em>, without materializing the intermediate results. This
+is implemented by nesting the loops of the next join immediately inside
+the loop of the previous join:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build hash tables on R2, R3, ..., Rk</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>h2 <span class="op">=</span> {}</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>h3 <span class="op">=</span> {}</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t1 <span class="kw">in</span> R1:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> t1.x <span class="kw">in</span> h2:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t2 <span class="kw">in</span> h2[t1.x]:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>      <span class="co"># instead of producing t1 ++ t2, immediately probe into t3</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> t2.x <span class="kw">in</span> h3:</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t3 <span class="kw">in</span> h3[t2.x]:</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>          ...</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>          <span class="bu">print</span>(t1 <span class="op">++</span> t2 <span class="op">++</span> t3)</span></code></pre></div>
+<p>This way, we don’t need to store any temporary results, and can
+compute the final output in constant space (or <span
+class="math inline">O(|\textsf{OUT}|)</span> space if we need to store
+the output in a buffer).</p>
+<h2 id="dont-count-your-rows-before-they-match">Don’t Count Your Rows
+Before They Match</h2>
+<p>If you read the code above very very carefully, you might have found
+a simple way to optimize it. In particular, we can move the check
+<code>if t2.x in h3</code> outside the loop over <span
+class="math inline">t_2</span>:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t1 <span class="kw">in</span> R1:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> t1.x <span class="kw">in</span> h2:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------------------------------------#</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> t1.x <span class="kw">in</span> h3: <span class="co"># probe into h3 before looping over t2 #</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> t2 <span class="kw">in</span> h2[t1.x]:                                 <span class="co">#</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------------------------------------------------#</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t3 <span class="kw">in</span> h3[t2.x]:</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>          ...</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>          <span class="bu">print</span>(t1 <span class="op">++</span> t2 <span class="op">++</span> t3)</span></code></pre></div>
+<p>We can do this because the join condition says <span
+class="math inline">t_1.x = t_2.x</span>, so the value of <span
+class="math inline">x</span> stays the same for all tuples <span
+class="math inline">t_2</span> in <span class="math inline">R_2</span>.
+This is also a good idea, because it avoids many potentially useless
+iterations over <span class="math inline">R_2</span>. In fact, we can do
+this for all subsequent relations from the inner loop:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t1 <span class="kw">in</span> R1:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> t1.x <span class="kw">in</span> h2:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> t1.x <span class="kw">in</span> h3:</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> t1.x <span class="kw">in</span> h4:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t2 <span class="kw">in</span> h2[t1.x]:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>          <span class="cf">for</span> t3 <span class="kw">in</span> h3[t2.x]:</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> t4 <span class="kw">in</span> h4[t3.x]:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>              ...</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>              <span class="bu">print</span>(t1 <span class="op">++</span> t2 <span class="op">++</span> t3 <span class="op">++</span> ...)</span></code></pre></div>
+<p>Here we have pulled up all the checks before doing any iteration. As
+a result, all iterations in the inner loops are guaranteed to produce
+results. Because it takes constant time to probe into a hash table, the
+algorithm now takes <span class="math inline">O(|R_1|)</span> to iterate
+over <span class="math inline">R_1</span> and perform the checks, plus
+<span class="math inline">O(|\textsf{OUT}|)</span> to produce the
+output.</p>
+<p>I’m going to call this idea of pulling the checks out of iterations
+<strong>don’t count your rows before they match</strong>, and it is
+really the key idea behind different instance-optimal join
+algorithms.</p>
+<h2 id="technical-details">Technical Details</h2>
+</body>
+</html>

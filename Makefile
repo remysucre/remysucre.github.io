@@ -11,8 +11,7 @@ PANDOC_OPTIONS := -f markdown+inline_code_attributes+superscript \
                   -t html --katex -s \
                   -V maxwidth=650px \
                   -V mainfont=sans-serif \
-                  -V linestretch=1.6 \
-                  --highlight-style=monochrome
+                  -V linestretch=1.6
 
 all: index.html contact.html projects.html awards.html cs143/index.html $(BLOG) $(HOMEWORK) $(NOTES)
 
