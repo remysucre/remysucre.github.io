@@ -6,7 +6,7 @@
 **Disclaimer:** I'll admit to clickbaiting and this post mainly tries to get you
 to care about instance-optimal join algorithms.
 However, the speedup in SQLite *is meaningful*, but understanding it involves a lot
-of nuances. If you start to think "this is BS" at any point, check the [fine print](#techical-details) at the end of this post.
+of nuances. If you start to think "this is BS" at any point, check the [fine print](#technical-details) at the end of this post.
 
 Let's jump right to the numbers. The plot below compares the run time of SQLite
 on 113 queries from the [Join Order Benchmark](https://github.com/gregrahn/join-order-benchmark/tree/master) before and after the change. Each data point corresponds to a query, 
