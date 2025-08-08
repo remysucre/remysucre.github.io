@@ -12,6 +12,7 @@ header-includes: |
 **[Remy Wang](https://remy.wang/) :: [GitHub](https://github.com/remysucre/remysucre.github.io) :: [RSS](feed.rss)**
 
 ---------- --------------------------------------------------
+2025.08.08 [DuckDB Considered Harmful](duckdb.html)
 2025.07.07 [Method of Four Russians](bool-mat-mul.html)
 2025.03.19 [Completeness of Equality Saturation](birkhoff.html)
 2025.03.17 [Reading Papers in a Paper-Reading Seminar](reading.html)
