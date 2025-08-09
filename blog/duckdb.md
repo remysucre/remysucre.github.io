@@ -2,7 +2,7 @@
 
 I love DuckDB. It's [decades of database research](https://duckdb.org/why_duckdb#standing-on-the-shoulders-of-giants) 
  in a [single binary](https://github.com/duckdb/duckdb/releases),
- blindly fast and completely free.
+ blazingly fast and completely free.
 But systems like it have been weaponized by reviewers for DB conferences to
  carelessly dismiss important research.
 I have served as a reviewer for 10+ database conferences and journals
@@ -41,8 +41,8 @@ But if we want to bring vitality back to the field,
  we have to invest in risky ideas that do not pay off immediately.
 
 I urge my fellow reviewers to take a more nuanced approach when evaluating papers.
-Instead of focusing on numbers, look for insights and ideas.
-Instead of demanding packaged solutions, judge an approach by its potential.
+Instead of focusing on numbers, look for insights.
+Instead of demanding packaged solutions, judge an idea by its potential.
 Use your knowledge and experience to fill in the gaps,
  and imagine different futures that a paper makes possible.
 Don't just rank papers by their position on some leaderboard,
