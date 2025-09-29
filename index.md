@@ -9,6 +9,7 @@ pagetitle: Remy Wang
 &nbsp;[awards](awards.html)
 &nbsp;[photo](./imgs/remy.jpg)
 &nbsp;[contact](contact.html)
+&nbsp;[cs240b](https://remy.wang/cs240b/)
 <!-- &nbsp;[cs143](cs143/index.html) -->
 <!-- &nbsp;[cs249qo](https://remy.wang/cs249qo/) -->
 
