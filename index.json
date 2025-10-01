@@ -12,12 +12,12 @@
 		{
 			"type": "button",
 			"label": "Orbit",
-			"action": "/orbit"
+			"action": "https://remy.wang/orbit/index.json"
 		},
 		{
 			"type": "button",
 			"label": "Particles",
-			"action": "/particle"
+			"action": "https://remy.wang/particles/index.json"
 		}
 	]
 }
