@@ -1,0 +1,23 @@
+{
+	"format": "particle",
+	"title": "Room #8",
+	"content": [
+		{
+			"type": "paragraph",
+			"text": "Experiments on antisocial media. Orbit is a simple webring that makes it easier to put your site on Constellation. Particles are short posts that won't make you sad.",
+			"style": {
+				"margin-bottom": 30
+			}
+		},
+		{
+			"type": "button",
+			"label": "Orbit",
+			"action": "/orbit"
+		},
+		{
+			"type": "button",
+			"label": "Particles",
+			"action": "/particle"
+		}
+	]
+}
